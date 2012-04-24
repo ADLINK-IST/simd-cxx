@@ -1,0 +1,50 @@
+INSTALL
+-------
+
+To install the SIMD source distribution you'll need to ensure that
+BOOST is properly installed in your machine and that two environment
+variable are pointing to the include and libraries directory for
+BOOST. 
+
+Namely:
+
+BOOST_INCLUDE_DIR: points at the include directory
+BOOST_LIB_DIR: points at the library directory
+SIMD_INSTALL_DIR: points to the place were you want to install SimD.
+If you don't set it then SimD will install under the ./local folder.
+
+Once BOOST is properly installed and configured, simply do the following:
+
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_INSTALL_PREFIX=$SIMD_INSTALL_DIR ..
+$ make install
+
+If you prefer to compiler using clang++ you should configure the project
+with the following command:
+
+$ cmake .. -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_INSTALL_PREFIX=$SIMD_INSTALL_DIR
+
+Then to see if you installation was successful try out a demo:
+
+cd ./demo/ishapes-driver
+
+$ cmake .
+$ make
+
+$ ./ishapes-writer 
+
+$ ./ishapes-reader
+--------------------------------------------
+(BLUE,269, 269, 60)
+(RED,31, 31, 60)
+--------------------------------------------
+(BLUE,223, 223, 60)
+(RED,77, 77, 60)
+--------------------------------------------
+(BLUE,176, 176, 60)
+(RED,124, 124, 60)
+--------------------------------------------
+(BLUE,132, 132, 60)
+(RED,168, 168, 60)
+--------------------------------------------

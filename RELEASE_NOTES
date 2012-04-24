@@ -1,0 +1,15 @@
+v1.0 aplpha
+===========
+   - This version include basic support for reading and writing DDS topics
+   
+   - No support is currently provided for QoS, this will be added next
+
+   - No support for Listeners or Waitsets. Listeners will be added shortly
+   and waitset before the general release.
+
+   - The current version of simd-cxx 1.0 has been verified to compile with 
+   the following compiler:
+
+      Apple clang version 3.1 (tags/Apple/clang-318.0.58) (based on LLVM 3.1svn)
+      Target: x86_64-apple-darwin11.3.0
+      Thread model: posix

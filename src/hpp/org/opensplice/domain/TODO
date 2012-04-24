@@ -1,0 +1,1 @@
+- Add back the time() operation on the DomainParticipantImpl class
