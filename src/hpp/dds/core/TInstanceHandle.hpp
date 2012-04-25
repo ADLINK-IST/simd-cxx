@@ -25,43 +25,47 @@
 
 namespace dds { namespace core {
 
-template <typename DELEGATE>
-class TInstanceHandle : public dds::core::Value<DELEGATE> {
-public:
-    TInstanceHandle() { }
+    template <typename DELEGATE>
+    class TInstanceHandle : public dds::core::Value<DELEGATE> {
+    public:
+      TInstanceHandle() { }
+      
+      template <typename ARG0>
+      TInstanceHandle(const ARG0& arg0) 
+	: dds::core::Value<DELEGATE>(arg0) { }
+      
+      TInstanceHandle(const dds::core::null_type& nullHandle)
+	: dds::core::Value<DELEGATE>(nullHandle) { }
 
-    TInstanceHandle(const dds::core::null_type& nullHandle)
-    : dds::core::Value<DELEGATE>(nullHandle) { }
+      TInstanceHandle(const TInstanceHandle& other)
+      : dds::core::Value<DELEGATE>(other.delegate())
+      { }
 
-    TInstanceHandle(const TInstanceHandle& other)
-        : dds::core::Value<DELEGATE>(other.delegate())
-    { }
+      ~TInstanceHandle() { }
 
-    ~TInstanceHandle() { }
-
-public:
-    static const TInstanceHandle nil() {
+    public:
+      static const TInstanceHandle nil() {
         return TInstanceHandle();
-    }
+      }
 
-    bool operator==(const TInstanceHandle& other) const {
+      bool operator==(const TInstanceHandle& other) const {
     	return this->delegate().operator==(other);
-    }
+      }
 
-    TInstanceHandle& operator=(const dds::core::null_type& src) {
+      TInstanceHandle& operator=(const dds::core::null_type& src) {
     	this->delegate()->operator=(src);
     	return *this;
-    }
+      }
 
-    bool operator==(const dds::core::null_type& other) const {
+      bool operator==(const dds::core::null_type& other) const {
     	return this->is_nil();
-    }
+      }
 
-    bool is_nil() const {
+      bool is_nil() const {
     	return this->delegate()->is_nil();
-    }
-};
+      }
+    };
 
-} }
+  } }
 
 #endif // !defined(OMG_TDDS_CORE_INSTANCE_HANDLE_HPP_)

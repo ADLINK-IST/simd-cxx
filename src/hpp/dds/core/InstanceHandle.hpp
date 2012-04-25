@@ -28,4 +28,11 @@ namespace dds { namespace core {
     typedef std::vector<InstanceHandle> InstanceHandleSeq;
 } }
 
+// #if (DDS_HAS_PRETTY_PRINT_COUT == 1)
+inline std::ostream& operator << (std::ostream& os, const dds::core::InstanceHandle& h) {
+  os << h.delegate();
+  return os;
+}
+// #endif
+
 #endif /* !defined(OMG_DDS_CORE_INSTANCE_HANDLE_HPP_) */

@@ -112,30 +112,30 @@ datamodel/fast:
 .PHONY : datamodel/fast
 
 #=============================================================================
-# Target rules for targets named ishapes-pub
+# Target rules for targets named ishapes-reader
 
 # Build rule for target.
-ishapes-pub: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ishapes-pub
-.PHONY : ishapes-pub
+ishapes-reader: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ishapes-reader
+.PHONY : ishapes-reader
 
 # fast build rule for target.
-ishapes-pub/fast:
-	$(MAKE) -f CMakeFiles/ishapes-pub.dir/build.make CMakeFiles/ishapes-pub.dir/build
-.PHONY : ishapes-pub/fast
+ishapes-reader/fast:
+	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/build
+.PHONY : ishapes-reader/fast
 
 #=============================================================================
-# Target rules for targets named ishapes-sub
+# Target rules for targets named ishapes-writer
 
 # Build rule for target.
-ishapes-sub: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ishapes-sub
-.PHONY : ishapes-sub
+ishapes-writer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ishapes-writer
+.PHONY : ishapes-writer
 
 # fast build rule for target.
-ishapes-sub/fast:
-	$(MAKE) -f CMakeFiles/ishapes-sub.dir/build.make CMakeFiles/ishapes-sub.dir/build
-.PHONY : ishapes-sub/fast
+ishapes-writer/fast:
+	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/build
+.PHONY : ishapes-writer/fast
 
 gen/ishapes.o: gen/ishapes.cpp.o
 .PHONY : gen/ishapes.o
@@ -238,7 +238,7 @@ ishapes-reader.o: ishapes-reader.cpp.o
 
 # target to build an object file
 ishapes-reader.cpp.o:
-	$(MAKE) -f CMakeFiles/ishapes-sub.dir/build.make CMakeFiles/ishapes-sub.dir/ishapes-reader.cpp.o
+	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/ishapes-reader.cpp.o
 .PHONY : ishapes-reader.cpp.o
 
 ishapes-reader.i: ishapes-reader.cpp.i
@@ -246,7 +246,7 @@ ishapes-reader.i: ishapes-reader.cpp.i
 
 # target to preprocess a source file
 ishapes-reader.cpp.i:
-	$(MAKE) -f CMakeFiles/ishapes-sub.dir/build.make CMakeFiles/ishapes-sub.dir/ishapes-reader.cpp.i
+	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/ishapes-reader.cpp.i
 .PHONY : ishapes-reader.cpp.i
 
 ishapes-reader.s: ishapes-reader.cpp.s
@@ -254,7 +254,7 @@ ishapes-reader.s: ishapes-reader.cpp.s
 
 # target to generate assembly for a file
 ishapes-reader.cpp.s:
-	$(MAKE) -f CMakeFiles/ishapes-sub.dir/build.make CMakeFiles/ishapes-sub.dir/ishapes-reader.cpp.s
+	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/ishapes-reader.cpp.s
 .PHONY : ishapes-reader.cpp.s
 
 ishapes-writer.o: ishapes-writer.cpp.o
@@ -262,7 +262,7 @@ ishapes-writer.o: ishapes-writer.cpp.o
 
 # target to build an object file
 ishapes-writer.cpp.o:
-	$(MAKE) -f CMakeFiles/ishapes-pub.dir/build.make CMakeFiles/ishapes-pub.dir/ishapes-writer.cpp.o
+	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/ishapes-writer.cpp.o
 .PHONY : ishapes-writer.cpp.o
 
 ishapes-writer.i: ishapes-writer.cpp.i
@@ -270,7 +270,7 @@ ishapes-writer.i: ishapes-writer.cpp.i
 
 # target to preprocess a source file
 ishapes-writer.cpp.i:
-	$(MAKE) -f CMakeFiles/ishapes-pub.dir/build.make CMakeFiles/ishapes-pub.dir/ishapes-writer.cpp.i
+	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/ishapes-writer.cpp.i
 .PHONY : ishapes-writer.cpp.i
 
 ishapes-writer.s: ishapes-writer.cpp.s
@@ -278,7 +278,7 @@ ishapes-writer.s: ishapes-writer.cpp.s
 
 # target to generate assembly for a file
 ishapes-writer.cpp.s:
-	$(MAKE) -f CMakeFiles/ishapes-pub.dir/build.make CMakeFiles/ishapes-pub.dir/ishapes-writer.cpp.s
+	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/ishapes-writer.cpp.s
 .PHONY : ishapes-writer.cpp.s
 
 # Help Target
@@ -289,8 +289,8 @@ help:
 	@echo "... depend"
 	@echo "... datamodel"
 	@echo "... edit_cache"
-	@echo "... ishapes-pub"
-	@echo "... ishapes-sub"
+	@echo "... ishapes-reader"
+	@echo "... ishapes-writer"
 	@echo "... rebuild_cache"
 	@echo "... gen/ishapes.o"
 	@echo "... gen/ishapes.i"

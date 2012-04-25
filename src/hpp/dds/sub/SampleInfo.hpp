@@ -5,8 +5,9 @@
 #include <dds/sub/detail/SampleInfo.hpp>
 
 namespace dds { namespace sub { 
-    typedef TSampleInfo<detail::SampleInfo> SampleInfo;
+    typedef detail::SampleInfo SampleInfo;
 } }
+
 
 #endif /* OMG_DDS_SUB_SAMPLE_INFO_HPP_ */
 

@@ -366,7 +366,7 @@ public:
     size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }
@@ -416,7 +416,7 @@ public:
     size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }

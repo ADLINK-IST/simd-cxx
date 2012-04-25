@@ -6,5 +6,4 @@
 #include <dds_dcps.h>
 #include <ccpp_dds_dcps.h>
 
-
 #endif /* ORG_OPENSPLICE_CORE_CONFIG_HPP_ */

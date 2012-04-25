@@ -6,25 +6,24 @@
 namespace dds { namespace sub {
     template <typename DELEGATE>
     class TGenerationCount;
-} }
+  } }
 
 template <typename DELEGATE>
 class dds::sub::TGenerationCount : public dds::core::Value<DELEGATE> {
 public:
-    TGenerationCount() { }
+  TGenerationCount() { }
     
-    template <typename ARG0>
-    TGenerationCount(const ARG0& arg)
-    : dds::core::Value<DELEGATE>(arg) { }
-    
+  TGenerationCount(int32_t dgc, int32_t nwgc)
+    : dds::core::Value<DELEGATE>(dgc, nwgc) { }
+
 public:
-    int32_t disposed() const {
-        return this->delegate().disposed();
-    }
+  int32_t disposed() const {
+    return this->delegate().disposed();
+  }
     
-    inline int32_t no_writers() const {
-        return this->delegate().no_writers();
-    }
+  inline int32_t no_writers() const {
+    return this->delegate().no_writers();
+  }
 
 };
 

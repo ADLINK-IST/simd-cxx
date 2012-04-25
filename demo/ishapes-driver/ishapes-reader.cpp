@@ -18,11 +18,26 @@ using namespace dds::sub;
 
 std::ostream& 
 operator << (std::ostream& os, const ShapeType& s) {
-  os << "(" << s.color << "," 
+  os << "(" // << s.color << "," 
      << s.x << ", " << s.y 
      << ", " << s.shapesize << ")";
   return os;
 }
+
+std::ostream& 
+operator << (std::ostream& os, const dds::sub::SampleInfo& si) {
+  os << "SampleInfo {"
+     << "\n\tDataState = " << si.state()
+     << "\n\tvalid_data = " << si.valid()
+     << "\n\tsource_timestamp = " << " timestamp... "//si.timestamp()
+     << "\n\tinstance_handle = " << si.instance_handle()
+     << "\n\tpublication_handle = " << si.publication_handle()
+     << "\n\trank = " << si.rank()
+     << "}";
+
+  return os;
+}
+
 
 int main(int argc, char* argv[]) {
   try {
@@ -33,14 +48,15 @@ int main(int argc, char* argv[]) {
       
     uint32_t max_size = 10;
     std::vector<ShapeType> data(max_size);
-    std::vector<DDS::SampleInfo> info(max_size);
+    std::vector<dds::sub::SampleInfo> info(max_size);
     uint32_t sleepTime = 500000;
 
     while (true) {
       uint32_t len = dr.read(data.begin(), info.begin(), max_size);
       std::cout << "--------------------------------------------" << std::endl;
       for (uint32_t i = 0; i < len; ++i)
-	std::cout << data[i] << std::endl;
+	std::cout << data[i] << "\n"
+		  << info[i] << std::endl;
 
       usleep(sleepTime);
     }

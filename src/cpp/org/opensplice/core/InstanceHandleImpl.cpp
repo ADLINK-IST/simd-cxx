@@ -6,6 +6,8 @@ namespace org { namespace opensplice { namespace core {
 	// empty
       }
 
+      InstanceHandleImpl::InstanceHandleImpl(DDS::InstanceHandle_t h) : handle_(h) { }
+      
       InstanceHandleImpl::InstanceHandleImpl(const dds::core::null_type& src)
 	: handle_(-1) { }
 
