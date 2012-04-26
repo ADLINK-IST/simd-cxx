@@ -105,7 +105,7 @@ public:
 
     // --- Back-Inserting Iterators: --- //
     template <typename SamplesBIIterator, typename InfoBIIterator>
-    void
+    uint32_t
     read(SamplesBIIterator sbit,
 	 InfoBIIterator ibit)
     {
@@ -114,7 +114,7 @@ public:
 
 
     template <typename SamplesBIIterator, typename InfoBIIterator>
-    void
+    uint32_t
     take(SamplesBIIterator sbit,
 	 InfoBIIterator ibit)
     {
@@ -308,20 +308,20 @@ public:
 
   // --- Back-Inserting Iterators: --- //
   template <typename SamplesBIIterator, typename InfoBIIterator>
-  void
+  uint32_t
   read(SamplesBIIterator sbit,
        InfoBIIterator ibit)
   {
-    this->delegate()->read(sbit, ibit);
+    return this->delegate()->read(sbit, ibit);
   }
 
 
   template <typename SamplesBIIterator, typename InfoBIIterator>
-  void
+  uint32_t
   take(SamplesBIIterator sbit,
        InfoBIIterator ibit)
   {
-    this->delegate()->take(sbit, ibit);
+    return this->delegate()->take(sbit, ibit);
   }
 public:
   //========================================================================
@@ -343,9 +343,8 @@ public:
    * If the implementation is not able to check invalid handles, then the
    * result in this situation is unspecified.
    */
-  dds::topic::TopicInstance<T>& key_value(dds::topic::TopicInstance<T>& i,
-					  const dds::core::InstanceHandle& h) {
-    return this->delegate()->key_value(i, h);
+  dds::topic::TopicInstance<T> key_value(const dds::core::InstanceHandle& h) {
+    return this->delegate()->key_value(h);
   }
 
   /**
@@ -371,7 +370,8 @@ public:
    * to provide an instance handle, the Service will return a TopicInstance
    * whose handle will be set to the HANDLE_NIL value.
    */
-  const dds::core::InstanceHandle lookup_instance(const T& key) {
+  const dds::core::InstanceHandle 
+  lookup_instance(const T& key) const {
     return this->delegate()->lookup_instance(key);
   }
 

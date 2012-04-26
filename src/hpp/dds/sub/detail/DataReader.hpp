@@ -5,6 +5,9 @@
 #include <org/opensplice/topic/TopicTraits.hpp>
 #include <org/opensplice/core/memory.hpp>
 
+//////////////////////////////////////////////////////////////////////////////
+// Manipulators
+//////////////////////////////////////////////////////////////////////////////
 namespace dds {
   namespace sub {
     namespace functors {
@@ -12,7 +15,6 @@ namespace dds {
 
 	class ContentFilterManipulatorFunctor {
 	public:
-
 	  ContentFilterManipulatorFunctor(const dds::core::Query& q)
 	    : query_(q) {
 	  }
@@ -27,7 +29,6 @@ namespace dds {
 
 	class StateFilterManipulatorFunctor {
 	public:
-
 	  StateFilterManipulatorFunctor(const dds::sub::status::DataState& s)
 	    : state_(s) {
 	  }
@@ -42,7 +43,6 @@ namespace dds {
 
 	class InstanceManipulatorFunctor {
 	public:
-
 	  InstanceManipulatorFunctor(const dds::core::InstanceHandle& h)
 	    : handle_(h) {
 	  }
@@ -57,7 +57,6 @@ namespace dds {
 
 	class NextInstanceManipulatorFunctor {
 	public:
-
 	  NextInstanceManipulatorFunctor(const dds::core::InstanceHandle& h)
 	    : handle_(h) {
 	  }
@@ -70,7 +69,6 @@ namespace dds {
 	  dds::core::InstanceHandle handle_;
 
 	};
-
       }
     }
   }
@@ -87,6 +85,9 @@ namespace dds {
 }
 using namespace org::opensplice::core;
 
+//////////////////////////////////////////////////////////////////////////////
+// DataReader
+//////////////////////////////////////////////////////////////////////////////
 template <typename T>
 class dds::sub::detail::DataReader {
 public:
@@ -157,17 +158,17 @@ public:
     // --- Back-Inserting Iterators: --- //
 
     template <typename SamplesBIIterator, typename InfoBIIterator>
-    void
+    uint32_t
     read(SamplesBIIterator sbit,
 	 InfoBIIterator ibit) {
-      dr_->read(sbit, ibit, *this);
+      return dr_->read(sbit, ibit, *this);
     }
 
     template <typename SamplesBIIterator, typename InfoBIIterator>
-    void
+    uint32_t
     take(SamplesBIIterator sbit,
 	 InfoBIIterator ibit) {
-      dr_->take(sbit, ibit, *this);
+      return dr_->take(sbit, ibit, *this);
     }
   private:
     friend class DataReader;
@@ -219,9 +220,8 @@ public:
     : sub_(sub),
       topic_(topic) 
   {
-    std::cout << "Topic: " << topic_->t_ << std::endl;
-    std::cout << "Sub: " << sub_->sub_ << std::endl;
-    DDS::DataReaderQos drqos = *(DDS::DomainParticipantFactory::datareader_qos_default());
+    DDS::DataReaderQos drqos = 
+      *(DDS::DomainParticipantFactory::datareader_qos_default());
     DDS::DataReader* r =
       sub_->sub_->create_datareader(topic_->t_, 
 				    drqos, 
@@ -248,7 +248,6 @@ public:
       listener_(listener),
       mask_(mask)
   {
-    std::cout << "Topic: " << topic_->t_ << std::endl;
     DDS::DataReaderQos drqos = *(DDS::DomainParticipantFactory::datareader_qos_default());
     DDS::DataReader* r =
       sub_->sub_->create_datareader(topic_->t_, 
@@ -302,8 +301,8 @@ public:
   template <typename SELF>
   ::dds::core::cond::StatusCondition<SELF>
   status_condition(const SELF& self) const {
-    return ::dds::core::cond::StatusCondition<SELF > (
-						      new dds::core::cond::detail::StatusCondition<SELF > (self));
+    return ::dds::core::cond::StatusCondition<SELF > 
+      (new dds::core::cond::detail::StatusCondition<SELF > (self));
   }
 
 public:
@@ -318,7 +317,7 @@ public:
   }
 
 public:
-
+  // -- Read/Take API
   dds::sub::LoanedSamples<T> take() {
     LoanedSamples<T> ls;
     ls.delegate()->raw_reader(raw_reader_);
@@ -353,13 +352,12 @@ public:
   {
     TSeq data;
     DDS::SampleInfoSeq info;
-    uint32_t size;
     raw_reader_->read(data, info, max_samples, 
-		  DDS::NOT_READ_SAMPLE_STATE, 
-		  DDS::ANY_VIEW_STATE,
-		  DDS::ALIVE_INSTANCE_STATE);
+		      DDS::NOT_READ_SAMPLE_STATE, 
+		      DDS::ANY_VIEW_STATE,
+		      DDS::ALIVE_INSTANCE_STATE);
 
-    size = data.length();
+    uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
       *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
@@ -378,13 +376,12 @@ public:
   {
     TSeq data;
     DDS::SampleInfoSeq info;
-    uint32_t size;
     raw_reader_->take(data, info, max_samples, 
-		  DDS::NOT_READ_SAMPLE_STATE, 
-		  DDS::ANY_VIEW_STATE,
-		  DDS::ALIVE_INSTANCE_STATE);
+		      DDS::NOT_READ_SAMPLE_STATE, 
+		      DDS::ANY_VIEW_STATE,
+		      DDS::ALIVE_INSTANCE_STATE);
 
-    size = data.length();
+    uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
       *info_begin = info[i];
@@ -403,13 +400,12 @@ public:
   {
     TSeq data;
     DDS::SampleInfoSeq info;
-    uint32_t size;
     raw_reader_->read(data, info, DDS::LENGTH_UNLIMITED, 
-		  DDS::NOT_READ_SAMPLE_STATE, 
-		  DDS::ANY_VIEW_STATE,
-		  DDS::ALIVE_INSTANCE_STATE);
+		      DDS::NOT_READ_SAMPLE_STATE, 
+		      DDS::ANY_VIEW_STATE,
+		      DDS::ALIVE_INSTANCE_STATE);
 
-    size = data.length();
+    uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
       *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
@@ -427,13 +423,12 @@ public:
   {
     TSeq data;
     DDS::SampleInfoSeq info;
-    uint32_t size;
     raw_reader_->take(data, info, DDS::LENGTH_UNLIMITED, 
-		  DDS::NOT_READ_SAMPLE_STATE, 
-		  DDS::ANY_VIEW_STATE,
-		  DDS::ALIVE_INSTANCE_STATE);
+		      DDS::NOT_READ_SAMPLE_STATE, 
+		      DDS::ANY_VIEW_STATE,
+		      DDS::ALIVE_INSTANCE_STATE);
 
-    size = data.length();
+    uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
       *info_begin = info[i];
@@ -443,7 +438,22 @@ public:
     return_loan(data, info);
     return size;
   }
+  //========================================================================
+  //== Instance Management
+  dds::topic::TopicInstance<T> key_value(const dds::core::InstanceHandle& h) {
+    T key_holder;
+    raw_reader_->get_key_value(key_holder, h.delegate().handle());
+    return dds::topic::TopicInstance<T>(key_holder, h);
+  }
 
+  const dds::core::InstanceHandle 
+  lookup_instance(const T& key) const {
+    DDS::InstanceHandle_t h = raw_reader_->lookup_instance(key);
+    if (h == DDS::HANDLE_NIL)
+      return dds::core::InstanceHandle::nil();
+    return dds::core::InstanceHandle(h);
+  }
+  
   //========================================================================
   //== Status API
 
@@ -493,7 +503,24 @@ private:
 			cmd.status_.view_state().to_ulong(),
 			cmd.status_.instance_state().to_ulong());
     } else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
-      OMG_DDS_LOG("WARNING", "Per-Instance read are not supported yet!");
+      ls.delegate()->raw_reader(raw_reader_);
+      if (cmd.next_instance_ == false) {
+	raw_reader_->read_instance(ls.delegate()->data().sequence(), 
+				   ls.delegate()->info().sequence(), 
+				   DDS::LENGTH_UNLIMITED, 
+				   cmd.handle_.delegate().handle(),
+				   cmd.status_.sample_state().to_ulong(),
+				   cmd.status_.view_state().to_ulong(),
+				   cmd.status_.instance_state().to_ulong());
+      } else {
+	raw_reader_->read_next_instance(ls.delegate()->data().sequence(), 
+					ls.delegate()->info().sequence(), 
+					DDS::LENGTH_UNLIMITED, 
+					cmd.handle_.delegate().handle(),
+					cmd.status_.sample_state().to_ulong(),
+					cmd.status_.view_state().to_ulong(),
+					cmd.status_.instance_state().to_ulong());
+      }
     } else {
       OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
     }
@@ -501,7 +528,9 @@ private:
     return ls;
   }
 
-  dds::sub::LoanedSamples<T> read(const Selector& cmd) {
+  dds::sub::LoanedSamples<T> 
+  read(const Selector& cmd) 
+  {
     dds::sub::LoanedSamples<T> ls;
     if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
       ls.delegate()->raw_reader(raw_reader_);
@@ -512,7 +541,25 @@ private:
 			cmd.status_.view_state().to_ulong(),
 			cmd.status_.instance_state().to_ulong());
     } else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
-      OMG_DDS_LOG("WARNING", "Per-Instance read are not supported yet!");
+      ls.delegate()->raw_reader(raw_reader_);
+      if (cmd.next_instance_ == false) {
+	raw_reader_->read_instance(ls.delegate()->data().sequence(), 
+				   ls.delegate()->info().sequence(), 
+				   DDS::LENGTH_UNLIMITED, 
+				   cmd.handle_.delegate().handle(),
+				   cmd.status_.sample_state().to_ulong(),
+				   cmd.status_.view_state().to_ulong(),
+				   cmd.status_.instance_state().to_ulong());
+      } else {
+	raw_reader_->read_next_instance(ls.delegate()->data().sequence(), 
+					ls.delegate()->info().sequence(), 
+					DDS::LENGTH_UNLIMITED, 
+					cmd.handle_.delegate().handle(),
+					cmd.status_.sample_state().to_ulong(),
+					cmd.status_.view_state().to_ulong(),
+					cmd.status_.instance_state().to_ulong());
+	
+      }
     } else {
       OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
     }
@@ -523,36 +570,212 @@ private:
   // --- Forward Iterators: --- //
 
   template <typename SamplesFWIterator, typename InfoFWIterator>
-  void
-  read(SamplesFWIterator sfit,
-       InfoFWIterator ifit,
-       size_t max_samples, const Selector& cmd) {
-    std::cout << "DataReader::Selector::read" << std::endl;
+  uint32_t
+  read(SamplesFWIterator data_begin,
+       InfoFWIterator info_begin,
+       size_t max_samples, 
+       const Selector& cmd) 
+  {
+    TSeq data;
+    DDS::SampleInfoSeq info;
+
+    if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
+      raw_reader_->read(data,
+			info,
+			max_samples,
+			cmd.status_.sample_state().to_ulong(),
+			cmd.status_.view_state().to_ulong(),
+			cmd.status_.instance_state().to_ulong());
+    } 
+    else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
+      if (cmd.next_instance_ == false) {
+	raw_reader_->read_instance(data,
+				   info,
+				   max_samples,
+				   cmd.handle_.delegate().handle(),
+				   cmd.status_.sample_state().to_ulong(),
+				   cmd.status_.view_state().to_ulong(),
+				   cmd.status_.instance_state().to_ulong());
+      } else {
+	raw_reader_->read_next_instance(data,
+					info,
+					DDS::LENGTH_UNLIMITED, 
+					cmd.handle_.delegate().handle(),
+					cmd.status_.sample_state().to_ulong(),
+					cmd.status_.view_state().to_ulong(),
+					cmd.status_.instance_state().to_ulong());
+	
+      }
+    } else {
+      OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
+    }
+    uint32_t size = data.length();
+    for (uint32_t i = 0; i < size; ++i) {
+      *data_begin = data[i];
+      *info_begin = info[i];
+      ++data_begin;
+      ++info_begin;
+    }
+    if (size != 0)
+      return_loan(data, info);
+    
+    return size;
   }
 
   template <typename SamplesFWIterator, typename InfoFWIterator>
-  void
-  take(SamplesFWIterator sfit,
-       InfoFWIterator ifit,
-       size_t max_samples, const Selector& cmd) {
-    std::cout << "DataReader::Selector::read" << std::endl;
+  uint32_t
+  take(SamplesFWIterator data_begin,
+       InfoFWIterator info_begin,
+       size_t max_samples, const Selector& cmd) 
+  {
+    TSeq data;
+    DDS::SampleInfoSeq info;
+
+    if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
+      raw_reader_->take(data,
+			info,
+			max_samples,
+			cmd.status_.sample_state().to_ulong(),
+			cmd.status_.view_state().to_ulong(),
+			cmd.status_.instance_state().to_ulong());
+    } 
+    else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
+      if (cmd.next_instance_ == false) {
+	raw_reader_->take_instance(data,
+				   info,
+				   max_samples,
+				   cmd.handle_.delegate().handle(),
+				   cmd.status_.sample_state().to_ulong(),
+				   cmd.status_.view_state().to_ulong(),
+				   cmd.status_.instance_state().to_ulong());
+      } else {
+	raw_reader_->take_next_instance(data,
+					info,
+					DDS::LENGTH_UNLIMITED, 
+					cmd.handle_.delegate().handle(),
+					cmd.status_.sample_state().to_ulong(),
+					cmd.status_.view_state().to_ulong(),
+					cmd.status_.instance_state().to_ulong());
+	
+      }
+    } else {
+      OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
+    }
+    uint32_t size = data.length();
+    for (uint32_t i = 0; i < size; ++i) {
+      *data_begin = data[i];
+      *info_begin = info[i];
+      ++data_begin;
+      ++info_begin;
+    }
+    if (size != 0)
+      return_loan(data, info);
+    
+    return size;
   }
 
 
   // --- Back-Inserting Iterators: --- //
 
   template <typename SamplesBIIterator, typename InfoBIIterator>
-  void
-  read(SamplesBIIterator sbit,
-       InfoBIIterator ibit, const Selector& cmd) {
-    std::cout << "DataReader::Selector::read" << std::endl;
+  uint32_t
+  read(SamplesBIIterator data_begin,
+       InfoBIIterator info_begin, const Selector& cmd) 
+  {
+    TSeq data;
+    DDS::SampleInfoSeq info;
+
+    if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
+      raw_reader_->read(data,
+			info,
+			DDS::LENGTH_UNLIMITED, 
+			cmd.status_.sample_state().to_ulong(),
+			cmd.status_.view_state().to_ulong(),
+			cmd.status_.instance_state().to_ulong());
+    } else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
+      if (cmd.next_instance_ == false) {
+	raw_reader_->read_instance(data,
+				   info,
+				   DDS::LENGTH_UNLIMITED, 
+				   cmd.handle_.delegate().handle(),
+				   cmd.status_.sample_state().to_ulong(),
+				   cmd.status_.view_state().to_ulong(),
+				   cmd.status_.instance_state().to_ulong());
+      } else {
+	raw_reader_->read_next_instance(data,
+					info,
+					DDS::LENGTH_UNLIMITED, 
+					cmd.handle_.delegate().handle(),
+					cmd.status_.sample_state().to_ulong(),
+					cmd.status_.view_state().to_ulong(),
+					cmd.status_.instance_state().to_ulong());
+	
+      }
+    } else {
+      OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
+    }
+   
+    uint32_t size = data.length();
+    for (uint32_t i = 0; i < size; ++i) {
+      *data_begin = data[i];
+      *info_begin = info[i];
+      ++data_begin;
+      ++info_begin;
+    }
+    if (size != 0)
+      return_loan(data, info);
+
+    return size;
   }
 
   template <typename SamplesBIIterator, typename InfoBIIterator>
-  void
-  take(SamplesBIIterator sbit,
-       InfoBIIterator ibit, const Selector& cmd) {
-    std::cout << "DataReader::Selector::read" << std::endl;
+  uint32_t
+  take(SamplesBIIterator data_begin,
+       InfoBIIterator info_begin, const Selector& cmd) 
+  {
+    TSeq data;
+    DDS::SampleInfoSeq info;
+    if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
+      raw_reader_->take(data,
+			info,
+			DDS::LENGTH_UNLIMITED, 
+			cmd.status_.sample_state().to_ulong(),
+			cmd.status_.view_state().to_ulong(),
+			cmd.status_.instance_state().to_ulong());
+    } else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
+      if (cmd.next_instance_ == false) {
+	raw_reader_->take_instance(data,
+				   info,
+				   DDS::LENGTH_UNLIMITED, 
+				   cmd.handle_.delegate().handle(),
+				   cmd.status_.sample_state().to_ulong(),
+				   cmd.status_.view_state().to_ulong(),
+				   cmd.status_.instance_state().to_ulong());
+      } else {
+	raw_reader_->take_next_instance(data,
+					info,
+					DDS::LENGTH_UNLIMITED, 
+					cmd.handle_.delegate().handle(),
+					cmd.status_.sample_state().to_ulong(),
+					cmd.status_.view_state().to_ulong(),
+					cmd.status_.instance_state().to_ulong());
+	
+      }
+    } else {
+      OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
+    }
+   
+    uint32_t size = data.length();
+    for (uint32_t i = 0; i < size; ++i) {
+      *data_begin = data[i];
+      *info_begin = info[i];
+      ++data_begin;
+      ++info_begin;
+    }
+    if (size != 0)
+      return_loan(data, info);
+
+    return size;
   }
 
 private:
