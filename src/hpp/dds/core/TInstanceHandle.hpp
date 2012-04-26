@@ -45,24 +45,13 @@ namespace dds { namespace core {
 
     public:
       static const TInstanceHandle nil() {
-        return TInstanceHandle();
+	static TInstanceHandle nilHandle;
+        return nilHandle();
       }
-
-      bool operator==(const TInstanceHandle& other) const {
-    	return this->delegate().operator==(other);
-      }
-
-      TInstanceHandle& operator=(const dds::core::null_type& src) {
-    	this->delegate()->operator=(src);
-    	return *this;
-      }
-
-      bool operator==(const dds::core::null_type& other) const {
-    	return this->is_nil();
-      }
+      
 
       bool is_nil() const {
-    	return this->delegate()->is_nil();
+    	return this->delegate().is_nil();
       }
     };
 

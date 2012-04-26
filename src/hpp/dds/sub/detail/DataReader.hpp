@@ -5,27 +5,6 @@
 #include <org/opensplice/topic/TopicTraits.hpp>
 #include <org/opensplice/core/memory.hpp>
 
-
-/* Copyright 2010, Object Management Group, Inc.
- * Copyright 2010, PrismTech, Corp.
- * Copyright 2010, Real-Time Innovations, Inc.
- * All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-//#include <dds/sub/LoanedSamples.hpp>
-
 namespace dds {
   namespace sub {
     namespace functors {
@@ -191,6 +170,7 @@ public:
       dr_->take(sbit, ibit, *this);
     }
   private:
+    friend class DataReader;
     DataReader<T>* dr_;
     dds::sub::status::DataState status_;
     bool next_instance_;
@@ -338,13 +318,27 @@ public:
 public:
 
   dds::sub::LoanedSamples<T> take() {
-    std::cout << "DataReader::take : LoanedSamples<T>" << std::endl;
-    return dds::sub::LoanedSamples<T > ();
+    LoanedSamples<T> ls;
+    ls.delegate()->raw_reader(raw_reader_);
+    raw_reader_->take(ls.delegate()->data().sequence(), 
+		      ls.delegate()->info().sequence(), 
+		      DDS::LENGTH_UNLIMITED, 
+		      DDS::NOT_READ_SAMPLE_STATE, 
+		      DDS::ANY_VIEW_STATE,
+		      DDS::ALIVE_INSTANCE_STATE);
+    return ls;
   }
 
   dds::sub::LoanedSamples<T> read() {
-    std::cout << "DataReader::read : LoanedSamples<T>" << std::endl;
-    return dds::sub::LoanedSamples<T > ();
+    LoanedSamples<T> ls;
+    ls.delegate()->raw_reader(raw_reader_);
+    raw_reader_->read(ls.delegate()->data().sequence(), 
+		      ls.delegate()->info().sequence(), 
+		      DDS::LENGTH_UNLIMITED, 
+		      DDS::NOT_READ_SAMPLE_STATE, 
+		      DDS::ANY_VIEW_STATE,
+		      DDS::ALIVE_INSTANCE_STATE);
+    return ls;
   }
 
   // --- Forward Iterators: --- //
@@ -487,13 +481,41 @@ private:
   // == Selector Read/Take API
 
   dds::sub::LoanedSamples<T> take(const Selector& cmd) {
-    std::cout << "DataReader::Selector::read" << std::endl;
-    return dds::sub::LoanedSamples<T > ();
+    dds::sub::LoanedSamples<T> ls;
+    if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
+      ls.delegate()->raw_reader(raw_reader_);
+      raw_reader_->take(ls.delegate()->data().sequence(), 
+			ls.delegate()->info().sequence(), 
+			DDS::LENGTH_UNLIMITED, 
+			cmd.status_.sample_state().to_ulong(),
+			cmd.status_.view_state().to_ulong(),
+			cmd.status_.instance_state().to_ulong());
+    } else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
+      OMG_DDS_LOG("WARNING", "Per-Instance read are not supported yet!");
+    } else {
+      OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
+    }
+
+    return ls;
   }
 
   dds::sub::LoanedSamples<T> read(const Selector& cmd) {
-    std::cout << "DataReader::Selector::read" << std::endl;
-    return dds::sub::LoanedSamples<T > ();
+    dds::sub::LoanedSamples<T> ls;
+    if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
+      ls.delegate()->raw_reader(raw_reader_);
+      raw_reader_->read(ls.delegate()->data().sequence(), 
+			ls.delegate()->info().sequence(), 
+			DDS::LENGTH_UNLIMITED, 
+			cmd.status_.sample_state().to_ulong(),
+			cmd.status_.view_state().to_ulong(),
+			cmd.status_.instance_state().to_ulong());
+    } else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
+      OMG_DDS_LOG("WARNING", "Per-Instance read are not supported yet!");
+    } else {
+      OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
+    }
+
+    return ls;
   }
 
   // --- Forward Iterators: --- //

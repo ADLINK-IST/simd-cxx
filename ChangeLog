@@ -1,3 +1,26 @@
+2012-04-26  Angelo Corsaro  <angelo@icorsaro.net>
+
+	* src/hpp/org/opensplice/sub/LoanedSamplesImpl.hpp
+	* src/hpp/org/opensplice/sub/LoanedSequence.hpp
+	* src/cpp/org/opensplice/core/InstanceHandleImpl.cpp
+	* src/hpp/dds/core/TInstanceHandle.hpp
+	* src/hpp/dds/core/detail/macros.hpp
+	* src/hpp/dds/sub/LoanedSamples.hpp
+	* src/hpp/dds/sub/TDataReader.hpp
+	* src/hpp/dds/sub/TLoanedSamples.hpp
+	* src/hpp/dds/sub/detail/DataReader.hpp
+	* src/hpp/org/opensplice/core/InstanceHandleImpl.hpp
+	* src/hpp/org/opensplice/topic/TopicTraits.hpp
+
+	Added support for read/take with loaned data
+
+	Added initial support for selector DSL.
+	
+	* demo/ishapes-driver/ishapes-reader.cpp
+	* demo/ishapes-driver/ishapes-writer.cpp 
+
+	Updated example to show	the use of read with loaned data.
+
 2012-04-24  Angelo Corsaro  <angelo@icorsaro.net>
 
 	* simd-cxx 1.0 alpha is available on github!

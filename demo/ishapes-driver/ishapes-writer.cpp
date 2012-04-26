@@ -23,14 +23,15 @@ int main(int argc, char* argv[]) {
     Publisher pub(dp);      
     DataWriter<ShapeType> dw(pub, topic);
       
-    const uint32_t N = 300;
+    const uint32_t N = 1000;
+    uint32_t sleepTime = 300000;
     for (int i = 0; i < N; ++i) {
       ShapeType bc = {"RED", i, i, 60};
       ShapeType rc = {"BLUE", N-i, N-i, 60};
       dw.write(bc);
       dw << rc;
       std::cout << "." << std::flush;
-      usleep(10000);
+      usleep(sleepTime);
     }
 
   } catch (const dds::core::Exception& e) {

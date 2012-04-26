@@ -41,10 +41,9 @@ template <typename T, template <typename Q> class DELEGATE>
 class dds::sub::DataReader : public dds::core::TEntity< DELEGATE<T> > {
 
 public:
-  typedef T                                            	DataType;
-  typedef ::dds::sub::Sample<T>                           Sample;
-  typedef ::dds::sub::LoanedSamples<T>                    LoanedSamples;
-  typedef ::dds::sub::DataReaderListener<T>		        Listener;
+  typedef T                                        DataType;
+  typedef ::dds::sub::Sample<T>                    Sample;
+  typedef ::dds::sub::DataReaderListener<T>        Listener;
 
 public:
 
@@ -277,11 +276,11 @@ public:
   ///////////////////////////////////////////////////////////////////////
 public:
   //== Loan Read/Take API ==================================================
-  LoanedSamples read() {
+  LoanedSamples<T> read() {
     return this->delegate()->read();
   }
 
-  LoanedSamples take() {
+  LoanedSamples<T> take() {
     return this->delegate()->take();
   }
 

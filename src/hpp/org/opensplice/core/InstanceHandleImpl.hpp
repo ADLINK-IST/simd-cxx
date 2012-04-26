@@ -23,7 +23,8 @@ public:
 
   
 public:
-  
+  bool operator == (const InstanceHandleImpl& that) const;
+
   InstanceHandleImpl& operator=(const dds::core::null_type& src);
   bool is_nil() const;
 

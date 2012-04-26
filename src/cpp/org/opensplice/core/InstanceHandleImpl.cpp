@@ -27,5 +27,10 @@ namespace org { namespace opensplice { namespace core {
       InstanceHandleImpl::is_nil() const {
 	return (handle_ == -1);
       }
+      
+      bool
+      InstanceHandleImpl::operator == (const InstanceHandleImpl& that) const {
+	return (this->handle_ == that.handle_);
+      }
 
     } } }

@@ -8,6 +8,8 @@
 #include <org/opensplice/topic/TopicTraits.hpp>
 #include "gen/ccpp_ishapes.h"
 
+#include <algorithm>
+
 REGISTER_TOPIC_TRAITS(org::opensplice::demo::ShapeType)
 using namespace org::opensplice::demo;
 using namespace dds::domain;
@@ -18,7 +20,7 @@ using namespace dds::sub;
 
 std::ostream& 
 operator << (std::ostream& os, const ShapeType& s) {
-  os << "(" // << s.color << "," 
+  os << "("  << s.color.in() << "," 
      << s.x << ", " << s.y 
      << ", " << s.shapesize << ")";
   return os;
@@ -38,6 +40,9 @@ operator << (std::ostream& os, const dds::sub::SampleInfo& si) {
   return os;
 }
 
+void printShape(const ShapeType& s) {
+  std::cout << s << std::endl;
+}
 
 int main(int argc, char* argv[]) {
   try {
@@ -46,18 +51,15 @@ int main(int argc, char* argv[]) {
     Subscriber sub(dp);
     DataReader<ShapeType> dr(sub, topic);
       
-    uint32_t max_size = 10;
-    std::vector<ShapeType> data(max_size);
-    std::vector<dds::sub::SampleInfo> info(max_size);
-    uint32_t sleepTime = 500000;
+    uint32_t sleepTime = 100000;
 
     while (true) {
-      uint32_t len = dr.read(data.begin(), info.begin(), max_size);
-      std::cout << "--------------------------------------------" << std::endl;
-      for (uint32_t i = 0; i < len; ++i)
-	std::cout << data[i] << "\n"
-		  << info[i] << std::endl;
-
+      LoanedSamples<ShapeType> samples = 
+	dr.selector()
+	.filter_state(dds::sub::status::DataState::any_data())
+	.read();
+      std::cout << "--------------------------------------------" << std::endl;      
+      std::for_each(samples.data().begin(), samples.data().end(), printShape);
       usleep(sleepTime);
     }
   } catch (const dds::core::Exception& e) {

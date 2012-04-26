@@ -1,13 +1,16 @@
 #ifndef OMG_DDS_SUB_LOANED_SAMPLES_HPP_
 #define OMG_DDS_SUB_LOANED_SAMPLES_HPP_
 
-#include <dds/sub/detail/LoanedSamples.hpp>
+#include <org/opensplice/sub/LoanedSamplesImpl.hpp>
+#include <org/opensplice/sub/LoanedSequence.hpp>
 #include <dds/sub/TLoanedSamples.hpp>
 
 namespace dds { namespace sub {
-	template <typename T,
-			  template <typename Q> class DELEGATE = dds::sub::detail::LoanedSamples>
-	class LoanedSamples;
-} }
+    template <typename T, 
+	      template <typename C> class LOANED_CONTAINER = org::opensplice::sub::LoanedSequence,
+	      template <typename Q> class DELEGATE = org::opensplice::sub::LoanedSamplesImpl>
+    class LoanedSamples;
+  } 
+}
 
 #endif /* OMG_DDS_SUB_LOANED_SAMPLES_HPP_ */
