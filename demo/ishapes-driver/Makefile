@@ -39,10 +39,10 @@ RM = /usr/local/Cellar/cmake/2.8.7/bin/cmake -E remove -f
 CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.7/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/angelo/Labs/Cxx/simd-cxx/demo/ishapes-driver
+CMAKE_SOURCE_DIR = /Users/angelo/Work/Labs/Cxx/simd-cxx/demo/ishapes-driver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/angelo/Labs/Cxx/simd-cxx/demo/ishapes-driver
+CMAKE_BINARY_DIR = /Users/angelo/Work/Labs/Cxx/simd-cxx/demo/ishapes-driver
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/angelo/Labs/Cxx/simd-cxx/demo/ishapes-driver/CMakeFiles /Users/angelo/Labs/Cxx/simd-cxx/demo/ishapes-driver/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/angelo/Work/Labs/Cxx/simd-cxx/demo/ishapes-driver/CMakeFiles /Users/angelo/Work/Labs/Cxx/simd-cxx/demo/ishapes-driver/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/angelo/Labs/Cxx/simd-cxx/demo/ishapes-driver/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/angelo/Work/Labs/Cxx/simd-cxx/demo/ishapes-driver/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,6 +123,19 @@ ishapes-reader: cmake_check_build_system
 ishapes-reader/fast:
 	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/build
 .PHONY : ishapes-reader/fast
+
+#=============================================================================
+# Target rules for targets named ishapes-sreader
+
+# Build rule for target.
+ishapes-sreader: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ishapes-sreader
+.PHONY : ishapes-sreader
+
+# fast build rule for target.
+ishapes-sreader/fast:
+	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/build
+.PHONY : ishapes-sreader/fast
 
 #=============================================================================
 # Target rules for targets named ishapes-writer
@@ -257,6 +270,30 @@ ishapes-reader.cpp.s:
 	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/ishapes-reader.cpp.s
 .PHONY : ishapes-reader.cpp.s
 
+ishapes-sreader.o: ishapes-sreader.cpp.o
+.PHONY : ishapes-sreader.o
+
+# target to build an object file
+ishapes-sreader.cpp.o:
+	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/ishapes-sreader.cpp.o
+.PHONY : ishapes-sreader.cpp.o
+
+ishapes-sreader.i: ishapes-sreader.cpp.i
+.PHONY : ishapes-sreader.i
+
+# target to preprocess a source file
+ishapes-sreader.cpp.i:
+	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/ishapes-sreader.cpp.i
+.PHONY : ishapes-sreader.cpp.i
+
+ishapes-sreader.s: ishapes-sreader.cpp.s
+.PHONY : ishapes-sreader.s
+
+# target to generate assembly for a file
+ishapes-sreader.cpp.s:
+	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/ishapes-sreader.cpp.s
+.PHONY : ishapes-sreader.cpp.s
+
 ishapes-writer.o: ishapes-writer.cpp.o
 .PHONY : ishapes-writer.o
 
@@ -281,6 +318,36 @@ ishapes-writer.cpp.s:
 	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/ishapes-writer.cpp.s
 .PHONY : ishapes-writer.cpp.s
 
+util.o: util.cpp.o
+.PHONY : util.o
+
+# target to build an object file
+util.cpp.o:
+	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/util.cpp.o
+	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/util.cpp.o
+	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/util.cpp.o
+.PHONY : util.cpp.o
+
+util.i: util.cpp.i
+.PHONY : util.i
+
+# target to preprocess a source file
+util.cpp.i:
+	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/util.cpp.i
+	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/util.cpp.i
+	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/util.cpp.i
+.PHONY : util.cpp.i
+
+util.s: util.cpp.s
+.PHONY : util.s
+
+# target to generate assembly for a file
+util.cpp.s:
+	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/util.cpp.s
+	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/util.cpp.s
+	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/util.cpp.s
+.PHONY : util.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -290,6 +357,7 @@ help:
 	@echo "... datamodel"
 	@echo "... edit_cache"
 	@echo "... ishapes-reader"
+	@echo "... ishapes-sreader"
 	@echo "... ishapes-writer"
 	@echo "... rebuild_cache"
 	@echo "... gen/ishapes.o"
@@ -307,9 +375,15 @@ help:
 	@echo "... ishapes-reader.o"
 	@echo "... ishapes-reader.i"
 	@echo "... ishapes-reader.s"
+	@echo "... ishapes-sreader.o"
+	@echo "... ishapes-sreader.i"
+	@echo "... ishapes-sreader.s"
 	@echo "... ishapes-writer.o"
 	@echo "... ishapes-writer.i"
 	@echo "... ishapes-writer.s"
+	@echo "... util.o"
+	@echo "... util.i"
+	@echo "... util.s"
 .PHONY : help
 
 

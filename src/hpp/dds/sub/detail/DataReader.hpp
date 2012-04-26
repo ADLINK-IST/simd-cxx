@@ -196,9 +196,11 @@ public:
     }
 
     ManipulatorSelector&
-    operator >>(dds::sub::LoanedSamples<T>& samples) {
-      if (read_mode_) samples = this->Selector::read();
-      else samples = this->Selector::take();
+    operator >> (dds::sub::LoanedSamples<T>& samples) {
+      if (read_mode_) 
+	samples = this->Selector::read();
+      else 
+	samples = this->Selector::take();
       return *this;
     }
   private:

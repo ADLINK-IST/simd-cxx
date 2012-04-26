@@ -34,17 +34,27 @@ endforeach(idl)
 
 set (PUB_SOURCES
  ishapes-writer.cpp
+ util.cpp
 )
 set (SUB_SOURCES
  ishapes-reader.cpp
+ util.cpp
 )
+
+set (SSUB_SOURCES
+ ishapes-sreader.cpp
+ util.cpp
+)
+
 
 set (PUB_EXE ishapes-writer)
 set (SUB_EXE ishapes-reader)
+set (SSUB_EXE ishapes-sreader)
 set (DATAMODEL datamodel)
 
 add_executable (${PUB_EXE} ${PUB_SOURCES})
 add_executable (${SUB_EXE} ${SUB_SOURCES})
+add_executable (${SSUB_EXE} ${SSUB_SOURCES})
 add_library (${DATAMODEL} STATIC ${OpenSplice_DATAMODEL})
 #add_library (${DATAMODEL} SHARED ${OpenSplice_DATAMODEL})
 
@@ -72,3 +82,9 @@ target_link_libraries (${SUB_EXE}
  ${DATAMODEL}
 )
 
+
+target_link_libraries (${SSUB_EXE}
+ ${OpenSplice_LIBRARIES}
+ ${Boost_LIBRARIES}
+ ${DATAMODEL}
+)

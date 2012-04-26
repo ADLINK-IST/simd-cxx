@@ -36,24 +36,16 @@ SELECTOR& take(SELECTOR& selector) {
 }
 
 dds::sub::functors::ContentFilterManipulatorFunctor
-filter_content(const dds::core::Query& query) {
-	return dds::sub::functors::ContentFilterManipulatorFunctor(query);
-}
+filter_content(const dds::core::Query& query);
 
 dds::sub::functors::StateFilterManipulatorFunctor
-filter_state(const dds::sub::status::DataState& s) {
-	return dds::sub::functors::StateFilterManipulatorFunctor(s);
-}
+filter_state(const dds::sub::status::DataState& s);
 
 dds::sub::functors::InstanceManipulatorFunctor
-instance(const dds::core::InstanceHandle& h) {
-	return dds::sub::functors::InstanceManipulatorFunctor(h);
-}
+instance(const dds::core::InstanceHandle& h);
 
 dds::sub::functors::NextInstanceManipulatorFunctor
-next_instance(const dds::core::InstanceHandle& h) {
-	return dds::sub::functors::NextInstanceManipulatorFunctor(h);
-}
+next_instance(const dds::core::InstanceHandle& h);
 
 } }
 

@@ -16,12 +16,9 @@ int main(int argc, char* argv[]) {
     while (true) {
       // If you can use C++11 then the "auto" keywork and "lambda"
       // function can make this code even nicer.
-
-      LoanedSamples<ShapeType> samples = 
-	dr.selector()
-	.filter_state(DataState::any_data())
-	.read();
-      std::cout << "--------------------------------------------" << std::endl;      
+      std::cout << "--------------------------------------------" << std::endl;
+      LoanedSamples<ShapeType> samples;
+      dr >> filter_state(DataState::any_data()) >> take >> samples;
       std::for_each(samples.data().begin(), samples.data().end(), printShape);
       usleep(sleepTime);
     }

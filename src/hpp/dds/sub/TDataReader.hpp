@@ -255,7 +255,7 @@ public:
    *
    */
   DataReader& operator >>(dds::sub::LoanedSamples<T>& ls) {
-    this->delegate() >> ls;
+    ls = this->read();
     return *this;
   }
 

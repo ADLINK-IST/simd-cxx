@@ -1,20 +1,4 @@
-#include <dds/domain/DomainParticipant.hpp>
-#include <dds/pub/Publisher.hpp>
-#include <dds/topic/TopicTraits.hpp>
-#include <dds/topic/Topic.hpp>
-#include <dds/pub/DataWriter.hpp>
-#include <dds/sub/sub.hpp>
-
-#include <org/opensplice/topic/TopicTraits.hpp>
-#include "gen/ccpp_ishapes.h"
-
-REGISTER_TOPIC_TRAITS(org::opensplice::demo::ShapeType)
-using namespace org::opensplice::demo;
-using namespace dds::domain;
-using namespace dds::pub;
-using namespace dds::topic;
-using namespace dds::pub;
-using namespace dds::sub;
+#include "util.hpp"
 
 int main(int argc, char* argv[]) {
   try {
@@ -29,6 +13,7 @@ int main(int argc, char* argv[]) {
       ShapeType bc = {"RED", i, i, 60};
       ShapeType rc = {"BLUE", N-i, N-i, 60};
       dw.write(bc);
+      // You can also write with streaming operators!
       dw << rc;
       std::cout << "." << std::flush;
       usleep(sleepTime);
