@@ -25,7 +25,7 @@
 #include <dds/topic/TopicInstance.hpp>
 #include <dds/sub/Sample.hpp>
 #include <dds/sub/LoanedSamples.hpp>
-
+#include <dds/sub/DataReaderEventHandler.hpp>
 
 
 namespace dds { namespace sub {
@@ -46,7 +46,86 @@ public:
   typedef ::dds::sub::DataReaderListener<T>        Listener;
 
 public:
+  ////////////////////////////////////////////////////////////////////////
+  // Event Handler
+  ///////////////////////////////////////////////////////////////////////
+  template <typename DR>
+  class EventHandler : public dds::sub::DataReaderEventHandler<T> {
+  public:
+    EventHandler(const DR& dr, 
+		 dds::sub::DataReaderListener<T>* l)
+      : dr_(dr),
+	listener_(l)
+    { }
+  public:
+    virtual void 
+    on_requested_deadline_missed(const dds::core::status::RequestedDeadlineMissedStatus& status) 
+    {
+      if (listener_ != 0)
+	listener_->on_requested_deadline_missed(dr_, status);
+    }
+    
+    virtual void 
+    on_requested_incompatible_qos(const dds::core::status::RequestedIncompatibleQosStatus& status) 
+    {
+      if (listener_ != 0)
+	listener_->on_requested_incompatible_qos(dr_, status);
+    }
+      
+    virtual void 
+    on_sample_rejected(const dds::core::status::SampleRejectedStatus& status)
+    {
+      if (listener_ != 0)
+	listener_->on_sample_rejected(dr_, status);
+    }
+      
+    virtual void 
+    on_liveliness_changed(const dds::core::status::LivelinessChangedStatus& status)
+    {
+      if (listener_ != 0)
+	listener_->on_liveliness_changed(dr_, status);
+    }
+      
+    virtual void 
+    on_data_available() 
+    {
+      if (listener_ != 0)
+	listener_->on_data_available(dr_);
+    }
+      
+    virtual void 
+    on_subscription_matched(const dds::core::status::SubscriptionMatchedStatus& status) 
+    {
+      if (listener_ != 0)
+	listener_->on_subscription_matched(dr_, status);
+    }
+      
+    virtual void 
+    on_sample_lost(const dds::core::status::SampleLostStatus& status)
+    {
+      if (listener_ != 0)
+	listener_->on_sample_lost(dr_, status);
+    }
 
+    DataReaderListener<T>* 
+    listener() 
+    {
+      return listener_;
+    }
+
+    void listener(DataReaderListener<T>* l) {
+      listener_ = l;
+    }
+    
+    
+  private:
+    DR dr_;
+    dds::sub::DataReaderListener<T>* listener_;
+  };
+
+  ////////////////////////////////////////////////////////////////////////
+  // Selector API
+  ///////////////////////////////////////////////////////////////////////
   class Selector {
   public:
     Selector(DataReader& dr)
@@ -182,19 +261,31 @@ public:
 
   public:
   DataReader(const dds::sub::Subscriber& sub,
-	     const dds::topic::Topic<T>& topic) :
-    ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic))
+	     const dds::topic::Topic<T>& topic) 
+    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic))
   { }
 
+  DataReader(const dds::sub::Subscriber& sub,
+	     const ::dds::topic::Topic<T>& topic,
+	     const dds::sub::qos::DataReaderQos& qos)
+    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic, qos)) { }
 
   DataReader(const dds::sub::Subscriber& sub,
 	     const ::dds::topic::Topic<T>& topic,
 	     const dds::sub::qos::DataReaderQos& qos,
-	     dds::sub::DataReaderListener<T>* listener = NULL,
-	     const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::all())
-    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic, qos, listener, mask))
-  { }
+	     dds::sub::DataReaderListener<T>* listener,
+	     const dds::core::status::StatusMask& mask)
+    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, 
+							  topic, 
+							  qos))
+  { 
+    
+    EventHandler<DataReader>* h = new EventHandler<DataReader>(*this, 
+							       listener);
+    this->delegate()->event_handler(h, mask);
+  }
 
+#if 0
 #ifdef OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
   DataReader(const dds::sub::Subscriber& sub,
 	     const dds::topic::ContentFilteredTopic<T>& topic)
@@ -205,12 +296,12 @@ public:
   DataReader(const dds::sub::Subscriber& sub,
 	     const ::dds::topic::ContentFilteredTopic<T>& topic,
 	     const dds::sub::qos::DataReaderQos& qos,
-	     dds::sub::DataReaderListener<T>* listener = NULL,
-	     const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::all())
-    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic, qos, listener, mask))
+	     dds::sub::DataReaderListener<T>* listener,
+	     const dds::core::status::StatusMask& mask)
+    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic, qos, new EventHandler<DataReader>(*this, listener), mask))
   { }
 #endif /* OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT */
-
+#endif // if 0
 #ifdef OMG_DDS_MULTI_TOPIC_SUPPORT
   DataReader(const dds::sub::Subscriber& sub,
 	     const dds::topic::MultiTopic<T>& topic)
@@ -223,7 +314,7 @@ public:
 	     const dds::sub::qos::DataReaderQos& qos,
 	     dds::sub::DataReaderListener<T>* listener = NULL,
 	     const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::all())
-    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic, qos, listener, mask))
+    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic, qos, new EventHandler<DataReader>(*this, listener), mask))
   { }
 
 #endif /* OMG_DDS_MULTI_TOPIC_SUPPORT */
@@ -381,9 +472,14 @@ public:
 
   // -- Listener Getter/Setter
   void listener(Listener* the_listener,
-		const dds::core::status::StatusMask& event_mask);
+		const dds::core::status::StatusMask& event_mask) 
+  {
+    
+  }
 
-  Listener* listener() const;
+  Listener* listener() const {
+    return this->delegate()->listener();
+  }
 
   // -- Qos Getter/Setter
 

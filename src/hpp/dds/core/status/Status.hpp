@@ -24,8 +24,6 @@
 
 namespace dds { namespace core { namespace status {
 
-
-
     class DataAvailableStatus {
         // empty
     };

@@ -1,7 +1,7 @@
 IF (WIN32)
   SET  (DEFINITIONS "/DSIMD_NOSTARTOSPL=0")
 ELSE (WIN32)
-  SET (DEFINITIONS "-DNDEBUG -O3 -pipe -Wall")
+  SET (DEFINITIONS "-DNDEBUG -g  -pipe -Wall")
 ENDIF (WIN32)
 
 # SET (DEFINITIONS "-g  -O2 -pipe -std=c++0x ")

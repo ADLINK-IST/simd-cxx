@@ -46,15 +46,22 @@ set (SSUB_SOURCES
  util.cpp
 )
 
+set (ASUB_SOURCES
+ ishapes-areader.cpp
+ util.cpp
+)
+
 
 set (PUB_EXE ishapes-writer)
 set (SUB_EXE ishapes-reader)
 set (SSUB_EXE ishapes-sreader)
+set (ASUB_EXE ishapes-areader)
 set (DATAMODEL datamodel)
 
 add_executable (${PUB_EXE} ${PUB_SOURCES})
 add_executable (${SUB_EXE} ${SUB_SOURCES})
 add_executable (${SSUB_EXE} ${SSUB_SOURCES})
+add_executable (${ASUB_EXE} ${ASUB_SOURCES})
 add_library (${DATAMODEL} STATIC ${OpenSplice_DATAMODEL})
 #add_library (${DATAMODEL} SHARED ${OpenSplice_DATAMODEL})
 
@@ -84,6 +91,12 @@ target_link_libraries (${SUB_EXE}
 
 
 target_link_libraries (${SSUB_EXE}
+ ${OpenSplice_LIBRARIES}
+ ${Boost_LIBRARIES}
+ ${DATAMODEL}
+)
+
+target_link_libraries (${ASUB_EXE}
  ${OpenSplice_LIBRARIES}
  ${Boost_LIBRARIES}
  ${DATAMODEL}

@@ -85,7 +85,7 @@ public:
             DataReader<T>& the_reader,
             const dds::core::status::LivelinessChangedStatus& status) { }
 
-    virtual void on_data_available(DataReader<T>& the_reader) { }
+  virtual void on_data_available(DataReader<T>& the_reader) { }
 
     virtual void on_subscription_matched(
             DataReader<T>& the_reader,

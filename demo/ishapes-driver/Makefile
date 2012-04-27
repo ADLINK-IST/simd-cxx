@@ -112,6 +112,19 @@ datamodel/fast:
 .PHONY : datamodel/fast
 
 #=============================================================================
+# Target rules for targets named ishapes-areader
+
+# Build rule for target.
+ishapes-areader: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ishapes-areader
+.PHONY : ishapes-areader
+
+# fast build rule for target.
+ishapes-areader/fast:
+	$(MAKE) -f CMakeFiles/ishapes-areader.dir/build.make CMakeFiles/ishapes-areader.dir/build
+.PHONY : ishapes-areader/fast
+
+#=============================================================================
 # Target rules for targets named ishapes-reader
 
 # Build rule for target.
@@ -246,6 +259,30 @@ gen/ishapesSplDcps.cpp.s:
 	$(MAKE) -f CMakeFiles/datamodel.dir/build.make CMakeFiles/datamodel.dir/gen/ishapesSplDcps.cpp.s
 .PHONY : gen/ishapesSplDcps.cpp.s
 
+ishapes-areader.o: ishapes-areader.cpp.o
+.PHONY : ishapes-areader.o
+
+# target to build an object file
+ishapes-areader.cpp.o:
+	$(MAKE) -f CMakeFiles/ishapes-areader.dir/build.make CMakeFiles/ishapes-areader.dir/ishapes-areader.cpp.o
+.PHONY : ishapes-areader.cpp.o
+
+ishapes-areader.i: ishapes-areader.cpp.i
+.PHONY : ishapes-areader.i
+
+# target to preprocess a source file
+ishapes-areader.cpp.i:
+	$(MAKE) -f CMakeFiles/ishapes-areader.dir/build.make CMakeFiles/ishapes-areader.dir/ishapes-areader.cpp.i
+.PHONY : ishapes-areader.cpp.i
+
+ishapes-areader.s: ishapes-areader.cpp.s
+.PHONY : ishapes-areader.s
+
+# target to generate assembly for a file
+ishapes-areader.cpp.s:
+	$(MAKE) -f CMakeFiles/ishapes-areader.dir/build.make CMakeFiles/ishapes-areader.dir/ishapes-areader.cpp.s
+.PHONY : ishapes-areader.cpp.s
+
 ishapes-reader.o: ishapes-reader.cpp.o
 .PHONY : ishapes-reader.o
 
@@ -323,6 +360,7 @@ util.o: util.cpp.o
 
 # target to build an object file
 util.cpp.o:
+	$(MAKE) -f CMakeFiles/ishapes-areader.dir/build.make CMakeFiles/ishapes-areader.dir/util.cpp.o
 	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/util.cpp.o
 	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/util.cpp.o
 	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/util.cpp.o
@@ -333,6 +371,7 @@ util.i: util.cpp.i
 
 # target to preprocess a source file
 util.cpp.i:
+	$(MAKE) -f CMakeFiles/ishapes-areader.dir/build.make CMakeFiles/ishapes-areader.dir/util.cpp.i
 	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/util.cpp.i
 	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/util.cpp.i
 	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/util.cpp.i
@@ -343,6 +382,7 @@ util.s: util.cpp.s
 
 # target to generate assembly for a file
 util.cpp.s:
+	$(MAKE) -f CMakeFiles/ishapes-areader.dir/build.make CMakeFiles/ishapes-areader.dir/util.cpp.s
 	$(MAKE) -f CMakeFiles/ishapes-reader.dir/build.make CMakeFiles/ishapes-reader.dir/util.cpp.s
 	$(MAKE) -f CMakeFiles/ishapes-sreader.dir/build.make CMakeFiles/ishapes-sreader.dir/util.cpp.s
 	$(MAKE) -f CMakeFiles/ishapes-writer.dir/build.make CMakeFiles/ishapes-writer.dir/util.cpp.s
@@ -356,6 +396,7 @@ help:
 	@echo "... depend"
 	@echo "... datamodel"
 	@echo "... edit_cache"
+	@echo "... ishapes-areader"
 	@echo "... ishapes-reader"
 	@echo "... ishapes-sreader"
 	@echo "... ishapes-writer"
@@ -372,6 +413,9 @@ help:
 	@echo "... gen/ishapesSplDcps.o"
 	@echo "... gen/ishapesSplDcps.i"
 	@echo "... gen/ishapesSplDcps.s"
+	@echo "... ishapes-areader.o"
+	@echo "... ishapes-areader.i"
+	@echo "... ishapes-areader.s"
 	@echo "... ishapes-reader.o"
 	@echo "... ishapes-reader.i"
 	@echo "... ishapes-reader.s"

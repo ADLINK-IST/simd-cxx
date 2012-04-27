@@ -4,15 +4,17 @@
 #include <org/opensplice/core/config.hpp>
 #include <org/opensplice/topic/TopicTraits.hpp>
 #include <org/opensplice/core/memory.hpp>
+#include <dds/sub/DataReaderEventHandler.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Manipulators
-//////////////////////////////////////////////////////////////////////////////
+
 namespace dds {
   namespace sub {
     namespace functors {
       namespace detail {
-
+	//////////////////////////////////////////////////////////////////////
+	// Manipulators
+	//////////////////////////////////////////////////////////////////////
+	
 	class ContentFilterManipulatorFunctor {
 	public:
 	  ContentFilterManipulatorFunctor(const dds::core::Query& q)
@@ -67,7 +69,6 @@ namespace dds {
 	  }
 	private:
 	  dds::core::InstanceHandle handle_;
-
 	};
       }
     }
@@ -78,6 +79,77 @@ namespace dds {
 namespace dds {
   namespace sub {
     namespace detail {
+	//////////////////////////////////////////////////////////////////////
+	// Listener
+	//////////////////////////////////////////////////////////////////////
+	template <typename T>
+	class DataReaderEventForwarder : public DDS::DataReaderListener {
+	public:
+	  DataReaderEventForwarder(dds::sub::DataReaderEventHandler<T>* handler)
+	    : handler_(handler)
+	  { }
+	  virtual ~DataReaderEventForwarder() {
+	    delete handler_;
+	  }
+	public:
+	  virtual void 
+	  on_requested_deadline_missed(DDS::DataReader_ptr reader, 
+				       const DDS::RequestedDeadlineMissedStatus& status) 
+	  {
+	    OMG_DDS_LOG("EVT", "on_requested_deadline_missed");
+	    handler_->on_requested_deadline_missed
+	      (dds::core::status::RequestedDeadlineMissedStatus());
+	  }
+	  virtual void 
+	  on_requested_incompatible_qos(DDS::DataReader_ptr reader, 
+					const DDS::RequestedIncompatibleQosStatus& status)
+	  {
+	    OMG_DDS_LOG("EVT", "on_requested_incompatible_qos");
+	    handler_->on_requested_incompatible_qos
+	      (dds::core::status::RequestedIncompatibleQosStatus());
+	  }
+	  virtual void 
+	  on_sample_rejected (DDS::DataReader_ptr reader, 
+			      const DDS::SampleRejectedStatus& status) 
+	  {
+	    OMG_DDS_LOG("EVT", "on_sample_rejected");
+	    handler_->on_sample_rejected
+	      (dds::core::status::SampleRejectedStatus());
+	  }
+	  virtual void 
+	  on_liveliness_changed (DDS::DataReader_ptr reader, 
+				 const DDS::LivelinessChangedStatus& status) 
+	  {
+	    OMG_DDS_LOG("EVT", "on_liveliness_changed");
+	    handler_->on_liveliness_changed
+	      (dds::core::status::LivelinessChangedStatus());
+	  }
+	  virtual void 
+	  on_data_available (DDS::DataReader_ptr reader)
+	  {
+	    OMG_DDS_LOG("EVT", "on_data_available");
+	    handler_->on_data_available();
+	  }
+	  virtual void 
+	  on_subscription_matched (DDS::DataReader_ptr reader, 
+				   const DDS::SubscriptionMatchedStatus& status)
+	  {
+	    OMG_DDS_LOG("EVT", "on_subscription_matched");
+	    handler_->on_subscription_matched
+	      (dds::core::status::SubscriptionMatchedStatus());
+	  }
+	  virtual void 
+	  on_sample_lost (DDS::DataReader_ptr reader, const DDS::SampleLostStatus& status) 
+	  {
+	    OMG_DDS_LOG("EVT", "on_sample_lost");
+	    handler_->on_sample_lost
+	      (dds::core::status::SampleLostStatus());
+	  }
+	  
+	
+	  dds::sub::DataReaderEventHandler<T>* handler_;
+	};
+
       template <typename T>
       class DataReader;
     }
@@ -218,7 +290,8 @@ public:
   DataReader(const dds::sub::Subscriber& sub,
 	     const ::dds::topic::Topic<T>& topic)
     : sub_(sub),
-      topic_(topic) 
+      topic_(topic),
+      event_forwarder_(0)
   {
     DDS::DataReaderQos drqos = 
       *(DDS::DomainParticipantFactory::datareader_qos_default());
@@ -236,27 +309,24 @@ public:
       DDS_DR_REF(raw_reader_, org::opensplice::core::DRDeleter(sub_->sub_));
     reader_ = tmp;
   }
-
+  
   DataReader(const dds::sub::Subscriber& sub,
 	     const ::dds::topic::Topic<T>& topic,
-	     const dds::sub::qos::DataReaderQos& qos,
-	     dds::sub::DataReaderListener<T>* listener,
-	     const dds::core::status::StatusMask& mask) 
+	     const dds::sub::qos::DataReaderQos& qos) 
     : sub_(sub),
       topic_(topic),
-      qos_(qos),
-      listener_(listener),
-      mask_(mask)
+      qos_(qos)
   {
     DDS::DataReaderQos drqos = *(DDS::DomainParticipantFactory::datareader_qos_default());
     DDS::DataReader* r =
       sub_->sub_->create_datareader(topic_->t_, 
 				    drqos,
-				    0, 
+				    event_forwarder_, 
 				    DDS::ANY_STATUS);
     
-    if (r == 0)
+    if (r == 0) {
       throw dds::core::PreconditionNotMetError("Unable to create DataReader!");
+    }
 
     raw_reader_ = DR::_narrow(r); 
     DDS_DR_REF tmp = 
@@ -274,7 +344,7 @@ public:
   DataReader(const dds::sub::Subscriber& sub,
 	     const ::dds::topic::ContentFilteredTopic<T>& topic,
 	     const dds::sub::qos::DataReaderQos& qos,
-	     dds::sub::DataReaderListener<T>* listener,
+	     dds::sub::DataReaderEventHandler<T>* handler,
 	     const dds::core::status::StatusMask& mask) {
   }
 #endif /* OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT */
@@ -288,12 +358,30 @@ public:
   DataReader(const dds::sub::Subscriber& pub,
 	     const ::dds::topic::MultiTopic<T>& topic,
 	     const dds::sub::qos::DataReaderQos& qos,
-	     dds::sub::DataReaderListener<T>* listener,
+	     dds::sub::DataReaderEventHandler<T>* handler,
 	     const dds::core::status::StatusMask& mask) {
   }
 #endif /* OMG_DDS_MULTI_TOPIC_SUPPORT */
-public:
 
+public:
+  // -- Dtor
+  ~DataReader() {
+    if (event_forwarder_ != 0) {
+      raw_reader_->set_listener(0, DDS::STATUS_MASK_NONE);
+      delete event_forwarder_;
+    }
+  }
+public:
+  void event_handler(dds::sub::DataReaderEventHandler<T>* handler,
+		     const dds::core::status::StatusMask& mask) 
+  {
+    if (event_forwarder_ == 0)
+      event_forwarder_ = new DataReaderEventForwarder<T>(handler);
+    else 
+      event_forwarder_->handler_ = handler;
+    raw_reader_->set_listener(event_forwarder_, DDS::ANY_STATUS);
+  }
+public:
   /**
    * Returns a <code>StatusCondition</code> instance associated with
    * this <code>Entity</code>.
@@ -784,7 +872,6 @@ private:
   DDS_DR_REF reader_;
   DR* raw_reader_;
   dds::sub::qos::DataReaderQos qos_;
-  dds::sub::DataReaderListener<T>* listener_;
   dds::core::status::StatusMask mask_;
   dds::sub::status::DataState status_filter_;
   dds::core::status::LivelinessChangedStatus liveliness_status_;
@@ -793,6 +880,7 @@ private:
   dds::core::status::RequestedDeadlineMissedStatus deadline_missed_status_;
   dds::core::status::RequestedIncompatibleQosStatus incompatible_qos_status_;
   dds::core::status::SubscriptionMatchedStatus subscription_matched_status_;
+  DataReaderEventForwarder<T>* event_forwarder_;
 };
 
 
