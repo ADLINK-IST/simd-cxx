@@ -75,7 +75,7 @@ public:
 
 public:
     inline static const StatusMask all() {
-        return StatusMask(~0u);
+        return StatusMask(0x7fe7u);
     }
 
     inline static const StatusMask none() {

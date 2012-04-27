@@ -17,6 +17,7 @@ using namespace dds::topic;
 using namespace dds::pub;
 using namespace dds::sub;
 using namespace dds::sub::status;
+using namespace dds::core::status;
 
 std::ostream& 
 operator << (std::ostream& os, const org::opensplice::demo::ShapeType& s);

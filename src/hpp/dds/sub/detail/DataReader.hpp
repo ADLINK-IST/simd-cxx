@@ -379,7 +379,7 @@ public:
       event_forwarder_ = new DataReaderEventForwarder<T>(handler);
     else 
       event_forwarder_->handler_ = handler;
-    raw_reader_->set_listener(event_forwarder_, DDS::ANY_STATUS);
+    raw_reader_->set_listener(event_forwarder_, mask.to_ulong());
   }
 public:
   /**
