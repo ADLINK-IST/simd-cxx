@@ -4,8 +4,12 @@
 
 - Add support for QoS
 
-- Add support for Listeners
+- Add Listeners supports for all DDS Entities 
+  . Listeners are currently only available for DataReaders
+
+- Add suport for communication statuses
 
 - Add support for Waitsets
 
 - Add support for windows
+
