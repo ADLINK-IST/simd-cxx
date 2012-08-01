@@ -7,5 +7,7 @@ simd-cxx, it suffice to execute the following commands:
 $ cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_ECLIPSE_MAKE_ARGUMENTS=-j4 .
 
 Then you will start eclipse, disable first automatic build from the
-build menu and use the "Import Existing Project" to load simd-cxx into Eclipse.
+"Project" menu, then choose "File | Import " and select "Existing
+Project into Workspace" from the "General" item. Select as root
+directory the simd-cxx root directory.
 
