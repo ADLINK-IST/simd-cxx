@@ -211,19 +211,19 @@ public:
     // --- Forward Iterators: --- //
 
     template <typename SamplesFWIterator, typename InfoFWIterator>
-    void
+    uint32_t
     read(SamplesFWIterator sfit,
 	 InfoFWIterator ifit,
-	 size_t max_samples) {
-      dr_->read(sfit, ifit, max_samples, *this);
+	 uint32_t max_samples) {
+      return dr_->read(sfit, ifit, max_samples, *this);
     }
 
     template <typename SamplesFWIterator, typename InfoFWIterator>
-    void
+    uint32_t
     take(SamplesFWIterator sfit,
 	 InfoFWIterator ifit,
-	 size_t max_samples) {
-      dr_->take(sfit, ifit, max_samples, *this);
+	 uint32_t max_samples) {
+      return dr_->take(sfit, ifit, max_samples, *this);
     }
 
 
@@ -436,7 +436,7 @@ public:
   uint32_t
   read(SamplesFWIterator data_begin,
        InfoFWIterator info_begin,
-       size_t max_samples) 
+       uint32_t max_samples) 
   {
     TSeq data;
     DDS::SampleInfoSeq info;
@@ -452,7 +452,8 @@ public:
       ++data_begin;
       ++info_begin;
     }
-    raw_reader_->return_loan(data, info);
+    if (size != 0)
+        raw_reader_->return_loan(data, info);
     return size;
   }
 
@@ -460,7 +461,7 @@ public:
   uint32_t
   take(SamplesFWIterator data_begin,
        InfoFWIterator info_begin,
-       size_t max_samples) 
+       uint32_t max_samples) 
   {
     TSeq data;
     DDS::SampleInfoSeq info;
@@ -472,11 +473,12 @@ public:
     uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }
-    return_loan(data, info);
+    if (size != 0)
+        raw_reader_->return_loan(data, info);
     return size;
   }
 
@@ -500,7 +502,8 @@ public:
       ++data_begin;
       ++info_begin;
     }
-    return_loan(data, info);
+    if (size != 0)
+        raw_reader_->return_loan(data, info);
     return size;
   }
 
@@ -519,11 +522,12 @@ public:
     uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }
-    return_loan(data, info);
+    if (size != 0)
+        raw_reader_->return_loan(data, info);
     return size;
   }
   //========================================================================
@@ -661,7 +665,7 @@ private:
   uint32_t
   read(SamplesFWIterator data_begin,
        InfoFWIterator info_begin,
-       size_t max_samples, 
+       uint32_t max_samples, 
        const Selector& cmd) 
   {
     TSeq data;
@@ -700,12 +704,12 @@ private:
     uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }
     if (size != 0)
-      return_loan(data, info);
+        raw_reader_->return_loan(data, info);
     
     return size;
   }
@@ -714,7 +718,7 @@ private:
   uint32_t
   take(SamplesFWIterator data_begin,
        InfoFWIterator info_begin,
-       size_t max_samples, const Selector& cmd) 
+       uint32_t max_samples, const Selector& cmd) 
   {
     TSeq data;
     DDS::SampleInfoSeq info;
@@ -752,12 +756,12 @@ private:
     uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }
     if (size != 0)
-      return_loan(data, info);
+        raw_reader_->return_loan(data, info);
     
     return size;
   }
@@ -806,12 +810,12 @@ private:
     uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }
     if (size != 0)
-      return_loan(data, info);
+        raw_reader_->return_loan(data, info);
 
     return size;
   }
@@ -856,12 +860,12 @@ private:
     uint32_t size = data.length();
     for (uint32_t i = 0; i < size; ++i) {
       *data_begin = data[i];
-      *info_begin = info[i];
+      *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
       ++data_begin;
       ++info_begin;
     }
     if (size != 0)
-      return_loan(data, info);
+        raw_reader_->return_loan(data, info);
 
     return size;
   }

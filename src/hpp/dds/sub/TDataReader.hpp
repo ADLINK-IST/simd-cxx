@@ -167,7 +167,7 @@ public:
     uint32_t
     read(SamplesFWIterator sfit,
 	 InfoFWIterator ifit,
-	 size_t max_samples)
+	 uint32_t max_samples)
     {
       return impl_.read(sfit, ifit, max_samples);
     }
@@ -176,7 +176,7 @@ public:
     uint32_t
     take(SamplesFWIterator sfit,
 	 InfoFWIterator ifit,
-	 size_t max_samples)
+	 uint32_t max_samples)
     {
       return impl_.take(sfit, ifit, max_samples);
     }
@@ -382,7 +382,7 @@ public:
   uint32_t
   read(SamplesFWIterator sfit,
        InfoFWIterator ifit,
-       size_t max_samples)
+       uint32_t max_samples)
   {
     return this->delegate()->read(sfit, ifit, max_samples);
   }
@@ -391,7 +391,7 @@ public:
   uint32_t
   take(SamplesFWIterator sfit,
        InfoFWIterator ifit,
-       size_t max_samples)
+       uint32_t max_samples)
   {
     return this->delegate()->take(sfit, ifit, max_samples);
   }
