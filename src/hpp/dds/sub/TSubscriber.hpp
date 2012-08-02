@@ -61,7 +61,7 @@ public:
 public:
     /**
      * This operation allows access to the StatusCondition
-     * (Section 7.1.2.1.9, “StatusCondition Class) associated with the Entity.
+     * (Section 7.1.2.1.9, StatusCondition Class) associated with the Entity.
      * The returned condition can then be added to a WaitSet (Section 7.1.2.1.6,
      * WaitSet Class) so that the application can wait for specific status changes
      * that affect the Entity.
@@ -98,8 +98,12 @@ public:
 		this->delegate()->qos(the_qos);
 	}
     
-    const dds::sub::qos::DataReaderQos default_datareader_qos() const;
-    void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos);
+    dds::sub::qos::DataReaderQos default_datareader_qos() const {
+       return this->delegate()->default_datareader_qos();
+    }
+    void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos) const {
+       this->delegate()->default_datareader_qos(qos);
+    }
 };
 
 

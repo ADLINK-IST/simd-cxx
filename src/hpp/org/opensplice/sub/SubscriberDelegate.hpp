@@ -7,6 +7,7 @@
 #include <dds/core/status/State.hpp>
 #include <dds/core/cond/StatusCondition.hpp>
 #include <dds/sub/qos/SubscriberQos.hpp>
+#include <dds/sub/qos/DataReaderQos.hpp>
 #include <dds/domain/DomainParticipant.hpp>
 
 namespace dds { namespace sub {
@@ -55,11 +56,16 @@ public:
 
 	void qos(const dds::sub::qos::SubscriberQos& the_qos);
 
+	const dds::sub::qos::DataReaderQos default_datareader_qos() const;
+
+	void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos);
+
 private:
    dds::domain::DomainParticipant dp_;
    dds::sub::qos::SubscriberQos qos_;
    dds::sub::SubscriberListener* listener_;
    dds::core::status::StatusMask mask_;
+   dds::sub::qos::DataReaderQos default_dr_qos_;
 
 public:
    dds::core::smart_ptr_traits<DDS::Subscriber>::ref_type sub_;

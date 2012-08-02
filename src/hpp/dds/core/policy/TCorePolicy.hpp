@@ -233,7 +233,7 @@ public:
  * newly created object will be enabled by default.
  * A setting of FALSE indicates that the Entity will not be automatically
  * enabled. The application will need to enable it explicitly by means of the
- * enable operation (see Section 7.1.2.1.1.7, “enable”). The default setting
+ * enable operation (see Section 7.1.2.1.1.7, "enable"). The default setting
  * of autoenable_created_entities = TRUE means that, by default, it is not
  * necessary to explicitly call enable on newly created entities.
  */
@@ -307,14 +307,14 @@ public:
 //==============================================================================
 
 /**
- * The purpose of this QoS is to avoid delivering “stale” data to the
+ * The purpose of this QoS is to avoid delivering "stale" data to the
  * application. Each data sample written by the DataWriter has an associated
  * expiration time beyond which the data should not be delivered to any
  * application. Once the sample expires, the data will be removed from the
  * DataReader caches as well as from the transient and persistent
  * information caches. The expiration time of each sample is computed by
  * adding the duration specified by the LIFESPAN QoS to the source timestamp.
- * As described in Section 7.1.2.4.2.11, “write and Section 7.1.2.4.2.12,
+ * As described in Section 7.1.2.4.2.11, write and Section 7.1.2.4.2.12,
  * write_w_timestamp the source timestamp is either automatically computed by
  * the Service each time the DataWriter write operation is called, or else
  * supplied by the application by means of the write_w_timestamp operation.
@@ -351,7 +351,7 @@ public:
  * instance updated periodically. On the publishing side this setting
  * establishes a contract that the application must meet. On the subscribing
  * side the setting establishes a minimum requirement for the remote publishers
- * that are expected to supply the data values. When the Service ‘matches’ a
+ * that are expected to supply the data values. When the Service matches a
  * DataWriter and a DataReader it checks whether the settings are compatible
  * (i.e., offered deadline period<= requested deadline period) if they are not,
  * the two entities are informed (via the listener or condition mechanism)
@@ -360,11 +360,11 @@ public:
  * fulfillment of this contract is monitored by the Service and the application
  * is informed of any violations by means of the proper listener or condition.
  * The value offered is considered compatible with the value requested if and
- * only if the inequality “offered deadline period <= requested deadline period”
- * evaluates to ‘TRUE.’ The setting of the DEADLINE policy must be set
+ * only if the inequality "offered deadline period <= requested deadline period"
+ * evaluates to TRUE. The setting of the DEADLINE policy must be set
  * consistently with that of the TIME_BASED_FILTER.
  * For these two policies to be consistent the settings must be such that
- * “deadline period>= minimum_separation.”
+ * "deadline period>= minimum_separation".
  */
 template <typename D>
 class TDeadline : public dds::core::Value<D> {
@@ -716,7 +716,8 @@ public:
 		return TReliability(dds::core::policy::ReliabilityKind::RELIABLE, d);
 	}
 	static TReliability BestEffort() {
-		return TReliability(dds::core::policy::ReliabilityKind::BEST_EFFORT);
+	   return TReliability(dds::core::policy::ReliabilityKind::BEST_EFFORT,
+	                       dds::core::Duration::zero());
 	}
 };
 
@@ -784,7 +785,7 @@ public:
 	}
 public:
 	static THistory KeepAll() {
-		return THistory(dds::core::policy::HistoryKind::KEEP_ALL);
+		return  THistory(dds::core::policy::HistoryKind::KEEP_ALL, 0);
 	}
 	static THistory KeepLast(uint32_t depth) {
 		return THistory(dds::core::policy::HistoryKind::KEEP_LAST, depth);

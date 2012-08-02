@@ -20,10 +20,10 @@
  */
 
 #include <dds/core/TEntity.hpp>
-#include <org/opensplice/core/EntityImpl.hpp>
+#include <org/opensplice/core/EntityDelegate.hpp>
 
 namespace dds { namespace core { namespace detail {
-    typedef dds::core::TEntity<org::opensplice::core::EntityImpl> Entity;
+    typedef dds::core::TEntity<org::opensplice::core::EntityDelegate> Entity;
 } } }
 
 #endif /* OMG_DDS_CORE_DETAIL_ENTITY_HPP_ */
