@@ -34,8 +34,8 @@ namespace dds { namespace sub { namespace status {
       public:
 	SampleState() : MaskType() { }
 	explicit SampleState(uint32_t i) : MaskType(i) { }
-	SampleState(const SampleState& src) : MaskType(src) { }
-	SampleState(const MaskType& src) : MaskType(src) { }
+	SampleState(const SampleState& src) : MaskType(src.to_ulong()) { }
+	SampleState(const MaskType& src) : MaskType(src.to_ulong()) { }
 
       public:
 	inline static const SampleState read() {
@@ -62,8 +62,8 @@ namespace dds { namespace sub { namespace status {
       public:
 	ViewState() : MaskType() { }
 	explicit ViewState(uint32_t m) : MaskType(m) { }
-	ViewState(const ViewState& src) : MaskType(src) { }
-	ViewState(const MaskType& src) : MaskType(src) { }
+	ViewState(const ViewState& src) : MaskType(src.to_ulong()) { }
+	ViewState(const MaskType& src) : MaskType(src.to_ulong()) { }
 
       public:
 	inline static const ViewState new_view() {
@@ -88,8 +88,8 @@ namespace dds { namespace sub { namespace status {
       public:
 	explicit InstanceState(uint32_t m) : MaskType(m) { }
 	InstanceState() : MaskType() { }
-	InstanceState(const InstanceState& src) : MaskType(src) { }
-	InstanceState(const MaskType& src) : MaskType(src) { }
+	InstanceState(const InstanceState& src) : MaskType(src.to_ulong()) { }
+	InstanceState(const MaskType& src) : MaskType(src.to_ulong()) { }
 
       public:
 	inline static const InstanceState alive() {

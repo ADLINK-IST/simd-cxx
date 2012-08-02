@@ -315,7 +315,9 @@ public:
 	     const dds::sub::qos::DataReaderQos& qos) 
     : sub_(sub),
       topic_(topic),
-      qos_(qos)
+      raw_reader_(0),
+      qos_(qos),
+      event_forwarder_(0)
   {
     DDS::DataReaderQos drqos = *(DDS::DomainParticipantFactory::datareader_qos_default());
     DDS::DataReader* r =
@@ -338,14 +340,20 @@ public:
 #ifdef OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
 
   DataReader(const dds::sub::Subscriber& sub,
-	     const ::dds::topic::ContentFilteredTopic<T>& topic) {
+	     const ::dds::topic::ContentFilteredTopic<T>& topic):
+	    	 raw_reader_(0),
+	    	 event_forwarder_(0)
+	     {
   }
 
   DataReader(const dds::sub::Subscriber& sub,
 	     const ::dds::topic::ContentFilteredTopic<T>& topic,
 	     const dds::sub::qos::DataReaderQos& qos,
 	     dds::sub::DataReaderEventHandler<T>* handler,
-	     const dds::core::status::StatusMask& mask) {
+	     const dds::core::status::StatusMask& mask) :
+	    	 raw_reader_(0),
+	    	 event_forwarder_(0)
+  {
   }
 #endif /* OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT */
 

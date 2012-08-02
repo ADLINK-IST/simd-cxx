@@ -21,10 +21,11 @@
 
 #include <iostream>
 #include <boost/static_assert.hpp>
+#include <string.h>
 
 // == Constants
-#define OMG_DDS_DEFAULT_STATE_BIT_COUNT_DETAIL 16
-#define OMG_DDS_DEFAULT_STATUS_COUNT_DETAIL    16
+#define OMG_DDS_DEFAULT_STATE_BIT_COUNT_DETAIL (size_t)16
+#define OMG_DDS_DEFAULT_STATUS_COUNT_DETAIL    (size_t)16
 // ==========================================================================
 
 // == Static Assert

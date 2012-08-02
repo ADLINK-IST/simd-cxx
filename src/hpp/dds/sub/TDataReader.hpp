@@ -188,7 +188,7 @@ public:
     read(SamplesBIIterator sbit,
 	 InfoBIIterator ibit)
     {
-      impl_.read(sbit, ibit);
+      return impl_.read(sbit, ibit);
     }
 
 
@@ -197,7 +197,7 @@ public:
     take(SamplesBIIterator sbit,
 	 InfoBIIterator ibit)
     {
-      impl_.take(sbit, ibit);
+      return impl_.take(sbit, ibit);
     }
 
   private:
