@@ -63,8 +63,8 @@ class dds::domain::TDomainParticipant : public ::dds::core::TEntity<DELEGATE> {
 public:
     typedef dds::domain::DomainParticipantListener Listener;
 
-    typedef ::dds::core::cond::StatusCondition<TDomainParticipant<DELEGATE> >
-    StatusCondition;
+    typedef ::dds::core::cond::StatusCondition<TDomainParticipant<DELEGATE>, DELEGATE > StatusCondition;
+
 public:
     /**
      * Create a new <code>DomainParticipant</code> object. 

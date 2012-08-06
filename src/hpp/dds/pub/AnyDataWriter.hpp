@@ -22,9 +22,7 @@
 #include <dds/core/macros.hpp>
 #include <dds/core/ref_traits.hpp>
 #include <dds/core/Exception.hpp>
-#include <dds/topic/TopicTraits.hpp>
-#include <dds/pub/detail/AnyDataWriter.hpp>
-
+#include <dds/pub/DataWriter.hpp>
 
 namespace dds { namespace pub {
 class AnyDataWriter;

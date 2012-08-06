@@ -47,7 +47,7 @@ template <typename DELEGATE>
 class dds::pub::TPublisher : public dds::core::TEntity<DELEGATE> {
 public:
     typedef dds::pub::PublisherListener                 Listener;
-    typedef dds::core::cond::StatusCondition<TPublisher> StatusCondition;
+    typedef dds::core::cond::StatusCondition<TPublisher, DELEGATE> StatusCondition;
 public:
 	OMG_DDS_REF_TYPE(TPublisher, dds::core::TEntity, DELEGATE)
     

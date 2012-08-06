@@ -19,10 +19,11 @@
  * limitations under the License.
  */
 
-
+#include <dds/topic/Topic.hpp>
 #include <org/opensplice/core/EntityDelegate.hpp>
 #include <org/opensplice/topic/TopicTraits.hpp>
 #include <org/opensplice/core/memory.hpp>
+
 
 namespace dds { namespace pub { 
 

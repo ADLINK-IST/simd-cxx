@@ -77,11 +77,11 @@ public:
      * Returns a <code>StatusCondition</code> instance associated with
      * this <code>Entity</code>.
      */
-    template <typename SELF>
-    ::dds::core::cond::StatusCondition<SELF>
+    template <typename SELF, typename DELEGATE>
+    ::dds::core::cond::StatusCondition<SELF, DELEGATE>
     status_condition(const SELF& self) const {
-        return ::dds::core::cond::StatusCondition<SELF>
-            (new ::dds::core::cond::detail::StatusCondition<SELF>(self));
+        return ::dds::core::cond::StatusCondition<SELF, DELEGATE>
+            (new ::dds::core::cond::detail::StatusCondition<SELF, DELEGATE>(self));
     }
 
 public:
