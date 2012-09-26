@@ -1,3 +1,17 @@
+2012-09-27  Angelo Corsaro  <angelo@icorsaro.net>
+
+	* demo/ishapes-rwm/CMakeLists.txt
+	* demo/ishapes-rwm/ishapes-areader.cpp
+	* demo/ishapes-rwm/ishapes-reader.cpp
+	* demo/ishapes-rwm/ishapes-sreader.cpp
+	* demo/ishapes-rwm/ishapes-writer.cpp
+	* demo/ishapes-rwm/ishapes.idl
+	* demo/ishapes-rwm/util.cpp
+	* demo/ishapes-rwm/util.hpp
+
+	Added example on how to use the varius DataReader API, e.g.
+	stream, synchronous and asynchronous API.
+	
 2012-04-26  Angelo Corsaro  <angelo@icorsaro.net>
 
 	* src/hpp/org/opensplice/sub/LoanedSamplesImpl.hpp
