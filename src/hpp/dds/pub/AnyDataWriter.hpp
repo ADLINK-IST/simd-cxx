@@ -23,6 +23,7 @@
 #include <dds/core/ref_traits.hpp>
 #include <dds/core/Exception.hpp>
 #include <dds/pub/DataWriter.hpp>
+#include <dds/pub/detail/AnyDataWriter.hpp>
 
 namespace dds { namespace pub {
 class AnyDataWriter;
@@ -36,7 +37,7 @@ class dds::pub::AnyDataWriter {
 public:
 	template <typename T>
 	AnyDataWriter(const dds::pub::DataWriter<T>& dw)
-	:	holder_(new detail::DWHolder<T>(dw)) { }
+	:	holder_(new dds::pub::detail::DWHolder<T>(dw)) { }
 
 public:
 	const dds::pub::qos::DataWriterQos& qos() const {

@@ -29,6 +29,7 @@ public:
 	virtual ~SubscriberDelegate();
 
 public:
+
 	/**
 	 * Returns a <code>StatusCondition</code> instance associated with
 	 * this <code>Entity</code>.
@@ -37,7 +38,7 @@ public:
 	::dds::core::cond::StatusCondition<SELF, DELEGATE>
 	status_condition(const SELF& self) const {
 		return ::dds::core::cond::StatusCondition<SELF, DELEGATE>(
-				new dds::core::cond::detail::StatusCondition<SELF, DELEGATE>(self));
+				new dds::core::cond::detail::StatusCondition<SELF>(self));
 	}
 
 public:

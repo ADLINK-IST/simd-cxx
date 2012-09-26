@@ -94,6 +94,7 @@ Config_t init(int argc, char* argv[]) {
 #include <bitset>
 
 int main(int argc, char* argv[]) {
+
 	Config_t config = init(argc, argv);
 
 	std::bitset<(size_t) 10> bset;

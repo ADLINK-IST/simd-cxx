@@ -45,8 +45,8 @@ namespace dds { namespace core {
 
     public:
       static const TInstanceHandle nil() {
-	static TInstanceHandle nilHandle;
-        return nilHandle();
+	static TInstanceHandle nil_handle;
+        return nil_handle;
       }
       
 

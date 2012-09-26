@@ -49,7 +49,7 @@ template <typename T, template <typename Q> class DELEGATE>
 class dds::topic::Topic : public dds::topic::TopicDescription <T, DELEGATE> {
 public:
     typedef TopicListener<T>                    Listener;
-    typedef ::dds::core::cond::StatusCondition<T, DELEGATE> StatusCondition;
+    typedef ::dds::core::cond::StatusCondition<T, DELEGATE<T> > StatusCondition;
 
 public:
     OMG_DDS_REF_TYPE_T(Topic, TopicDescription, T, DELEGATE)

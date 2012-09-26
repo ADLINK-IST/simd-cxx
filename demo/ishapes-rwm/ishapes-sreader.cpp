@@ -25,5 +25,8 @@ int main(int argc, char* argv[]) {
   } catch (const dds::core::Exception& e) {
     std::cout << e.what() << std::endl;
   }
+
   return 0;
 }
+
+
