@@ -69,8 +69,9 @@ namespace dds { namespace core { namespace cond { namespace detail {
         }
 
     public:
-        void attach_condition(const dds::core::cond::Condition& cond) {
+        WaitSet& attach_condition(const dds::core::cond::Condition& cond) {
             std::cout << "attach_condition(condition)" << std::endl;
+            return *this;
         }
         
         bool detach_condition(const dds::core::cond::Condition& cond) {

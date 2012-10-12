@@ -29,7 +29,7 @@ namespace dds { namespace topic {
 class AnyTopic {
 public:
     template <typename T>
-    inline AnyTopic(const dds::topic::Topic<T>& t)
+    AnyTopic(const dds::topic::Topic<T>& t)
     : holder_(new detail::THolder<T>(t)) { }
 
 public:

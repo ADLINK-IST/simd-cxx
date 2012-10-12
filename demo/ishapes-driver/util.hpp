@@ -12,13 +12,20 @@
 REGISTER_TOPIC_TRAITS(org::opensplice::demo::ShapeType)
 
 using namespace org::opensplice::demo;
+
+using namespace dds::core::policy;
+using namespace dds::core::cond;
+using namespace dds::core::status;
+
 using namespace dds::domain;
-using namespace dds::pub;
+
 using namespace dds::topic;
+
 using namespace dds::pub;
+using namespace dds::pub::qos;
+
 using namespace dds::sub;
 using namespace dds::sub::status;
-using namespace dds::core::status;
 
 std::ostream&
 operator <<(std::ostream& os, const org::opensplice::demo::ShapeType& s);

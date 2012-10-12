@@ -72,17 +72,6 @@ public:
 
   virtual ~DataWriter() { }
 
-public:
-  /**
-   * Returns a <code>StatusCondition</code> instance associated with
-   * this <code>Entity</code>.
-   */
-  template <typename SELF>
-  ::dds::core::cond::StatusCondition<SELF>
-  status_condition(const SELF& self) const {
-    return ::dds::core::cond::StatusCondition<SELF>
-      (new ::dds::core::cond::detail::StatusCondition<SELF>(self));
-  }
 
 public:
   void write(const T& sample) {
@@ -117,7 +106,7 @@ public:
   }
 
 
-  const ::dds::pub::qos::DataWriterQos qos() const {
+  const ::dds::pub::qos::DataWriterQos& qos() const {
     return qos_;
   }
 
@@ -125,10 +114,13 @@ public:
     qos_ = the_qos;
   }
 
-  dds::topic::Topic<T> topic() const {
+  const dds::topic::Topic<T>& topic() const {
     return topic_;
   }
 
+  const dds::pub::Publisher& publisher() const {
+     return pub_;
+  }
 
   bool wait_for_acknowledgments(const ::dds::core::Duration& timeout) {
     return true;
@@ -148,5 +140,5 @@ private:
 
 
 
-#endif /* OMG_DDS_PUB_DETAIL_DATA_WRITER_HPP_ */
 
+#endif /* OMG_DDS_PUB_DETAIL_DATA_WRITER_HPP_ */

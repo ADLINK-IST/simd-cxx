@@ -42,16 +42,60 @@ public:
       std::vector<ShapeType> data(max_samples);
       std::vector<dds::sub::SampleInfo> info(max_samples);
 
+      dds::sub::qos::DataReaderQos qos = dr.qos();
+
+      AnyTopic at = topic;
+      Topic<ShapeType> xt = at.get<ShapeType>();
+
+      // Query
+      Query q(dr, "x < 100 AND y < 100");
+
+
+      // AnyDataReader
+      AnyDataReader adr = q.data_reader();
+      dds::sub::DataReader<ShapeType> xdr = adr.get<ShapeType>();
+
+      // Conditions
+      cond::ReadCondition rc(dr, params.data_state);
+      cond::QueryCondition qc(q, params.data_state);
+
+      dds::core::Entity e = dr;
+      dds::core::cond::StatusCondition sc(dr);
+      sc.enabled_statuses(StatusMask::data_available());
+
+      Subscriber xsub = dr.subscriber();
+
+      WaitSet ws;
+      ws
+         .attach_condition(sc)
+         .attach_condition(rc)
+         .attach_condition(qc);
+
+      LoanedSamples<ShapeType> loaned_samples = dr.read();
+
       for (uint32_t i = 0; i < samples; ++i) {
          int32_t rs =
                dr.selector()
                   .filter_state(params.data_state)
+                  .filter_content(q)
                   .read(data.begin(), info.begin(), max_samples);
 
          std::cout << "==== Read " << rs << " sample(s) ==== \n";
          std::for_each(data.begin(), data.begin() + rs, printShape);
          std::cout << std::endl;
-         usleep(sleep_time); // period is in ms
+         usleep(sleep_time);
+
+         LoanedSamples<ShapeType> loaned_samples =
+               dr.selector()
+                        .filter_state(params.data_state)
+                        .filter_content(q)
+                        .read();
+
+         std::cout << "==== Read Loaned Sample(s) ==== \n";
+         std::for_each(loaned_samples.data().begin(), loaned_samples.data().end(), printShape);
+         std::cout << std::endl;
+         usleep(sleep_time);
+         std::cout << "============================ \n";
       }
    }
 };

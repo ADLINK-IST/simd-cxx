@@ -61,7 +61,7 @@ public:
 
 public:
     template <typename T>
-    const dds::sub::DataReader<T>& get() {
+    dds::sub::DataReader<T> get() {
     	OMG_DDS_STATIC_ASSERT(::dds::topic::is_topic_type<T>::value == 1);
         detail::DRHolder<T>* h = dynamic_cast<detail::DRHolder<T>* >(holder_.get());
         if (h == 0) {

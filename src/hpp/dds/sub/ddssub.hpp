@@ -23,7 +23,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // -- Status Includes
-#include <dds/sub/status/DataStatus.hpp>
+#include <dds/sub/status/DataState.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -37,6 +37,10 @@
 #include <dds/sub/Rank.hpp>
 #include <dds/sub/GenerationCount.hpp>
 
+/* Depends on:
+ *   Forward declaration of AnyDataReader
+ */
+#include <dds/sub/AnyDataReaderListener.hpp>
 
 
 /*
@@ -47,17 +51,6 @@
 
 #include <dds/sub/SampleInfo.hpp>
 
-/*
- * Depends on:
- *   <dds/sub/status/ReaderState.hpp>
- *   <dds/sub/SampleInfo.hpp>
- */
-#include <dds/sub/Sample.hpp>
-
-/*
- * Depends on:
- *    <dds/sub/Sample.hpp>
- */
 #include <dds/sub/LoanedSamples.hpp>
 
 
@@ -74,13 +67,6 @@
 #include <dds/sub/CoherentAccess.hpp>
 
 /* Depends on:
- *  <dds/sub/Subscriber.hpp>
- */
-#include <dds/sub/AnyDataReader.hpp>
-
-#include <dds/sub/AnyDataReaderListener.hpp>
-
-/* Depends on:
  * <dds/sub/AnyDataReaderListener.hpp>
  * <dds/sub/Subscriber.hpp>
  */
@@ -93,7 +79,18 @@
  *   <dds/sub/LoanedSamples.hpp>
  */
 #include <dds/sub/DataReader.hpp>
+
+
+/* Depends on:
+ *    <dds/sub/AnyDataReaderListener.hpp>
+ */
 #include <dds/sub/DataReaderListener.hpp>
+
+/* Depends on:
+ *  <dds/sub/Subscriber.hpp>
+ *  <dds/sub/DataReader.hpp>
+ */
+#include <dds/sub/AnyDataReader.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // -- Condition Includes
@@ -101,9 +98,12 @@
  *   <dds/sub/DataReader.hpp>
  */
 #include <dds/sub/cond/ReadCondition.hpp>
+#include <dds/sub/Query.hpp>
 
 /* Depends on:
- *    <dds/sub/status/DataStatus.hpp>
+ *    <dds/sub/status/DataState.hpp>
+ *    <dds/sub/cond/ReadCondition.hpp>
+ *    <dds/sub/Query.hpp>
  */
 #include <dds/sub/cond/QueryCondition.hpp>
 

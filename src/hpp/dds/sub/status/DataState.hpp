@@ -1,5 +1,5 @@
-#ifndef OMG_DDS_SUB_DATA_STATUS_HPP_
-#define OMG_DDS_SUB_DATA_STATUS_HPP_
+#ifndef OMG_DDS_SUB_DATA_STATE_HPP_
+#define OMG_DDS_SUB_DATA_STATE_HPP_
 
 /* Copyright 2010, Object Management Group, Inc.
  * Copyright 2010, PrismTech, Corp.
@@ -229,4 +229,4 @@ namespace dds { namespace sub { namespace status {
     } } }
 
 
-#endif /* OMG_DDS_SUB_DATA_STATUS_HPP_ */
+#endif /* OMG_DDS_SUB_DATA_STATE_HPP_ */

@@ -22,7 +22,6 @@
 
 #include <dds/core/detail/conformance.hpp>
 #include <dds/core/Reference.hpp>
-#include <tdds/xtypes/tdds_xtypes_fwd.hpp>
 
 
 #ifdef OMG_DDS_EXTENSIBLE_AND_DYNAMIC_TOPIC_TYPE_SUPPORT

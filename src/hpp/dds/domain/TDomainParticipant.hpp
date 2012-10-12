@@ -63,8 +63,6 @@ class dds::domain::TDomainParticipant : public ::dds::core::TEntity<DELEGATE> {
 public:
     typedef dds::domain::DomainParticipantListener Listener;
 
-    typedef ::dds::core::cond::StatusCondition<TDomainParticipant<DELEGATE>, DELEGATE > StatusCondition;
-
 public:
     /**
      * Create a new <code>DomainParticipant</code> object. 
@@ -92,7 +90,7 @@ public:
      * @param id the id of the domain joined by this <code>DomainParticipant</code>.
      * @param qos the QoS settings for this <code>DomainParticipant</code>
      */
-    TDomainParticipant(uint32_t 										id,
+    TDomainParticipant(uint32_t 	                                       id,
                        const dds::domain::qos::DomainParticipantQos& 	qos,
                        dds::domain::DomainParticipantListener*       	listener = NULL,
                        const dds::core::status::StatusMask&          	mask = dds::core::status::StatusMask::all())
@@ -110,18 +108,6 @@ public:
     }
 
 public:
-    /**
-     * This operation allows access to the StatusCondition
-     * (Section 7.1.2.1.9, "StatusCondition Class") associated with the Entity.
-     * The returned condition can then be added to a WaitSet (Section 7.1.2.1.6,
-     * WaitSet Class) so that the application can wait for specific status changes
-     * that affect the Entity.
-     *
-     * @return the status condition
-     */
-    StatusCondition status_condition() const{
-        return this->delegate()->template status_condition<TDomainParticipant>(*this);
-    }
 
     /**
      * Register a listener with the <core>DomainParticipant</code>.

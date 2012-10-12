@@ -35,13 +35,22 @@ public:
   // first sight, however it is needed to make a DDS::SampleInfo look
   // like a dds::sub::SampleInfo.
   const T* begin() const {
-    return reinterpret_cast<const T*>(&s_[0]);
+     const T* retVal = 0;
+     if (s_.length() > 0)
+        retVal = reinterpret_cast<const T*>(&s_[0]);
+     else
+        retVal = reinterpret_cast<const T*>(&s_);
+
+    return retVal;
   }
 
   const T* end() const {
     const T* retVal = 0;
     if (s_.length() > 0)
       retVal = reinterpret_cast<const T*>(&(s_[s_.length() -1]) + 1);
+    else
+       retVal = this->begin();
+
     return retVal;
   }
 

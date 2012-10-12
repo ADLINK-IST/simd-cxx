@@ -26,7 +26,7 @@
 #include <dds/core/types.hpp>
 #include <dds/topic/detail/TopicDescription.hpp>
 #include <dds/topic/Topic.hpp>
-#include <dds/core/Query.hpp>
+#include <dds/topic/Filter.hpp>
 
 namespace dds { namespace topic { namespace detail {
 
@@ -38,17 +38,17 @@ class ContentFilteredTopic  : public dds::topic::detail::TopicDescription<T>
 public:
     ContentFilteredTopic(const std::string& name,
                          const dds::topic::Topic<T>& topic,
-                         const dds::core::Query& query)
+                         const dds::topic::Filter& filter)
     : dds::topic::detail::TopicDescription<T>(topic.domain_participant(), topic.name(), topic.type_name()),
       topic_(topic),
-      query_(query)
+      filter_(filter)
       { }
 
 	virtual ~ContentFilteredTopic() { }
 
 public:
-	const dds::core::Query& query() {
-		return query_;
+	const dds::topic::Filter& filter() {
+		return filter_;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public:
 	 */
 	template <typename FWIterator>
     void filter_parameters(const FWIterator& begin, const FWIterator& end) {
-		query_.parameters(begin, end);
+		filter_.parameters(begin, end);
 	}
 
 
@@ -67,7 +67,7 @@ public:
 
 private:
 	dds::topic::Topic<T> topic_;
-	dds::core::Query query_;
+	dds::topic::Filter filter_;
 };
 
 #endif  // OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT

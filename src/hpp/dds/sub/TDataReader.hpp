@@ -20,13 +20,10 @@
  */
 #include <dds/core/detail/conformance.hpp>
 #include <dds/core/TEntity.hpp>
-#include <dds/core/Query.hpp>
 #include <dds/topic/ContentFilteredTopic.hpp>
 #include <dds/topic/TopicInstance.hpp>
-#include <dds/sub/Sample.hpp>
 #include <dds/sub/LoanedSamples.hpp>
 #include <dds/sub/DataReaderEventHandler.hpp>
-
 
 namespace dds { namespace sub {
     template <typename T, template <typename Q> class DELEGATE>
@@ -35,14 +32,15 @@ namespace dds { namespace sub {
     template <typename T>
     class DataReaderListener;
   } }
-
+namespace dds { namespace sub {
+   class Query;
+} }
 
 template <typename T, template <typename Q> class DELEGATE>
 class dds::sub::DataReader : public dds::core::TEntity< DELEGATE<T> > {
 
 public:
   typedef T                                        DataType;
-  typedef ::dds::sub::Sample<T>                    Sample;
   typedef ::dds::sub::DataReaderListener<T>        Listener;
 
 public:
@@ -145,7 +143,8 @@ public:
       impl_.filter_state(s);
       return *this;
     }
-    Selector& filter_content(const dds::core::Query& query) {
+
+    Selector& filter_content(const dds::sub::Query& query) {
       impl_.filter_content(query);
       return *this;
     }
@@ -228,7 +227,8 @@ public:
       return *this;
     }
 
-    ManipulatorSelector& filter_content(const dds::core::Query& query) {
+
+    ManipulatorSelector& filter_content(const dds::sub::Query& query) {
       impl_.filter_content(query);
       return *this;
     }
@@ -329,10 +329,10 @@ public:
    * Returns the default read-state (if not changed, it is set to
    * ReaderState::any()).
    */
-  const dds::sub::status::DataState& default_status_filter() {
+  const dds::sub::status::DataState& default_filter_state() {
     return this->delegate()->default_status_filter();
   }
-  DataReader& default_status_filter(const dds::sub::status::DataState& status) {
+  DataReader& default_filter_state(const dds::sub::status::DataState& status) {
     this->delegate()->default_status_filter(status);
     return *this;
   }
@@ -467,8 +467,16 @@ public:
   }
 
   //==========================================================================
+  // -- Entity Navigation API
 public:
-  dds::topic::TopicDescription<DataType> topic_description();
+  dds::topic::TopicDescription<DataType> topic_description() const {
+     return this->delegate()->topic_description();
+  }
+
+
+  const dds::sub::Subscriber& subscriber() const {
+     return this->delegate()->subscriber();
+  }
 
   // -- Listener Getter/Setter
   void listener(Listener* the_listener,

@@ -47,7 +47,6 @@ class dds::pub::DataWriter : public ::dds::core::TEntity< DELEGATE<T> > {
 
 public:
     typedef dds::pub::DataWriterListener<T>              Listener;
-    typedef ::dds::core::cond::StatusCondition<DataWriter> StatusCondition;
 
 public:
     OMG_DDS_REF_TYPE(DataWriter, ::dds::core::TEntity, DELEGATE<T>)
@@ -78,19 +77,6 @@ public:
 public:
     ~DataWriter() { }
 
-public:
-    /**
-     * This operation allows access to the StatusCondition
-     * (Section 7.1.2.1.9, ÒStatusCondition Class) associated with the Entity.
-     * The returned condition can then be added to a WaitSet (Section 7.1.2.1.6,
-     * WaitSet Class) so that the application can wait for specific status changes
-     * that affect the Entity.
-     *
-     * @return the status condition
-     */
-    StatusCondition status_condition() const {
-        return this->delegate()->template status_condition<DataWriter>(*this);
-    }
 
 public:
     //==========================================================================
@@ -283,7 +269,7 @@ public:
 
     //==========================================================================
     //== QoS Management
-    const ::dds::pub::qos::DataWriterQos qos() const 
+    const ::dds::pub::qos::DataWriterQos& qos() const
     {
         return this->delegate()->qos();
     }
@@ -308,11 +294,14 @@ public:
 
     //==========================================================================
     //== Entity Navigation
-    dds::topic::Topic<T> topic() const 
+    const dds::topic::Topic<T>& topic() const
     {
         return this->delegate()->topic();
     }
 
+    const dds::pub::Publisher& publisher() const {
+       return this->delegate()->publisher();
+    }
 
     //==========================================================================
     //== ACKs
@@ -388,64 +377,6 @@ public:
     //== Liveliness Management
     void assert_liveliness() {
     	this->delegate()->assert_liveliness();
-    }
-
-    //==========================================================================
-    //== Discovery Management
-
-    /**
-     * This operation retrieves the list of subscriptions currently "associated"
-     * with the DataWriter; that is, subscriptions that have a matching Topic
-     * and compatible QoS that the application has not indicated should be
-     * "ignored" by means of the DomainParticipant ignore_subscription operation.
-     * The handles returned in the "subscription_handles" list are the ones that
-     * are used by the DDS implementation to locally identify the corresponding
-     * matched DataReader entities. These handles match the ones that appear
-     * in the "instance_handle" field of the SampleInfo when reading the
-     * "DCPSSubscriptions" builtin topic. The operation may fail if the
-     * infrastructure does not locally maintain the connectivity information.
-     */
-    const ::dds::core::InstanceHandleSeq 
-    matched_subscriptions() 
-    {
-        return this->delegate()->matched_subscriptions();
-    }
-
-    /**
-     * This operation retrieves the list of subscriptions currently "associated"
-     * with the DataWriter; that is, subscriptions that have a matching Topic
-     * and compatible QoS that the application has not indicated should be
-     * "ignored" by means of the DomainParticipant ignore_subscription operation.
-     * The handles returned in the "subscription_handles" list are the ones that
-     * are used by the DDS implementation to locally identify the corresponding
-     * matched DataReader entities. These handles match the ones that appear
-     * in the "instance_handle" field of the SampleInfo when reading the
-     * "DCPSSubscriptions" builtin topic. The operation may fail if the
-     * infrastructure does not locally maintain the connectivity information.
-     */
-    ::dds::core::InstanceHandleSeq&
-     matched_subscriptions(::dds::core::InstanceHandleSeq& subs) {
-        return this->delegate()->matched_subscriptions(subs);
-    }
-
-    /**
-     * This operation retrieves information on a subscription that is currently
-     * ÒassociatedÓ with the DataWriter; that is, a subscription with a matching
-     * Topic and compatible QoS that the application has not indicated should be
-     * ÒignoredÓ by means of the DomainParticipant ignore_subscription operation.
-     * The subscription_handle must correspond to a subscription currently
-     * associated with the DataWriter, otherwise the operation will fail and
-     * throw a BadParameterError.
-     * The operation matched_subscriptions can be used to find the subscriptions
-     * that are currently matched with the DataWriter.
-     *
-     * The operation may also fail if the infrastructure does not hold the
-     * information necessary to fill in the subscription_data.
-     * In this case the operation will throw UnsupportedError.
-     */
-    const dds::topic::SubscriptionBuiltinTopicData
-    matched_subscription_data(const ::dds::core::InstanceHandle& h) {
-        return this->delegate()->matched_subscription_data(h);
     }
 };
 

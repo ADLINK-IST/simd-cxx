@@ -74,8 +74,9 @@ public:
     }
 
     virtual const ::dds::pub::Publisher& publisher() const {
-        return dw_.parent();
+        return dw_.publisher();
     }
+
   virtual void wait_for_acknowledgments(const dds::core::Duration& timeout) {
       dw_.wait_for_acknowledgments(timeout);
     }

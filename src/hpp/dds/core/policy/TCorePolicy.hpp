@@ -88,11 +88,6 @@ public:
 		return this->delegate().value();
 	}
 
-	/**
-	 * Get the user data.
-	 */
-	dds::core::ByteSeq& value(dds::core::ByteSeq& dst) const;
-
 	const uint8_t* begin() const;
 	const uint8_t* end() const;
 };

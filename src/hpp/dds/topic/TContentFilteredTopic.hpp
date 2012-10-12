@@ -24,7 +24,7 @@
 #include <dds/core/detail/conformance.hpp>
 #include <dds/core/types.hpp>
 #include <dds/topic/Topic.hpp>
-#include <dds/core/Query.hpp>
+#include <dds/topic/Filter.hpp>
 
 namespace dds { namespace topic {
 
@@ -36,8 +36,8 @@ public:
     OMG_DDS_REF_TYPE_T(ContentFilteredTopic, TopicDescription, T, DELEGATE)
 
 public:
-    ContentFilteredTopic(const std::string& name, const Topic<T>& topic, const dds::core::Query& query)
-    : dds::topic::TopicDescription<T, DELEGATE>(new DELEGATE<T>(name, topic, query)) { }
+    ContentFilteredTopic(const std::string& name, const Topic<T>& topic, const dds::topic::Filter& filter)
+    : dds::topic::TopicDescription<T, DELEGATE>(new DELEGATE<T>(name, topic, filter)) { }
 
     virtual ~ContentFilteredTopic() { }
 

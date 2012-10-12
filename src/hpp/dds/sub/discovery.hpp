@@ -20,13 +20,89 @@
  */
 
 
-namespace dds { namespace sub {
+namespace dds {
+   namespace sub {
 
-// Ignore subscriptions
-void ignore(const dds::domain::DomainParticipant& dp,
+      /**
+       * Ignore subscriptions.
+       *
+       * @param dp      the <code>DomainParticipant</code> for which the remote
+       *                entity will be ignored
+       *
+       * @param handle  the <code>InstanceHandle</code> of the remote entity that
+       *                has to be ignored
+       */
+      void ignore(const dds::domain::DomainParticipant& dp,
             const dds::core::InstanceHandle& handle);
 
-template <typename FwdIterator>
-void ignore(const dds::domain::DomainParticipant& dp, FwdIterator begin, FwdIterator end);
-} }
+      /**
+       * Ignore subscriptions.
+       *
+       * @param dp      the <code>DomainParticipant</code> for which the remote
+       *                entity will be ignored
+       *
+       * @param handle  the <code>InstanceHandle</code> of the remote entity that
+       *                has to be ignored
+       */
+      template <typename FwdIterator>
+      void ignore(const dds::domain::DomainParticipant& dp, FwdIterator begin, FwdIterator end);
+
+
+      //==========================================================================
+      //== Discovery Management
+      /**
+       * This operation retrieves the list of publications currently “associated”
+       * with the DataReader; that is, publications that have a matching Topic and
+       * compatible QoS that the application has not indicated should be “ignored”
+       * by means of the <code>dds::domain::ignore</code> operation.
+       * The handles returned in the 'publication_handles' list are the ones that
+       * are used by the DDS implementation to locally identify the corresponding
+       * matched DataWriter entities. These handles match the ones that appear
+       * in the 'instance_handle' field of the SampleInfo when reading the
+       * “DCPSPublications” builtin topic. The operation may fail if the
+       * infrastructure does not locally maintain the connectivity information.
+       */
+      template <typename T>
+      const ::dds::core::InstanceHandleSeq
+      matched_publications(const dds::sub::DataReader<T>& dw);
+
+      /**
+       * This operation retrieves the list of publications currently “associated”
+       * with the DataReader; that is, publications that have a matching Topic and
+       * compatible QoS that the application has not indicated should be “ignored”
+       * by means of the <code>dds::domain::ignore</code> operation.
+       * The handles returned in the 'publication_handles' list are the ones that
+       * are used by the DDS implementation to locally identify the corresponding
+       * matched DataWriter entities. These handles match the ones that appear
+       * in the 'instance_handle' field of the SampleInfo when reading the
+       * “DCPSPublications” builtin topic. The operation may fail if the
+       * infrastructure does not locally maintain the connectivity information.
+       */
+      template <typename T, typename FwdIterator>
+      ::dds::core::InstanceHandleSeq&
+       matched_publications(const dds::sub::DataReader<T>& dw,
+             FwdIterator begin, FwdIterator end);
+
+      /**
+       * This operation retrieves information on a publication that is currently
+       * associated with the DataReader; that is, a subscription with a matching
+       * Topic and compatible QoS that the application has not indicated should be
+       * ignored by means of the DomainParticipant ignore_subscription operation.
+       * The publication handle must correspond to a publication currently
+       * associated with the DataReader, otherwise the operation will fail and
+       * throw a BadParameterError.
+       * The operation matched_subscriptions can be used to find the subscriptions
+       * that are currently matched with the DataWriter.
+       *
+       * The operation may also fail if the infrastructure does not hold the
+       * information necessary to fill in the subscription_data.
+       * In this case the operation will throw UnsupportedError.
+       */
+      template <typename T>
+      const dds::topic::SubscriptionBuiltinTopicData
+      matched_publications_data(const dds::sub::DataReader<T>& dw,
+            const ::dds::core::InstanceHandle& h);
+
+   }
+}
 #endif /* OMG_DDS_SUB_DISCOVERY_HPP_ */

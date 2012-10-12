@@ -72,17 +72,7 @@ public:
     	dp_->dp_->delete_topic(t_);
     }
 
-public:
-    /**
-     * Returns a <code>StatusCondition</code> instance associated with
-     * this <code>Entity</code>.
-     */
-    template <typename SELF, typename DELEGATE>
-    ::dds::core::cond::StatusCondition<SELF, DELEGATE>
-    status_condition(const SELF& self) const {
-        return ::dds::core::cond::StatusCondition<SELF, DELEGATE>
-            (new ::dds::core::cond::detail::StatusCondition<SELF>(self));
-    }
+
 
 public:
 	const dds::topic::qos::TopicQos& qos() const {

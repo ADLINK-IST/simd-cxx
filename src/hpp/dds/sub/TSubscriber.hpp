@@ -25,85 +25,78 @@
 #include <dds/sub/qos/DataReaderQos.hpp>
 
 namespace dds { namespace sub {
-    template <typename DELEGATE>
-    class TSubscriber;
-    
-    class SubscriberListener;
+   template <typename DELEGATE>
+   class TSubscriber;
+
+   class SubscriberListener;
 } }
 
 template <typename DELEGATE>
 class dds::sub::TSubscriber : public dds::core::TEntity<DELEGATE> {
 public:
-	OMG_DDS_REF_TYPE(TSubscriber, dds::core::TEntity, DELEGATE)
+   OMG_DDS_REF_TYPE(TSubscriber, dds::core::TEntity, DELEGATE)
 
 public:
-    typedef dds::sub::SubscriberListener                 Listener;
-    typedef dds::core::cond::StatusCondition<TSubscriber> StatusCondition;
+   typedef dds::sub::SubscriberListener                 Listener;
 
 public:
-    TSubscriber(const ::dds::domain::DomainParticipant& dp) 
-    : dds::core::TEntity<DELEGATE>(new DELEGATE(dp,
-                                                dp.default_subscriber_qos(),
-                                                0,
-                                                dds::core::status::StatusMask::all())) { }
-    
-    TSubscriber(const ::dds::domain::DomainParticipant& dp,
-                const dds::sub::qos::SubscriberQos& qos,
-                dds::sub::SubscriberListener* listener = NULL,
-                const dds::core::status::StatusMask& mask = dds::core::status::StatusMask::all()) 
-    : dds::core::TEntity<DELEGATE>(new DELEGATE(dp,
-                                      qos,
-                                      listener,
-                                      mask)) { }
-    
-public:
-	~TSubscriber() {}
-public:
-    /**
-     * This operation allows access to the StatusCondition
-     * (Section 7.1.2.1.9, StatusCondition Class) associated with the Entity.
-     * The returned condition can then be added to a WaitSet (Section 7.1.2.1.6,
-     * WaitSet Class) so that the application can wait for specific status changes
-     * that affect the Entity.
-     *
-     * @return the status condition
-     */
-    StatusCondition status_condition() const{
-        return this->delegate()->template status_condition<TSubscriber>(*this);
-    }
+   TSubscriber(const ::dds::domain::DomainParticipant& dp)
+   : dds::core::TEntity<DELEGATE>(new DELEGATE(dp,
+         dp.default_subscriber_qos(),
+         0,
+         dds::core::status::StatusMask::all())) { }
+
+   TSubscriber(const ::dds::domain::DomainParticipant& dp,
+         const dds::sub::qos::SubscriberQos& qos,
+         dds::sub::SubscriberListener* listener = NULL,
+         const dds::core::status::StatusMask& mask = dds::core::status::StatusMask::all())
+   : dds::core::TEntity<DELEGATE>(new DELEGATE(dp,
+         qos,
+         listener,
+         mask)) { }
 
 public:
-	/**
-	 * This operation invokes the operation on_data_available on the
-	 * DataReaderListener objects attached to contained DataReader
-	 * entities with a DATA_AVAILABLE status that is considered changed
-	 * as described in Section 7.1.4.2.2, Changes in Read Communication
-	 * Statuses.
-	 */
-	void notify_datareaders() {
-		this->delegate()->notify_datareaders();
-	}
+   ~TSubscriber() {}
 
-    void listener(Listener*,
-                  const dds::core::status::StatusMask& event_mask);
+public:
+   /**
+    * This operation invokes the operation on_data_available on the
+    * DataReaderListener objects attached to contained DataReader
+    * entities with a DATA_AVAILABLE status that is considered changed
+    * as described in Section 7.1.4.2.2, Changes in Read Communication
+    * Statuses.
+    */
+   void notify_datareaders() {
+      this->delegate()->notify_datareaders();
+   }
 
-    Listener* listener() const;
+   void listener(Listener*,
+         const dds::core::status::StatusMask& event_mask);
+
+   Listener* listener() const;
 
 
-	const dds::sub::qos::SubscriberQos qos() const {
-		return this->delegate()->qos();
-	}
+   const dds::sub::qos::SubscriberQos qos() const {
+      return this->delegate()->qos();
+   }
 
-	void qos(const dds::sub::qos::SubscriberQos& the_qos) {
-		this->delegate()->qos(the_qos);
-	}
-    
-    dds::sub::qos::DataReaderQos default_datareader_qos() const {
-       return this->delegate()->default_datareader_qos();
-    }
-    void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos) const {
-       this->delegate()->default_datareader_qos(qos);
-    }
+   void qos(const dds::sub::qos::SubscriberQos& the_qos) {
+      this->delegate()->qos(the_qos);
+   }
+
+   dds::sub::qos::DataReaderQos default_datareader_qos() const {
+      return this->delegate()->default_datareader_qos();
+   }
+   void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos) const {
+      this->delegate()->default_datareader_qos(qos);
+   }
+
+   /**
+    * Return the <code>DomainParticipant<code> that owns this Subscriber.
+    */
+   const dds::domain::DomainParticipant& participant() const {
+      return this->delegate()->participant();
+   }
 };
 
 

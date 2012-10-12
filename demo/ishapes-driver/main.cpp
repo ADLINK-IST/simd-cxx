@@ -1,4 +1,7 @@
 #include <boost/program_options.hpp>
+#include <vector>
+#include <iterator>
+#include <algorithm>
 #include "util.hpp"
 #include "reader.hpp"
 #include "writer.hpp"
@@ -98,6 +101,8 @@ int main(int argc, char* argv[]) {
 	Config_t config = init(argc, argv);
 
 	std::bitset<(size_t) 10> bset;
+	DataWriterQos dw_qos = DataWriterQos() << Reliability::Reliable() << Durability::Transient();
+
 
 	try {
 		dds::domain::DomainParticipant dp(0);

@@ -19,14 +19,14 @@
  * limitations under the License.
  */
 
-#include <dds/sub/DataReader.hpp>
-#include <dds/sub/qos/DataReaderQos.hpp>
+// #include <dds/sub/DataReader.hpp>
+// #include <dds/sub/qos/DataReaderQos.hpp>
 
 
 namespace dds { namespace sub { namespace detail {
 class DRHolderBase {
 public:
-    virtual ~DRHolderBase();
+    virtual ~DRHolderBase() { }
     virtual const ::dds::sub::qos::DataReaderQos qos() const = 0;
 
     virtual void qos(const dds::sub::qos::DataReaderQos& qos) = 0;
@@ -57,11 +57,11 @@ public:
     }
 
     virtual const std::string topic_name() const {
-        return dr_.topic().name();
+        return dr_.topic_description().name();
     }
 
     virtual const std::string type_name() const {
-        return dr_.topic().type_name();
+        return dr_.topic_description().type_name();
     }
 
     virtual ::dds::sub::Subscriber parent() const {
@@ -70,6 +70,10 @@ public:
 
     virtual void close() {
         dr_.close();
+    }
+
+    dds::sub::DataReader<T> get() const {
+       return dr_;
     }
 
 private:

@@ -2,7 +2,6 @@
 #define OMG_DDS_SUB_TLOANED_SAMPLES_HPP_
 
 #include <dds/core/ref_traits.hpp>
-#include <dds/sub/Sample.hpp>
 
 namespace dds { namespace sub {
     template <typename T, 

@@ -29,105 +29,128 @@
 
 namespace dds { namespace sub {
 
+   /**
+    * Retrieves the built-in subscriber for the given domain participant.
+    *
+    * @param dp the domain participant.
+    */
+   const dds::sub::Subscriber&
+   builtin_subscriber(const dds::domain::DomainParticipant& dp);
 
-/**
- * This function retrieves a previously-created DataReader
- * belonging to the Subscriber that is attached to a Topic with a
- * matching topic_name. If no such DataReader exists, the operation
- * will return an empty container.  The use of this
- * operation on the built-in Subscriber allows access to the
- * built-in DataReader entities for the built-in topics
- *
- * @return the total number of elements found. Notice that
- * at most max_size will be copied using the provided iterator.
- *
- */
-template <typename READER, typename FwdIterator>
-uint32_t
-find(const dds::sub::Subscriber& sub,
-		const std::string& topic_name,
-		FwdIterator begin, uint32_t max_size) {
-	return ::dds::sub::detail::find<READER, FwdIterator>(sub,
-                                                         topic_name,
-                                                         begin,
-                                                         max_size);
-}
+   /**
+    * This function retrieves a previously-created DataReader
+    * belonging to the Subscriber that is attached to a Topic with a
+    * matching topic_name. If no such DataReader exists, the operation
+    * will return an empty container.  The use of this
+    * operation on the built-in Subscriber allows access to the
+    * built-in DataReader entities for the built-in topics
+    *
+    * @return the total number of elements found. Notice that
+    * at most max_size will be copied using the provided iterator.
+    *
+    */
+   template <typename READER, typename FwdIterator>
+   uint32_t
+   find(const dds::sub::Subscriber& sub,
+         const std::string& topic_name,
+         FwdIterator begin, uint32_t max_size) {
+      return ::dds::sub::detail::find<READER, FwdIterator>(sub,
+            topic_name,
+            begin,
+            max_size);
+   }
 
-/**
- * This function retrieves a previously-created DataReader
- * belonging to the Subscriber that is attached to a Topic with a
- * matching topic_name. If no such DataReader exists, the operation
- * will return an empty container.  The use of this
- * operation on the built-in Subscriber allows access to the
- * built-in DataReader entities for the built-in topics
- *
- * @return the total number of elements found and copied over.
- *
- */
-template <typename READER, typename BinIterator>
-uint32_t
-find(const dds::sub::Subscriber& sub,
-		const std::string& topic_name,
-		BinIterator begin) {
-	return ::dds::sub::detail::find<READER, BinIterator>(sub,
-                                                         topic_name,
-                                                         begin);
-}
+   /**
+    * This function retrieves a previously-created DataReader
+    * belonging to the Subscriber that is attached to a Topic with a
+    * matching topic_name. If no such DataReader exists, the operation
+    * will return an empty container.  The use of this
+    * operation on the built-in Subscriber allows access to the
+    * built-in DataReader entities for the built-in topics
+    *
+    * @return the total number of elements found and copied over.
+    *
+    */
+   template <typename READER, typename BinIterator>
+   uint32_t
+   find(const dds::sub::Subscriber& sub,
+         const std::string& topic_name,
+         BinIterator begin) {
+      return ::dds::sub::detail::find<READER, BinIterator>(sub,
+            topic_name,
+            begin);
+   }
 
-/**
- * This function retrieves a previously-created DataReader
- * belonging to the Subscriber that is attached to a Topic with a
- * matching topic_name. If no such DataReader exists, the operation
- * will return an empty container.  The use of this
- * operation on the built-in Subscriber allows access to the
- * built-in DataReader entities for the built-in topics
- */
-template <typename READER, typename T, typename FwdIterator>
-uint32_t
-find(const dds::sub::Subscriber& sub,
-		const dds::topic::TopicDescription<T>& topic_description,
-		FwdIterator begin, uint32_t max_size) {
+   /**
+    * This function retrieves a previously-created DataReader
+    * belonging to the Subscriber that is attached to a Topic with a
+    * matching topic_name. If no such DataReader exists, the operation
+    * will return an empty container.  The use of this
+    * operation on the built-in Subscriber allows access to the
+    * built-in DataReader entities for the built-in topics
+    */
+   template <typename READER, typename T, typename FwdIterator>
+   uint32_t
+   find(const dds::sub::Subscriber& sub,
+         const dds::topic::TopicDescription<T>& topic_description,
+         FwdIterator begin, uint32_t max_size) {
 
-	OMG_DDS_STATIC_ASSERT((dds::core::is_same<T, typename READER::DataType>::value));
-	return ::dds::sub::detail::find<READER, T, FwdIterator>(sub,
-                                                            topic_description,
-                                                            begin,
-                                                            max_size);
-}
+      OMG_DDS_STATIC_ASSERT((dds::core::is_same<T, typename READER::DataType>::value));
+      return ::dds::sub::detail::find<READER, T, FwdIterator>(sub,
+            topic_description,
+            begin,
+            max_size);
+   }
 
-template <typename READER, typename T, typename BinIterator>
-uint32_t
-find(const dds::sub::Subscriber& sub,
-		const dds::topic::TopicDescription<T>& topic_description,
-		BinIterator begin) {
+   /**
+    * This function retrieves a previously-created DataReader
+    * belonging to the Subscriber that is attached to a Topic with a
+    * matching topic_name. If no such DataReader exists, the operation
+    * will return an empty container.  The use of this
+    * operation on the built-in Subscriber allows access to the
+    * built-in DataReader entities for the built-in topics
+    */
+   template <typename READER, typename T, typename BinIterator>
+   uint32_t
+   find(const dds::sub::Subscriber& sub,
+         const dds::topic::TopicDescription<T>& topic_description,
+         BinIterator begin) {
 
-	OMG_DDS_STATIC_ASSERT((dds::core::is_same<T, typename READER::DataType>::value));
-	return ::dds::sub::detail::find<READER, T, BinIterator>(sub,
-                                                            topic_description,
-                                                            begin);
-}
+      OMG_DDS_STATIC_ASSERT((dds::core::is_same<T, typename READER::DataType>::value));
+      return ::dds::sub::detail::find<READER, T, BinIterator>(sub,
+            topic_description,
+            begin);
+   }
 
 
-template <typename READER, typename FwdIterator>
-uint32_t
-find(const dds::sub::Subscriber& sub,
-	const dds::sub::status::DataState& rs,
-	FwdIterator begin, uint32_t max_size)
-{
-	return dds::sub::detail::find<READER, FwdIterator>(sub,
-                                                       rs,
-                                                       begin,
-                                                       max_size);
-}
+   /**
+    * This function retrieves a previously-created DataReader
+    * belonging to the Subscriber that is in a specific state.
+    */
+   template <typename READER, typename FwdIterator>
+   uint32_t
+   find(const dds::sub::Subscriber& sub,
+         const dds::sub::status::DataState& rs,
+         FwdIterator begin, uint32_t max_size)
+   {
+      return dds::sub::detail::find<READER, FwdIterator>(sub,
+            rs,
+            begin,
+            max_size);
+   }
 
-template <typename READER, typename BinIterator>
-uint32_t
-find(const dds::sub::Subscriber& sub,
-	const dds::sub::status::DataState& rs,
-	BinIterator begin)
-{
-	return dds::sub::detail::find<READER, BinIterator>(sub, rs, begin);
-}
+   /**
+    * This function retrieves a previously-created DataReader
+    * belonging to the Subscriber that is in a specific state.
+    */
+   template <typename READER, typename BinIterator>
+   uint32_t
+   find(const dds::sub::Subscriber& sub,
+         const dds::sub::status::DataState& rs,
+         BinIterator begin)
+   {
+      return dds::sub::detail::find<READER, BinIterator>(sub, rs, begin);
+   }
 
 
 } }

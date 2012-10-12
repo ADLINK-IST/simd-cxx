@@ -49,7 +49,6 @@ template <typename T, template <typename Q> class DELEGATE>
 class dds::topic::Topic : public dds::topic::TopicDescription <T, DELEGATE> {
 public:
     typedef TopicListener<T>                    Listener;
-    typedef ::dds::core::cond::StatusCondition<T, DELEGATE<T> > StatusCondition;
 
 public:
     OMG_DDS_REF_TYPE_T(Topic, TopicDescription, T, DELEGATE)
@@ -108,21 +107,6 @@ public:
                                                       mask))
     { }
 
-
-public:
-    /**
-     * This operation allows access to the StatusCondition
-     * (Section 7.1.2.1.9, ÒStatusCondition Class) associated with the Entity.
-     * The returned condition can then be added to a WaitSet (Section 7.1.2.1.6,
-     * WaitSet Class) so that the application can wait for specific status changes
-     * that affect the Entity.
-     *
-     * @return the status condition
-     */
-    const StatusCondition& status_condition() const{
-        return this->delegate()->template status_condition<Topic>(*this);
-    }
-
 public:
     void listener(Listener* the_listener,
                   const ::dds::core::status::StatusMask& event_mask);
@@ -145,7 +129,7 @@ public:
      * and can also be monitored by means of the associated StatusCondition.
      * The complete list of communication status, their values, and the
      * DomainEntities they apply to is provided in Section 7.1.4.1,
-     * ÒCommunication Status,Ó on page 120.
+     * ï¿½Communication Status,ï¿½ on page 120.
      */
     const ::dds::core::status::InconsistentTopicStatus&
     inconsistent_topic_status() const {

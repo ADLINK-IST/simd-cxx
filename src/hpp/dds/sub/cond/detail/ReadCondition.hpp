@@ -3,35 +3,48 @@
 
 #include <dds/core/ref_traits.hpp>
 #include <org/opensplice/core/ConditionImpl.hpp>
-#include <dds/sub/status/DataStatus.hpp>
 #include <dds/sub/cond/detail/Executor.hpp>
+// #include <dds/sub/AnyDataReader.hpp>
 
-namespace dds { namespace sub { namespace cond { namespace detail {
+namespace dds {
+   namespace sub {
+      namespace cond {
+         namespace detail {
+
+            class ReadCondition: public org::opensplice::core::ConditionImpl {
+
+            public:
+               ReadCondition(const dds::sub::AnyDataReader& adr,
+                     const dds::sub::status::DataState& status) :
+                     adr_(adr), executor_(new TrivialExecutor()), status_(status) {
+               }
+
+               template<typename T, typename FUN>
+               ReadCondition(const dds::sub::DataReader<T>& dr,
+                     const dds::sub::status::DataState& status,
+                     const FUN& functor) :
+                     adr_(dr), executor_(
+                           new ParametrizedExecutor<FUN, dds::sub::DataReader<T> >(
+                                 functor, dr)), status_(status) {
+               }
+
+               virtual void dispatch() {
+                  executor_->exec();
+               }
 
 
-template <typename T>
-class ReadCondition : public org::opensplice::core::ConditionImpl {
+               const dds::sub::status::DataState state_filter() const {
+                  return status_;
+               }
 
-public:
-	ReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status)
-	: dr_(dr),
-	  executor_(new TrivialExecutor()),
-	  status_(status)
-	{ }
+               const AnyDataReader& data_reader() const {
+                  return adr_;
+               }
 
-	template <typename FUN>
-	ReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status, const FUN& functor)
-	: dr_(dr),
-	  executor_(new ParametrizedExecutor<FUN, dds::sub::DataReader<T> >(functor, dr)),
-	  status_(status)
-	  { }
-
-	virtual void dispatch() { executor_->exec(); }
-
-private:
-	dds::sub::DataReader<T> dr_;
-	dds::sub::cond::detail::Executor* executor_;
-	dds::sub::status::DataState status_;
+            private:
+               dds::sub::AnyDataReader adr_;
+               dds::sub::cond::detail::Executor* executor_;
+               dds::sub::status::DataState status_;
 
 //public:
 //    typedef typename dds::core::smart_ptr_traits< dds::sub::detail::DataReaderHolder<T> >::ref_type
@@ -54,8 +67,11 @@ private:
 //    DRHolder reader_;
 //
 
-};
+            };
 
-} } } }
+         }
+      }
+   }
+}
 
 #endif /* OMG_DDS_SUB_DETAIL_READ_CONDITION_HPP_ */

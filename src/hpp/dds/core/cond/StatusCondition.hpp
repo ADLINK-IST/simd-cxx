@@ -22,8 +22,7 @@
 #include <dds/core/cond/TStatusCondition.hpp>
 
 namespace dds { namespace core { namespace cond {
-	template <typename ENTITY, typename DELEGATE = dds::core::cond::detail::StatusCondition<ENTITY> >
-    class StatusCondition;
+	typedef TStatusCondition<detail::StatusCondition> StatusCondition;
 } } }
 
 #endif /* OMG_DDS_CORE_STATUSCONDITION_HPP_ */

@@ -21,34 +21,87 @@
 
 #include <dds/sub/cond/detail/ReadCondition.hpp>
 
-
-namespace dds { namespace sub { namespace cond { namespace detail {
-
 #ifdef OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
- 
-template <typename T>
-class QueryCondition : public ReadCondition<T> {
+
+namespace dds {
+   namespace sub {
+      namespace cond {
+         namespace detail {
+            class QueryCondition;
+         }
+      }
+   }
+}
+
+class dds::sub::cond::detail::QueryCondition: public ReadCondition {
 public:
-    QueryCondition(const dds::sub::DataReader<T>& dr,
-    			   const dds::sub::status::DataState& status,
-    			   const dds::core::Query& query)
-    : ReadCondition<T>(dr, status), query_(query) { }
+   typedef std::vector<std::string>::iterator iterator;
+   typedef std::vector<std::string>::const_iterator const_iterator;
+public:
+   QueryCondition(
+         const dds::sub::Query& query,
+         const dds::sub::status::DataState& data_state)
+         : ReadCondition(query.data_reader(), data_state),
+           query_(query)
+           { }
 
-    virtual ~QueryCondition() { }
+   virtual ~QueryCondition() { }
 
-    const dds::core::Query& query() {
-    	return query_;
+   void expression(const std::string& expr) {
+      query_.expression(expr);
+   }
+
+   const std::string& expression() {
+      return query_.expression();
+   }
+
+
+    /**
+     * Provides the begin iterator to the parameter list.
+     */
+    iterator begin() {
+       return query_.begin();
     }
 
-public:
-    // TODO
+    /**
+     * The end iterator to the parameter list.
+     */
+    iterator end() {
+       return query_.end();
+    }
+
+    const_iterator begin() const {
+       return query_.begin();
+    }
+
+    /**
+     * The end iterator to the parameter list.
+     */
+    const_iterator end() const {
+       return query_.end();
+    }
+
+    template<typename FWIterator>
+    void parameters(const FWIterator& begin, const FWIterator end) {
+       query_.parameters(begin, end);
+    }
+
+    void add_parameter(const std::string& param) {
+       query_.add_parameter(param);
+    }
+
+    uint32_t parameters_length() const {
+       return query_.parameters_length();
+    }
+
+    const AnyDataReader& data_reader() {
+       return query_.data_reader();
+    }
 
 private:
-    dds::core::Query query_;
+   dds::sub::Query query_;
 };
 
 #endif  // OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
-
-} } } }
 
 #endif /* OMG_DDS_SUB_DETAIL_QUERY_CONDITION_HPP_ */

@@ -9,12 +9,14 @@ namespace dds { namespace sub {
 	template <typename T, template <typename Q> class DELEGATE = dds::sub::detail::DataReader>
 	class DataReader;
 
+	class Query;
 } }
+
 
 // = Manipulators
 namespace dds { namespace sub { namespace functors {
 
-	typedef dds::sub::functors::detail::ContentFilterManipulatorFunctor ContentFilterManipulatorFunctor;
+   typedef dds::sub::functors::detail::ContentFilterManipulatorFunctor ContentFilterManipulatorFunctor;
 	typedef dds::sub::functors::detail::StateFilterManipulatorFunctor 	StateFilterManipulatorFunctor;
 	typedef dds::sub::functors::detail::InstanceManipulatorFunctor 		InstanceManipulatorFunctor;
 	typedef dds::sub::functors::detail::NextInstanceManipulatorFunctor 	NextInstanceManipulatorFunctor;
@@ -36,9 +38,10 @@ SELECTOR& take(SELECTOR& selector) {
 }
 
 inline dds::sub::functors::ContentFilterManipulatorFunctor
-filter_content(const dds::core::Query& query) {
+filter_content(const dds::sub::Query& query) {
    return dds::sub::functors::ContentFilterManipulatorFunctor(query);
 }
+
 
 inline dds::sub::functors::StateFilterManipulatorFunctor
 filter_state(const dds::sub::status::DataState& s) {

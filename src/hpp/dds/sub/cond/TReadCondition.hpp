@@ -1,5 +1,6 @@
-#ifndef OMG_DDS_SUB_TREAD_CONDITION_HPP_
-#define OMG_DDS_SUB_TREAD_CONDITION_HPP_
+#ifndef OMG_DDS_SUB_TCOND_READ_CONDITION_HPP_
+#define OMG_DDS_SUB_TCOND_READ_CONDITION_HPP_
+
 
 /* Copyright 2010, Object Management Group, Inc.
  * Copyright 2010, PrismTech, Corp.
@@ -21,11 +22,9 @@
 
 #include <dds/core/cond/TCondition.hpp>
 
-
-
 namespace dds { namespace sub { namespace cond {
-	template <typename T, template <typename Q> class DELEGATE>
-	class ReadCondition;
+   template <typename DELEGATE>
+	class TReadCondition;
 } } }
 
 /**
@@ -40,20 +39,21 @@ namespace dds { namespace sub { namespace cond {
  * conjunction with a WaitSet as normal conditions. More than one
  * ReadCondition may be attached to the same DataReader.
  */
-template <typename T, template <typename Q> class DELEGATE>
-class dds::sub::cond::ReadCondition : public dds::core::cond::TCondition< DELEGATE<T> > {
+template <typename DELEGATE>
+class dds::sub::cond::TReadCondition : public dds::core::cond::TCondition<DELEGATE> {
 public:
-	OMG_DDS_REF_TYPE(ReadCondition, dds::core::cond::TCondition, DELEGATE<T>)
+   OMG_DDS_REF_TYPE(TReadCondition, dds::core::cond::TCondition, DELEGATE)
 
 public:
-	ReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status)
-	: dds::core::cond::TCondition<DELEGATE<T> >(new DELEGATE<T>(dr, status)) { }
+	template <typename T>
+	TReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status)
+	: dds::core::cond::TCondition<DELEGATE>(new DELEGATE(dr, status)) { }
 
-	template <typename FUN>
-	ReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status, const FUN& functor)
-		: dds::core::cond::TCondition<DELEGATE<T> >(new DELEGATE<T>(dr, status, functor)) { }
+	template <typename T, typename FUN>
+	TReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status, const FUN& functor)
+		: dds::core::cond::TCondition<DELEGATE>(new DELEGATE(dr, status, functor)) { }
 
-    ~ReadCondition() { }
+    ~TReadCondition() { }
 
 public:
     /**
@@ -61,13 +61,17 @@ public:
      * account to determine the trigger_value of the ReadCondition. These are
      * the sample-states specified when the ReadCondition was created.
      */
-    const dds::sub::status::DataState status_filter() const {
-        return this->delegate()->status_filter();
+    const dds::sub::status::DataState state_filter() const {
+        return this->delegate()->state_filter();
+    }
+
+    const AnyDataReader& data_reader() const {
+       return this->delegate()->data_reader();
     }
 
 };
 
 
-#endif /* OMG_DDS_SUB_TREAD_CONDITION_HPP_ */
+#endif /* OMG_DDS_SUB_TCOND_READ_CONDITION_HPP_ */
 
 

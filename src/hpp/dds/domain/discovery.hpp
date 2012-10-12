@@ -57,8 +57,5 @@ template <typename FwdIterator>
 void ignore(const dds::domain::DomainParticipant& dp, FwdIterator begin, FwdIterator end);
 
 
-dds::sub::Subscriber builtin_subscriber(dds::domain::DomainParticipant& dp);
-
-
 } }
 #endif /* OMG_DDS_DOMAIN_DISCOVERY_HPP_ */

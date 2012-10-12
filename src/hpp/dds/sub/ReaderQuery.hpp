@@ -31,7 +31,7 @@ template <typename T>
 class ReaderQuery {
     // --- Type Aliases: --- //
 public:
-    typedef ::dds::sub::cond::ReadCondition<T> ReadCondition;
+    typedef ::dds::sub::cond::TReadCondition<T> ReadCondition;
 
     // --- Default Construction & Destruction: --- //
 public:

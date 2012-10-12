@@ -22,8 +22,7 @@
 #include <vector>
 
 #include <dds/core/types.hpp>
-#include <dds/core/Condition.hpp>
-
+#include <dds/core/cond/Condition.hpp>
 
 namespace dds { namespace core { namespace cond {
    /**
@@ -40,7 +39,7 @@ namespace dds { namespace core { namespace cond {
        typedef std::vector<dds::core::cond::Condition> ConditionSeq;
 
    public:
-       OMG_DDS_REF_TYPE(WaitSet, dds::core::Reference, DELEGATE)
+       OMG_DDS_REF_TYPE(TWaitSet, dds::core::Reference, DELEGATE)
 
    public:
        TWaitSet() { }
@@ -225,8 +224,9 @@ namespace dds { namespace core { namespace cond {
        *
        * @param cond the condition to be attached to this waitset.
        */
-      void attach_condition(const dds::core::cond::Condition& cond) {
+      WaitSet& attach_condition(const dds::core::cond::Condition& cond) {
           this->delegate()->attach_condition(cond);
+          return *this;
       }
 
       /**

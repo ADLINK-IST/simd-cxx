@@ -23,7 +23,7 @@
 #include <vector>
 
 #include <dds/sub/Subscriber.hpp>
-#include <dds/sub/status/DataStatus.hpp>
+#include <dds/sub/status/DataState.hpp>
 #include <dds/topic/TopicDescription.hpp>
 
 

@@ -28,18 +28,6 @@ public:
 
 	virtual ~SubscriberDelegate();
 
-public:
-
-	/**
-	 * Returns a <code>StatusCondition</code> instance associated with
-	 * this <code>Entity</code>.
-	 */
-	template <typename SELF, typename DELEGATE>
-	::dds::core::cond::StatusCondition<SELF, DELEGATE>
-	status_condition(const SELF& self) const {
-		return ::dds::core::cond::StatusCondition<SELF, DELEGATE>(
-				new dds::core::cond::detail::StatusCondition<SELF>(self));
-	}
 
 public:
 	/**
@@ -51,7 +39,7 @@ public:
 	 */
 	void notify_datareaders();
 
-	const dds::domain::DomainParticipant& parent() const;
+	const dds::domain::DomainParticipant& participant() const;
 
 	const dds::sub::qos::SubscriberQos qos() const;
 

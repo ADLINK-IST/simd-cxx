@@ -48,16 +48,6 @@ public:
                   dds::pub::PublisherListener* the_listener,
                   const dds::core::status::StatusMask& event_mask);
 
-    /**
-     * Returns a <code>StatusCondition</code> instance associated with
-     * this <code>Entity</code>.
-     */
-    template <typename SELF, typename DELEGATE>
-    ::dds::core::cond::StatusCondition<SELF, DELEGATE>
-    status_condition(const SELF& self) const {
-        return ::dds::core::cond::StatusCondition<SELF, DELEGATE>(
-                new dds::core::cond::detail::StatusCondition<SELF>(self));
-    }
 
     /*
     template <typename T>
@@ -70,7 +60,8 @@ public:
     bool
     wait_for_acknowledgments(const dds::core::Duration& max_wait);
 
-//    const dds::domain::detail::DomainParticipantHolder* parent() const;
+    const dds::domain::DomainParticipant& participant() const;
+
 
     bool suspend_publications();
 

@@ -20,17 +20,17 @@
  */
 
 #include <dds/core/status/State.hpp>
+#include <dds/core/Entity.hpp>
 #include <org/opensplice/core/ConditionImpl.hpp>
 
 
 namespace dds { namespace core { namespace cond {namespace detail {
 
-	template <typename ENTITY>
 	class StatusCondition : public org::opensplice::core::ConditionImpl {
     public:
 
 
-    	StatusCondition(const ENTITY& entity) : entity_(entity) { }
+    	StatusCondition(const dds::core::Entity& entity) : entity_(entity) { }
 
         void enabled_statuses(const dds::core::status::StatusMask& status) {
             mask_ = status;
@@ -40,11 +40,11 @@ namespace dds { namespace core { namespace cond {namespace detail {
             return mask_;
         }
 
-        ENTITY entity() const {
+        dds::core::Entity entity() const {
 			return entity_;
 		}
     private:
-		ENTITY entity_;
+        dds::core::Entity entity_;
         dds::core::status::StatusMask mask_;
     };
 

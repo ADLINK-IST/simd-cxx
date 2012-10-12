@@ -25,36 +25,49 @@
 
 namespace dds { namespace core {
 
-    template <typename DELEGATE>
-    class TInstanceHandle : public dds::core::Value<DELEGATE> {
-    public:
+   template <typename DELEGATE>
+   class TInstanceHandle : public dds::core::Value<DELEGATE> {
+   public:
       TInstanceHandle() { }
-      
+
       template <typename ARG0>
       TInstanceHandle(const ARG0& arg0) 
-	: dds::core::Value<DELEGATE>(arg0) { }
-      
+      : dds::core::Value<DELEGATE>(arg0) { }
+
       TInstanceHandle(const dds::core::null_type& nullHandle)
-	: dds::core::Value<DELEGATE>(nullHandle) { }
+      : dds::core::Value<DELEGATE>(nullHandle) { }
 
       TInstanceHandle(const TInstanceHandle& other)
       : dds::core::Value<DELEGATE>(other.delegate())
-      { }
+        { }
 
       ~TInstanceHandle() { }
 
-    public:
-      static const TInstanceHandle nil() {
-	static TInstanceHandle nil_handle;
-        return nil_handle;
+   public:
+      TInstanceHandle& operator=(const TInstanceHandle& that) {
+         if (this != &that) {
+            this->delegate() = that.delegate();
+         }
+         return *this;
       }
-      
+
+      bool operator==(const TInstanceHandle& that) {
+         return this->delegate() == that.delegate();
+      }
+
+
+   public:
+      static const TInstanceHandle nil() {
+         static TInstanceHandle nil_handle;
+         return nil_handle;
+      }
+
 
       bool is_nil() const {
-    	return this->delegate().is_nil();
+         return this->delegate().is_nil();
       }
-    };
+   };
 
-  } }
+} }
 
 #endif // !defined(OMG_TDDS_CORE_INSTANCE_HANDLE_HPP_)

@@ -1,25 +1,25 @@
-#ifndef DDS_CORE_DETAIL_QUERY_HPP_
-#define DDS_CORE_DETAIL_QUERY_HPP_
+#ifndef DDS_TOPIC_DETAIL_QUERY_HPP_
+#define DDS_TOPIC_DETAIL_QUERY_HPP_
 
 #include <vector>
 #include <iterator>
 
-namespace dds { namespace core { namespace detail {
-	class Query;
+namespace dds { namespace topic { namespace detail {
+	class Filter;
 } } }
 
-class dds::core::detail::Query {
+class dds::topic::detail::Filter {
 public:
 	typedef std::vector<std::string>::iterator iterator;
 	typedef std::vector<std::string>::const_iterator const_iterator;
 
 public:
-	Query(const std::string& query_expression)
+	Filter(const std::string& query_expression)
 	: expression_(query_expression) { }
 
 
 	template <typename FWIterator>
-	Query(const std::string& query_expression,
+	Filter(const std::string& query_expression,
 		  const FWIterator& params_begin, const FWIterator& params_end)
 	: expression_(query_expression)
 	  {
@@ -66,4 +66,4 @@ private:
 };
 
 
-#endif /* DDS_CORE_DETAIL_QUERY_HPP_ */
+#endif /* DDS_TOPIC_DETAIL_QUERY_HPP_ */

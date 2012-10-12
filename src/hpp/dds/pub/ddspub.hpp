@@ -1,5 +1,5 @@
-#ifndef OMG_DDS_PUB_DETAIL_SAMPLE_HPP_
-#define OMG_DDS_PUB_DETAIL_SAMPLE_HPP_
+#ifndef OMG_DDS_PUB_PACKAGE_INCLUDE_HPP_
+#define OMG_DDS_PUB_PACKAGE_INCLUDE_HPP_
 
 /* Copyright 2010, Object Management Group, Inc.
  * Copyright 2010, PrismTech, Corp.
@@ -19,29 +19,7 @@
  * limitations under the License.
  */
 
-#include <dds/core/Exception.hpp>
-#include <dds/core/Time.hpp>
-#include <dds/sub/status/DataStatus.hpp>
 
+#include <dds/pub/AnyDataWriter.hpp>
 
-namespace dds { namespace sub { namespace detail {
-
-template <typename T>
-class Sample {
-public:
-    const T& data() const {
-        throw dds::core::InvalidDataError("sample has no valid data");
-    }
-
-    const SampleInfo& info() const {
-        return info_;
-    }
-    
-private:
-    SampleInfo info_;
-};
-
-} } }
-
-
-#endif /* OMG_DDS_PUB_DETAIL_SAMPLE_HPP_ */
+#endif /* OMG_DDS_PUB_PACKAGE_INCLUDE_HPP_ */

@@ -64,13 +64,13 @@ bool
 PublisherDelegate::wait_for_acknowledgments(const dds::core::Duration& max_wait) {
     return true;
 }
-    /*
 
-const dds::domain::detail::DomainParticipantHolder*
-PublisherImpl::parent() const {
-    return dp_.get();
+
+const dds::domain::DomainParticipant&
+PublisherDelegate::participant() const {
+   return dp_;
 }
-*/
+
 bool
 PublisherDelegate::suspend_publications() {
     return true;

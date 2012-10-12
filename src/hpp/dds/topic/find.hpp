@@ -21,8 +21,6 @@
 
 #include <string>
 
-#include <dds/domain/domainfwd.hpp>
-
 
 namespace dds { namespace topic {
 

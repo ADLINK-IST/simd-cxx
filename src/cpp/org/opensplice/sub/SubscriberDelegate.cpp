@@ -32,7 +32,7 @@ namespace org {
          }
 
          const dds::domain::DomainParticipant&
-         SubscriberDelegate::parent() const {
+         SubscriberDelegate::participant() const {
             return dp_;
          }
 

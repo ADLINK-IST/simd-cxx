@@ -8,7 +8,7 @@ class ShapesListener : public dds::sub::NoOpDataReaderListener<ShapeType> {
 public:
   virtual void 
   on_data_available(DataReader<ShapeType>& dr) 
-  { 
+  {
     std::cout << "----------on_data_available-----------" << std::endl;      
     LoanedSamples<ShapeType> samples = 
       dr.selector()

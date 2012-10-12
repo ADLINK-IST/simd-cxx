@@ -50,18 +50,6 @@ public:
 
     void qos(const dds::domain::qos::DomainParticipantQos& qos);
 
-    /**
-     * Returns a <code>StatusCondition</code> instance associated with
-     * this <code>Entity</code>.
-     */
-    /*
-    template <typename SELF>
-    ::dds::core::cond::StatusCondition<SELF>
-    status_condition(const SELF& self) const {
-        return ::dds::core::cond::StatusCondition<SELF>(
-                new dds::core::cond::detail::StatusCondition<SELF>(self));
-    }
-*/
     uint32_t domain_id();
 
     void assert_liveliness();

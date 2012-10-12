@@ -90,7 +90,7 @@ public:
      * the data samples it must call end_access.  It is not required for
      * the application to call begin_access/end_access if the
      * PRESENTATION QosPolicy has the access_scope set to something
-     * other than ‚GROUP. Calling begin_access/end_access in this case
+     * other than GROUP. Calling begin_access/end_access in this case
      * is not considered an error and has no effect.  The calls to
      * begin_access/end_access may be nested. In that case, the
      * application must call end_access as many times as it called
