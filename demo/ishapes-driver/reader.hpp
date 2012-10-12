@@ -50,7 +50,11 @@ public:
       Filter filter("x > 200 AND y > 100");
       ContentFilteredTopic<ShapeType> cft(topic, "CFCircle", filter);
 
+      dds::core::qos::QosProvider qos_provider("http://www.opensplice.org/demo/config/qos.xml",
+                                    "ishapes-profile");
+
       DataReader<ShapeType> cfdr(sub, cft);
+      DataReader<ShapeType> dr2(sub, topic, qos_provider.datareader_qos());
 
       // Query
       Query q(dr, "x < 100 AND y < 100");

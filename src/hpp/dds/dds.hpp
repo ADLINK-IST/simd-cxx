@@ -9,6 +9,7 @@
 #include <dds/sub/ddssub.hpp>
 #include <dds/pub/ddspub.hpp>
 
+#include <dds/core/qos/QosProvider.hpp>
 #include <org/opensplice/topic/TopicTraits.hpp>
 
 
