@@ -285,7 +285,7 @@ public:
     this->delegate()->event_handler(h, mask);
   }
 
-#if 0
+
 #ifdef OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
   DataReader(const dds::sub::Subscriber& sub,
 	     const dds::topic::ContentFilteredTopic<T>& topic)
@@ -301,8 +301,8 @@ public:
     : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic, qos, new EventHandler<DataReader>(*this, listener), mask))
   { }
 #endif /* OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT */
-#endif // if 0
-#ifdef OMG_DDS_MULTI_TOPIC_SUPPORT
+
+  #ifdef OMG_DDS_MULTI_TOPIC_SUPPORT
   DataReader(const dds::sub::Subscriber& sub,
 	     const dds::topic::MultiTopic<T>& topic)
     : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(sub, topic))

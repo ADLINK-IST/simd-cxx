@@ -24,7 +24,6 @@
 #include <dds/core/detail/conformance.hpp>
 #include <dds/core/types.hpp>
 #include <dds/topic/TopicDescription.hpp>
-#include <dds/core/Query.hpp>
 
 namespace dds { namespace topic {
 
@@ -36,23 +35,26 @@ public:
     OMG_DDS_REF_TYPE_T(MultiTopic, TopicDescription, T, DELEGATE)
 
 public:
+    template <typename FWDIterator>
     MultiTopic(const dds::domain::DomainParticipant& dp,
     		   const std::string& name,
-    		   const dds::core::Query& query)
-    : dds::topic::TopicDescription<T, DELEGATE>(new DELEGATE<T>(dp, name, query)) { }
+    		   const std::string expression,
+    		   const FWDIterator& params_begin,
+    		   const FWDIterator& params_end)
+    : dds::topic::TopicDescription<T, DELEGATE>(
+          new DELEGATE<T>(dp, name, expression, params_begin, params_end)) { }
 
     virtual ~MultiTopic() { }
 
 public:
 	public:
 
-	const dds::core::Query& query() {
-		return this->delegate()->query();
-	}
+	const std::string expression() const;
 
-	void expression_parameters(const dds::core::StringSeq& params) {
-		this->delegate()->parameters(params);
-	}
+	void expression_parameters(const FWDIterator& params_begin,
+                              const FWDIterator& params_end);
+
+	dds::core::StringSeq void expression_parameters() const;
 
 };
 

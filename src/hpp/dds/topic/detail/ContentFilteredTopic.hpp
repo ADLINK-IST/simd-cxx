@@ -32,43 +32,44 @@ namespace dds { namespace topic { namespace detail {
 
 #ifdef OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
 
-template <typename T>
-class ContentFilteredTopic  : public dds::topic::detail::TopicDescription<T>
-{
-public:
-    ContentFilteredTopic(const std::string& name,
-                         const dds::topic::Topic<T>& topic,
-                         const dds::topic::Filter& filter)
-    : dds::topic::detail::TopicDescription<T>(topic.domain_participant(), topic.name(), topic.type_name()),
-      topic_(topic),
-      filter_(filter)
-      { }
+   template <typename T>
+   class ContentFilteredTopic  : public dds::topic::detail::TopicDescription<T>
+   {
+   public:
+      ContentFilteredTopic(
+            const dds::topic::Topic<T>& topic,
+            const std::string& name,
+            const dds::topic::Filter& filter)
+      : dds::topic::detail::TopicDescription<T>(topic.domain_participant(), topic.name(), topic.type_name()),
+        topic_(topic),
+        filter_(filter)
+        { }
 
-	virtual ~ContentFilteredTopic() { }
+      virtual ~ContentFilteredTopic() { }
 
-public:
-	const dds::topic::Filter& filter() {
-		return filter_;
-	}
+   public:
+      const dds::topic::Filter& filter() const {
+         return filter_;
+      }
 
-	/**
-	 * Updates the filter parameters for this content filtered topic.
-	 */
-	template <typename FWIterator>
-    void filter_parameters(const FWIterator& begin, const FWIterator& end) {
-		filter_.parameters(begin, end);
-	}
+      /**
+       * Updates the filter parameters for this content filtered topic.
+       */
+      template <typename FWIterator>
+      void filter_parameters(const FWIterator& begin, const FWIterator& end) {
+         filter_.parameters(begin, end);
+      }
 
 
 
-	dds::topic::Topic<T> topic() const {
-		return topic_;
-	}
+      const dds::topic::Topic<T>& topic() const {
+         return topic_;
+      }
 
-private:
-	dds::topic::Topic<T> topic_;
-	dds::topic::Filter filter_;
-};
+   private:
+      dds::topic::Topic<T> topic_;
+      dds::topic::Filter filter_;
+   };
 
 #endif  // OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
 

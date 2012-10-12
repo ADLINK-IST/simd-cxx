@@ -33,7 +33,7 @@ public:
             << dds::core::policy::History::KeepLast(params.history_depth);
 
 
-      dds::sub::DataReader<T> dr(dp, topic, drqos);
+      dds::sub::DataReader<T> dr(sub, topic, drqos);
       const uint32_t period = params.period;
       const uint32_t samples = params.samples;
       const uint32_t max_samples = 16;
@@ -46,6 +46,11 @@ public:
 
       AnyTopic at = topic;
       Topic<ShapeType> xt = at.get<ShapeType>();
+
+      Filter filter("x > 200 AND y > 100");
+      ContentFilteredTopic<ShapeType> cft(topic, "CFCircle", filter);
+
+      DataReader<ShapeType> cfdr(sub, cft);
 
       // Query
       Query q(dr, "x < 100 AND y < 100");
