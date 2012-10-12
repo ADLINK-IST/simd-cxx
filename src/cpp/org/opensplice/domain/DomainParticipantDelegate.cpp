@@ -22,7 +22,6 @@
 #include <org/opensplice/core/memory.hpp>
 
 
-
 org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate(uint32_t id)
 {
 	DDS::DomainParticipantFactory_var dpf =
@@ -30,13 +29,18 @@ org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate(ui
 
 	if(dpf.in() == 0)
 		throw dds::core::PreconditionNotMetError("Unable to resolve the DomainParticipant Factory!");
-
-	DDS::DomainParticipant* dp =
-			dpf->create_participant(0,
-					PARTICIPANT_QOS_DEFAULT,
-					0,
-					DDS::ANY_STATUS);
-
+	DDS::DomainParticipant* dp = 0;
+#if (SIMD_OSPL_MAJ_VER < 6)
+	dp = dpf->create_participant("",
+	                  PARTICIPANT_QOS_DEFAULT,
+	                  0,
+	                  DDS::ANY_STATUS);
+#else
+	dp = dpf->create_participant(0,
+	               PARTICIPANT_QOS_DEFAULT,
+	               0,
+	               DDS::ANY_STATUS);
+#endif
 	if(dp == 0)
 		throw dds::core::PreconditionNotMetError("Failed to create DomainParticipant");
 
