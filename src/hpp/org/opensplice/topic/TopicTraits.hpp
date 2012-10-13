@@ -1,6 +1,7 @@
 #ifndef ORG_OPENSPLICE_TOPIC_TOPICTRAITS_HPP_
 #define ORG_OPENSPLICE_TOPIC_TOPICTRAITS_HPP_
 
+
 namespace org { namespace opensplice { namespace topic {
 
       template <typename Topic>

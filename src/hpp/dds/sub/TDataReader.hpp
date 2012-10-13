@@ -162,41 +162,35 @@ public:
     }
 
     // --- Forward Iterators: --- //
-    template <typename SamplesFWIterator, typename InfoFWIterator>
+    template <typename SamplesFWIterator>
     uint32_t
-    read(SamplesFWIterator sfit,
-	 InfoFWIterator ifit,
-	 uint32_t max_samples)
+    read(SamplesFWIterator sfit, uint32_t max_samples)
     {
-      return impl_.read(sfit, ifit, max_samples);
+      return impl_.read(sfit, max_samples);
     }
 
-    template <typename SamplesFWIterator, typename InfoFWIterator>
+    template <typename SamplesFWIterator>
     uint32_t
-    take(SamplesFWIterator sfit,
-	 InfoFWIterator ifit,
-	 uint32_t max_samples)
+    take(SamplesFWIterator sfit,	uint32_t max_samples)
     {
-      return impl_.take(sfit, ifit, max_samples);
+      return impl_.take(sfit, max_samples);
     }
 
 
     // --- Back-Inserting Iterators: --- //
-    template <typename SamplesBIIterator, typename InfoBIIterator>
+    template <typename SamplesBIIterator>
     uint32_t
-    read(SamplesBIIterator sbit,
-	 InfoBIIterator ibit)
+    read(SamplesBIIterator sbit)
     {
-      return impl_.read(sbit, ibit);
+      return impl_.read(sbit);
     }
 
 
-    template <typename SamplesBIIterator, typename InfoBIIterator>
+    template <typename SamplesBIIterator>
     uint32_t
-    take(SamplesBIIterator sbit,
-	 InfoBIIterator ibit)
+    take(SamplesBIIterator sbit)
     {
-      return impl_.take(sbit, ibit);
+      return impl_.take(sbit);
     }
 
   private:
@@ -378,41 +372,37 @@ public:
   //== Copy Read/Take API ==================================================
 
   // --- Forward Iterators: --- //
-  template <typename SamplesFWIterator, typename InfoFWIterator>
+  template <typename SamplesFWIterator>
   uint32_t
   read(SamplesFWIterator sfit,
-       InfoFWIterator ifit,
        uint32_t max_samples)
   {
-    return this->delegate()->read(sfit, ifit, max_samples);
+    return this->delegate()->read(sfit, max_samples);
   }
 
-  template <typename SamplesFWIterator, typename InfoFWIterator>
+  template <typename SamplesFWIterator>
   uint32_t
   take(SamplesFWIterator sfit,
-       InfoFWIterator ifit,
        uint32_t max_samples)
   {
-    return this->delegate()->take(sfit, ifit, max_samples);
+    return this->delegate()->take(sfit, max_samples);
   }
 
 
   // --- Back-Inserting Iterators: --- //
-  template <typename SamplesBIIterator, typename InfoBIIterator>
+  template <typename SamplesBIIterator>
   uint32_t
-  read(SamplesBIIterator sbit,
-       InfoBIIterator ibit)
+  read(SamplesBIIterator sbit)
   {
-    return this->delegate()->read(sbit, ibit);
+    return this->delegate()->read(sbit);
   }
 
 
-  template <typename SamplesBIIterator, typename InfoBIIterator>
+  template <typename SamplesBIIterator>
   uint32_t
-  take(SamplesBIIterator sbit,
-       InfoBIIterator ibit)
+  take(SamplesBIIterator sbit)
   {
-    return this->delegate()->take(sbit, ibit);
+    return this->delegate()->take(sbit);
   }
 public:
   //========================================================================

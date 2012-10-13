@@ -1,5 +1,5 @@
-#ifndef OMG_DDS_CORE_QOS_QOS_TPROVIDER_HPP_
-#define OMG_DDS_CORE_QOS_QOS_TPROVIDER_HPP_
+#ifndef OMG_DDS_CORE_QOS_TPROVIDER_HPP_
+#define OMG_DDS_CORE_QOS_TPROVIDER_HPP_
 
 
 /* Copyright 2010, Object Management Group, Inc.
@@ -34,15 +34,13 @@
 
 namespace dds {
    namespace core {
-      namespace qos {
-         template <typename DELEGATE>
-         class TQosProvider;
-      }
+      template <typename DELEGATE>
+      class TQosProvider;
    }
 }
 
 template <typename DELEGATE>
-class dds::core::qos::TQosProvider : public dds::core::Reference<DELEGATE> {
+class dds::core::TQosProvider : public dds::core::Reference<DELEGATE> {
 public:
    /**
     * Create a QosProvider fetching QoS configuration from the specified URI.
@@ -62,7 +60,7 @@ public:
    : Reference<DELEGATE>(new DELEGATE(uri, profile)) { }
 
    explicit TQosProvider(const std::string& uri)
-      : Reference<DELEGATE>(new DELEGATE(uri)) { }
+   : Reference<DELEGATE>(new DELEGATE(uri)) { }
 
    dds::domain::qos::DomainParticipantQos
    participant_qos() {
@@ -127,4 +125,4 @@ public:
    }
 };
 
-#endif /* OMG_DDS_CORE_QOS_QOS_TPROVIDER_HPP_ */
+#endif /* OMG_DDS_CORE_QOS_TPROVIDER_HPP_ */

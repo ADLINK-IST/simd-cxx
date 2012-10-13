@@ -19,7 +19,7 @@
  * limitations under the License.
  */
 
-#include <dds/core/qos/TEntityQos.hpp>
+#include <dds/core/TEntityQos.hpp>
 #include <org/opensplice/pub/qos/DataWriterQosImpl.hpp>
 
 namespace dds { namespace pub { namespace qos { namespace detail { 

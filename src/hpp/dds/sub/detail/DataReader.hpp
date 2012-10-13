@@ -6,6 +6,19 @@
 #include <org/opensplice/core/memory.hpp>
 #include <dds/sub/DataReaderEventHandler.hpp>
 
+
+namespace org {
+   namespace opensplice {
+      namespace topic {
+         template<> struct topic_data_seq<dds::sub::SampleInfo> {
+            typedef DDS::SampleInfoSeq type;
+            typedef DDS::SampleInfoSeq_uniq_ utype;
+         };
+      }
+   }
+}
+
+
 namespace dds {
    namespace sub {
       class Query;
@@ -22,7 +35,7 @@ namespace dds {
             class ContentFilterManipulatorFunctor {
             public:
                ContentFilterManipulatorFunctor(const dds::sub::Query& q) :
-                     query_(q) {
+                  query_(q) {
                }
 
                template<typename S>
@@ -37,7 +50,7 @@ namespace dds {
             public:
                StateFilterManipulatorFunctor(
                      const dds::sub::status::DataState& s) :
-                     state_(s) {
+                        state_(s) {
                }
 
                template<typename S>
@@ -51,7 +64,7 @@ namespace dds {
             class InstanceManipulatorFunctor {
             public:
                InstanceManipulatorFunctor(const dds::core::InstanceHandle& h) :
-                     handle_(h) {
+                  handle_(h) {
                }
 
                template<typename S>
@@ -66,7 +79,7 @@ namespace dds {
             public:
                NextInstanceManipulatorFunctor(
                      const dds::core::InstanceHandle& h) :
-                     handle_(h) {
+                        handle_(h) {
                }
 
                template<typename S>
@@ -92,7 +105,7 @@ namespace dds {
          public:
             DataReaderEventForwarder(
                   dds::sub::DataReaderEventHandler<T>* handler) :
-                  handler_(handler) {
+                     handler_(handler) {
             }
             virtual ~DataReaderEventForwarder() {
                delete handler_;
@@ -161,9 +174,9 @@ public:
    class Selector {
    public:
       Selector(DataReader<T>* dr) :
-            dr_(dr), status_(dr_->default_status_filter()), next_instance_(
-                  false), handle_(dds::core::null), has_query_(false), query_(
-                  "") {
+         dr_(dr), status_(dr_->default_status_filter()), next_instance_(
+               false), handle_(dds::core::null), has_query_(false), query_(
+                     "") {
       }
 
       Selector& instance(const dds::core::InstanceHandle& h) {
@@ -200,28 +213,26 @@ public:
 
       // --- Forward Iterators: --- //
 
-      template<typename SamplesFWIterator, typename InfoFWIterator>
-      uint32_t read(SamplesFWIterator sfit, InfoFWIterator ifit,
-            uint32_t max_samples) {
-         return dr_->read(sfit, ifit, max_samples, *this);
+      template<typename SamplesFWIterator>
+      uint32_t read(SamplesFWIterator sfit, uint32_t max_samples) {
+         return dr_->read(sfit, max_samples, *this);
       }
 
-      template<typename SamplesFWIterator, typename InfoFWIterator>
-      uint32_t take(SamplesFWIterator sfit, InfoFWIterator ifit,
-            uint32_t max_samples) {
-         return dr_->take(sfit, ifit, max_samples, *this);
+      template<typename SamplesFWIterator>
+      uint32_t take(SamplesFWIterator sfit, uint32_t max_samples) {
+         return dr_->take(sfit, max_samples, *this);
       }
 
       // --- Back-Inserting Iterators: --- //
 
-      template<typename SamplesBIIterator, typename InfoBIIterator>
-      uint32_t read(SamplesBIIterator sbit, InfoBIIterator ibit) {
-         return dr_->read(sbit, ibit, *this);
+      template<typename SamplesBIIterator>
+      uint32_t read(SamplesBIIterator sbit) {
+         return dr_->read(sbit, *this);
       }
 
-      template<typename SamplesBIIterator, typename InfoBIIterator>
-      uint32_t take(SamplesBIIterator sbit, InfoBIIterator ibit) {
-         return dr_->take(sbit, ibit, *this);
+      template<typename SamplesBIIterator>
+      uint32_t take(SamplesBIIterator sbit) {
+         return dr_->take(sbit, *this);
       }
 
    private:
@@ -241,7 +252,7 @@ public:
    public:
 
       ManipulatorSelector(DataReader<T>* dr) :
-            Selector(dr), read_mode_(true) {
+         Selector(dr), read_mode_(true) {
       }
 
       bool read_mode() {
@@ -261,17 +272,17 @@ public:
    private:
       bool read_mode_;
    };
-public:
+   public:
    typedef typename org::opensplice::topic::topic_data_reader<T>::type DR;
    typedef typename org::opensplice::topic::topic_data_seq<T>::type TSeq;
 
-public:
+   public:
    ////////////////////////////////////////////////////////////////////////////
    // -- CTORS
 
    DataReader(const dds::sub::Subscriber& sub,
          const ::dds::topic::Topic<T>& topic) :
-         sub_(sub), topic_(topic), event_forwarder_(0) {
+            sub_(sub), topic_(topic), event_forwarder_(0) {
       DDS::DataReaderQos drqos =
             *(DDS::DomainParticipantFactory::datareader_qos_default());
       DDS::DataReader* r = sub_->sub_->create_datareader(topic_->t_, drqos, 0,
@@ -289,8 +300,8 @@ public:
    DataReader(const dds::sub::Subscriber& sub,
          const ::dds::topic::Topic<T>& topic,
          const dds::sub::qos::DataReaderQos& qos) :
-         sub_(sub), topic_(topic), raw_reader_(0), qos_(qos), event_forwarder_(
-               0)
+            sub_(sub), topic_(topic), raw_reader_(0), qos_(qos), event_forwarder_(
+                  0)
    {
       DDS::DataReaderQos drqos =
             *(DDS::DomainParticipantFactory::datareader_qos_default());
@@ -345,7 +356,7 @@ public:
    }
 #endif /* OMG_DDS_MULTI_TOPIC_SUPPORT */
 
-public:
+   public:
    // -- Dtor
    ~DataReader() {
       if (event_forwarder_ != 0) {
@@ -353,7 +364,7 @@ public:
          delete event_forwarder_;
       }
    }
-public:
+   public:
    void event_handler(dds::sub::DataReaderEventHandler<T>* handler,
          const dds::core::status::StatusMask& mask) {
       if (event_forwarder_ == 0) event_forwarder_ =
@@ -362,7 +373,7 @@ public:
       raw_reader_->set_listener(event_forwarder_, mask.to_ulong());
    }
 
-public:
+   public:
 
    const dds::sub::status::DataState& default_status_filter() {
       return status_filter_;
@@ -374,52 +385,66 @@ public:
       return *this;
    }
 
-public:
+   public:
    // -- Read/Take API
    dds::sub::LoanedSamples<T> take() {
-      LoanedSamples<T> ls;
-      ls.delegate()->raw_reader(raw_reader_);
-      raw_reader_->take(ls.delegate()->data().sequence(),
-            ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+      dds::sub::LoanedSamples<T> ls;
+      typename org::opensplice::topic::topic_data_seq<T>::type data;
+      typename org::opensplice::topic::topic_data_seq<dds::sub::SampleInfo>::type info;
+      raw_reader_->take(data, info, DDS::LENGTH_UNLIMITED,
             DDS::NOT_READ_SAMPLE_STATE, DDS::ANY_VIEW_STATE,
             DDS::ALIVE_INSTANCE_STATE);
+
+      ls.delegate()->resize(data.length());
+      typename dds::sub::LoanedSamples<T>::iterator it = ls.delegate()->mbegin();
+      for (int i = 0; i < data.length(); ++i) {
+         it->data(data[i]);
+         it->info(*reinterpret_cast<dds::sub::SampleInfo*>(&info[0]));
+         ++it;
+      }
       return ls;
    }
 
    dds::sub::LoanedSamples<T> read() {
-      LoanedSamples<T> ls;
-      ls.delegate()->raw_reader(raw_reader_);
-      raw_reader_->read(ls.delegate()->data().sequence(),
-            ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+      dds::sub::LoanedSamples<T> ls;
+      typename org::opensplice::topic::topic_data_seq<T>::type data;
+      typename org::opensplice::topic::topic_data_seq<dds::sub::SampleInfo>::type info;
+      raw_reader_->take(data, info, DDS::LENGTH_UNLIMITED,
             DDS::NOT_READ_SAMPLE_STATE, DDS::ANY_VIEW_STATE,
             DDS::ALIVE_INSTANCE_STATE);
+
+      ls.delegate()->resize(data.length());
+      typename dds::sub::LoanedSamples<T>::iterator it = ls.delegate()->mbegin();
+      for (int i = 0; i < data.length(); ++i) {
+         it->data(data[i]);
+         it->info(*reinterpret_cast<dds::sub::SampleInfo*>(&info[0]));
+         ++it;
+      }
       return ls;
    }
 
    // --- Forward Iterators: --- //
 
-   template<typename SamplesFWIterator, typename InfoFWIterator>
-   uint32_t read(SamplesFWIterator data_begin, InfoFWIterator info_begin,
-         uint32_t max_samples) {
+   template<typename SamplesFWIterator>
+   uint32_t read(SamplesFWIterator samples,  uint32_t max_samples) {
       TSeq data;
       DDS::SampleInfoSeq info;
       raw_reader_->read(data, info, max_samples, DDS::NOT_READ_SAMPLE_STATE,
             DDS::ANY_VIEW_STATE, DDS::ALIVE_INSTANCE_STATE);
 
+
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
       return size;
    }
 
-   template<typename SamplesFWIterator, typename InfoFWIterator>
-   uint32_t take(SamplesFWIterator data_begin, InfoFWIterator info_begin,
-         uint32_t max_samples) {
+   template<typename SamplesFWIterator>
+   uint32_t take(SamplesFWIterator samples, uint32_t max_samples) {
       TSeq data;
       DDS::SampleInfoSeq info;
       raw_reader_->take(data, info, max_samples, DDS::NOT_READ_SAMPLE_STATE,
@@ -427,18 +452,17 @@ public:
 
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
       return size;
    }
 
    // --- Back-Inserting Iterators: --- //
-   template<typename SamplesBIIterator, typename InfoBIIterator>
-   uint32_t read(SamplesBIIterator data_begin, InfoBIIterator info_begin) {
+   template<typename SamplesBIIterator>
+   uint32_t read(SamplesBIIterator samples) {
       TSeq data;
       DDS::SampleInfoSeq info;
       raw_reader_->read(data, info, DDS::LENGTH_UNLIMITED,
@@ -447,17 +471,16 @@ public:
 
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
       return size;
    }
 
-   template<typename SamplesBIIterator, typename InfoBIIterator>
-   uint32_t take(SamplesBIIterator data_begin, InfoBIIterator info_begin) {
+   template<typename SamplesBIIterator>
+   uint32_t take(SamplesBIIterator samples) {
       TSeq data;
       DDS::SampleInfoSeq info;
       raw_reader_->take(data, info, DDS::LENGTH_UNLIMITED,
@@ -466,10 +489,9 @@ public:
 
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
       return size;
@@ -533,7 +555,7 @@ public:
 
    //========================================================================
    // -- QoS
-public:
+   public:
    const dds::sub::qos::DataReaderQos qos() const {
       return qos_;
    }
@@ -551,33 +573,37 @@ public:
       // also compliant with the spec since resources will be collected
       // once the DR reference count drops to zero.
    }
-private:
+   private:
    // ==============================================================
    // == Selector Read/Take API
 
    dds::sub::LoanedSamples<T> take(const Selector& cmd) {
       dds::sub::LoanedSamples<T> ls;
+      typename org::opensplice::topic::topic_data_seq<T>::type data;
+      typename org::opensplice::topic::topic_data_seq<dds::sub::SampleInfo>::type info;
+      raw_reader_->take(data, info, DDS::LENGTH_UNLIMITED,
+            DDS::NOT_READ_SAMPLE_STATE, DDS::ANY_VIEW_STATE,
+            DDS::ALIVE_INSTANCE_STATE);
+
       if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
-         ls.delegate()->raw_reader(raw_reader_);
-         raw_reader_->take(ls.delegate()->data().sequence(),
-               ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+         raw_reader_->take(data, info,
+               DDS::LENGTH_UNLIMITED,
                cmd.status_.sample_state().to_ulong(),
                cmd.status_.view_state().to_ulong(),
                cmd.status_.instance_state().to_ulong());
       }
       else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
-         ls.delegate()->raw_reader(raw_reader_);
          if (cmd.next_instance_ == false) {
-            raw_reader_->read_instance(ls.delegate()->data().sequence(),
-                  ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+            raw_reader_->take_instance(data, info,
+                  DDS::LENGTH_UNLIMITED,
                   cmd.handle_.delegate().handle(),
                   cmd.status_.sample_state().to_ulong(),
                   cmd.status_.view_state().to_ulong(),
                   cmd.status_.instance_state().to_ulong());
          }
          else {
-            raw_reader_->read_next_instance(ls.delegate()->data().sequence(),
-                  ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+            raw_reader_->take_next_instance(data, info,
+                  DDS::LENGTH_UNLIMITED,
                   cmd.handle_.delegate().handle(),
                   cmd.status_.sample_state().to_ulong(),
                   cmd.status_.view_state().to_ulong(),
@@ -587,52 +613,68 @@ private:
       else {
          OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
       }
-
+      ls.delegate()->resize(data.length());
+      typename dds::sub::LoanedSamples<T>::iterator it = ls.delegate()->mbegin();
+      for (int i = 0; i < data.length(); ++i) {
+         it->data(data[i]);
+         it->info(*reinterpret_cast<dds::sub::SampleInfo*>(&info[0]));
+         ++it;
+      }
       return ls;
    }
 
    dds::sub::LoanedSamples<T> read(const Selector& cmd) {
       dds::sub::LoanedSamples<T> ls;
+      typename org::opensplice::topic::topic_data_seq<T>::type data;
+      typename org::opensplice::topic::topic_data_seq<dds::sub::SampleInfo>::type info;
+      raw_reader_->read(data, info, DDS::LENGTH_UNLIMITED,
+            DDS::NOT_READ_SAMPLE_STATE, DDS::ANY_VIEW_STATE,
+            DDS::ALIVE_INSTANCE_STATE);
+
       if (cmd.has_query_ == false && cmd.handle_.is_nil()) {
-         ls.delegate()->raw_reader(raw_reader_);
-         raw_reader_->read(ls.delegate()->data().sequence(),
-               ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+         raw_reader_->read(data, info,
+               DDS::LENGTH_UNLIMITED,
                cmd.status_.sample_state().to_ulong(),
                cmd.status_.view_state().to_ulong(),
                cmd.status_.instance_state().to_ulong());
       }
       else if (cmd.has_query_ == false && cmd.handle_ != dds::core::null) {
-         ls.delegate()->raw_reader(raw_reader_);
          if (cmd.next_instance_ == false) {
-            raw_reader_->read_instance(ls.delegate()->data().sequence(),
-                  ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+            raw_reader_->read_instance(data, info,
+                  DDS::LENGTH_UNLIMITED,
                   cmd.handle_.delegate().handle(),
                   cmd.status_.sample_state().to_ulong(),
                   cmd.status_.view_state().to_ulong(),
                   cmd.status_.instance_state().to_ulong());
          }
          else {
-            raw_reader_->read_next_instance(ls.delegate()->data().sequence(),
-                  ls.delegate()->info().sequence(), DDS::LENGTH_UNLIMITED,
+            raw_reader_->read_next_instance(data, info,
+                  DDS::LENGTH_UNLIMITED,
                   cmd.handle_.delegate().handle(),
                   cmd.status_.sample_state().to_ulong(),
                   cmd.status_.view_state().to_ulong(),
                   cmd.status_.instance_state().to_ulong());
-
          }
       }
       else {
          OMG_DDS_LOG("WARNING", "Queries are not supported yet!");
       }
 
+      ls.delegate()->resize(data.length());
+      typename dds::sub::LoanedSamples<T>::iterator it = ls.delegate()->mbegin();
+      for (int i = 0; i < data.length(); ++i) {
+         it->data(data[i]);
+         it->info(*reinterpret_cast<dds::sub::SampleInfo*>(&info[0]));
+         ++it;
+      }
       return ls;
    }
 
    // --- Forward Iterators: --- //
 
-   template<typename SamplesFWIterator, typename InfoFWIterator>
-   uint32_t read(SamplesFWIterator data_begin, InfoFWIterator info_begin,
-         uint32_t max_samples, const Selector& cmd) {
+   template<typename SamplesFWIterator>
+   uint32_t read(SamplesFWIterator samples,
+                uint32_t max_samples, const Selector& cmd) {
       TSeq data;
       DDS::SampleInfoSeq info;
 
@@ -664,18 +706,17 @@ private:
       }
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
 
       return size;
    }
 
-   template<typename SamplesFWIterator, typename InfoFWIterator>
-   uint32_t take(SamplesFWIterator data_begin, InfoFWIterator info_begin,
+   template<typename SamplesFWIterator>
+   uint32_t take(SamplesFWIterator samples,
          uint32_t max_samples, const Selector& cmd) {
       TSeq data;
       DDS::SampleInfoSeq info;
@@ -708,10 +749,9 @@ private:
       }
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
 
@@ -720,8 +760,8 @@ private:
 
    // --- Back-Inserting Iterators: --- //
 
-   template<typename SamplesBIIterator, typename InfoBIIterator>
-   uint32_t read(SamplesBIIterator data_begin, InfoBIIterator info_begin,
+   template<typename SamplesBIIterator>
+   uint32_t read(SamplesBIIterator samples,
          const Selector& cmd) {
       TSeq data;
       DDS::SampleInfoSeq info;
@@ -755,18 +795,17 @@ private:
 
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
 
       return size;
    }
 
-   template<typename SamplesBIIterator, typename InfoBIIterator>
-   uint32_t take(SamplesBIIterator data_begin, InfoBIIterator info_begin,
+   template<typename SamplesBIIterator>
+   uint32_t take(SamplesBIIterator samples,
          const Selector& cmd) {
       TSeq data;
       DDS::SampleInfoSeq info;
@@ -799,17 +838,16 @@ private:
 
       uint32_t size = data.length();
       for (uint32_t i = 0; i < size; ++i) {
-         *data_begin = data[i];
-         *info_begin = *(reinterpret_cast<dds::sub::SampleInfo*>(&info[i]));
-         ++data_begin;
-         ++info_begin;
+         samples->data(data[i]);
+         samples->info(*(reinterpret_cast<dds::sub::SampleInfo*>(&info[i])));
+         ++samples;
       }
       if (size != 0) raw_reader_->return_loan(data, info);
 
       return size;
    }
 
-private:
+   private:
    dds::sub::Subscriber sub_;
    dds::topic::Topic<T> topic_;
    DDS_DR_REF reader_;

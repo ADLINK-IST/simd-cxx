@@ -6,8 +6,7 @@
 #include <dds/sub/TLoanedSamples.hpp>
 
 namespace dds { namespace sub {
-    template <typename T, 
-	      template <typename C> class LOANED_CONTAINER = org::opensplice::sub::LoanedSequence,
+    template <typename T,
 	      template <typename Q> class DELEGATE = org::opensplice::sub::LoanedSamplesImpl>
     class LoanedSamples;
   } 

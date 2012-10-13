@@ -1,5 +1,5 @@
-#ifndef OMG_DDS_CORE_QOS_QOS_PROVIDER_HPP_
-#define OMG_DDS_CORE_QOS_QOS_PROVIDER_HPP_
+#ifndef OMG_DDS_CORE_QOS_PROVIDER_HPP_
+#define OMG_DDS_CORE_QOS_PROVIDER_HPP_
 
 /* Copyright 2010, Object Management Group, Inc.
  * Copyright 2010, PrismTech, Inc.
@@ -19,16 +19,14 @@
  * limitations under the License.
  */
 
-#include <dds/core/qos/TQosProvider.hpp>
-#include <dds/core/qos/detail/QosProvider.hpp>
+#include <dds/core/TQosProvider.hpp>
+#include <dds/core/detail/QosProvider.hpp>
 
 
 namespace dds {
    namespace core {
-      namespace qos {
-         typedef TQosProvider<detail::QosProvider> QosProvider;
-      }
+      typedef TQosProvider<detail::QosProvider> QosProvider;
    }
 }
 
-#endif /* OMG_DDS_CORE_QOS_QOS_PROVIDER_HPP_ */
+#endif /* OMG_DDS_CORE_QOS_PROVIDER_HPP_ */

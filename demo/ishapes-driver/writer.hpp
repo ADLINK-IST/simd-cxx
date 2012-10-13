@@ -27,7 +27,8 @@ public:
          const dds::topic::Topic<T>& topic,
          const Params& params)
    {
-      dds::pub::DataWriter<T> dw(dp, topic);
+      dds::pub::Publisher pub(dp);
+      dds::pub::DataWriter<T> dw(pub, topic);
       const uint32_t period = params.period;
       const uint32_t samples = params.samples;
       uint32_t sleep_time = period * 1000;

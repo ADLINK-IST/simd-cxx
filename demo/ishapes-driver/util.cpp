@@ -22,6 +22,10 @@ operator << (std::ostream& os, const dds::sub::SampleInfo& si) {
   return os;
 }
 
+void demo::ishapes::printShapeSample(const dds::sub::Sample<org::opensplice::demo::ShapeType>& s) {
+   std::cout << s.data() << std::endl;
+}
+
 void demo::ishapes::printShape(const org::opensplice::demo::ShapeType& s) {
   std::cout << s << std::endl;
 }

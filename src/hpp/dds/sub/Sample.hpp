@@ -1,5 +1,5 @@
-#ifndef OMG_DDS_DOMAIN_QOS_DETAIL_DOMAINPARTICIPANTQOS_HPP_
-#define OMG_DDS_DOMAIN_QOS_DETAIL_DOMAINPARTICIPANTQOS_HPP_
+#ifndef OMG_DDS_SUB_SAMPLE_HPP_
+#define OMG_DDS_SUB_SAMPLE_HPP_
 
 /* Copyright 2010, Object Management Group, Inc.
  * Copyright 2010, PrismTech, Corp.
@@ -19,14 +19,12 @@
  * limitations under the License.
  */
 
+#include <dds/sub/TSample.hpp>
+#include <dds/sub/detail/Sample.hpp>
 
-#include <dds/core/TEntityQos.hpp>
-#include <org/opensplice/domain/qos/DomainParticipantQosImpl.hpp>
+namespace dds { namespace sub {
+	template <typename T, template <typename Q> class DELEGATE = dds::sub::detail::Sample >
+	class Sample;
+} }
 
-
-namespace dds {namespace domain { namespace qos { namespace detail {
-	typedef ::dds::core::qos::TEntityQos< org::opensplice::domain::qos::DomainParticipantQosImpl > 
-    DomainParticipantQos;
-} } } }
-
-#endif /* OMG_DDS_DOMAIN_QOS_DETAIL_DOMAINPARTICIPANTQOS_HPP_ */
+#endif /* OMG_DDS_SUB_SAMPLE_HPP_ */

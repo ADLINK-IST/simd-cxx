@@ -39,8 +39,8 @@ public:
       const uint32_t max_samples = 16;
       const uint32_t sleep_time = period * 1000;
 
-      std::vector<ShapeType> data(max_samples);
-      std::vector<dds::sub::SampleInfo> info(max_samples);
+      std::vector< Sample<ShapeType> > data(max_samples);
+
 
       dds::sub::qos::DataReaderQos qos = dr.qos();
 
@@ -50,7 +50,7 @@ public:
       Filter filter("x > 200 AND y > 100");
       ContentFilteredTopic<ShapeType> cft(topic, "CFCircle", filter);
 
-      dds::core::qos::QosProvider qos_provider("http://www.opensplice.org/demo/config/qos.xml",
+      dds::core::QosProvider qos_provider("http://www.opensplice.org/demo/config/qos.xml",
                                     "ishapes-profile");
 
       DataReader<ShapeType> cfdr(sub, cft);
@@ -87,10 +87,10 @@ public:
                dr.selector()
                   .filter_state(params.data_state)
                   .filter_content(q)
-                  .read(data.begin(), info.begin(), max_samples);
+                  .read(data.begin(), max_samples);
 
          std::cout << "==== Read " << rs << " sample(s) ==== \n";
-         std::for_each(data.begin(), data.begin() + rs, printShape);
+         std::for_each(data.begin(), data.begin() + rs, printShapeSample);
          std::cout << std::endl;
          usleep(sleep_time);
 
@@ -101,7 +101,7 @@ public:
                         .read();
 
          std::cout << "==== Read Loaned Sample(s) ==== \n";
-         std::for_each(loaned_samples.data().begin(), loaned_samples.data().end(), printShape);
+         std::for_each(loaned_samples.begin(), loaned_samples.end(), printShapeSample);
          std::cout << std::endl;
          usleep(sleep_time);
          std::cout << "============================ \n";

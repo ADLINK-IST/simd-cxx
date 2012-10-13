@@ -1,5 +1,5 @@
-#ifndef OMG_DDS_DOMAIN_QOS_DETAIL_DOMAINPARTICIPANTQOS_HPP_
-#define OMG_DDS_DOMAIN_QOS_DETAIL_DOMAINPARTICIPANTQOS_HPP_
+#ifndef OMG_DDS_PUB_DETAIL_SAMPLE_HPP_
+#define OMG_DDS_PUB_DETAIL_SAMPLE_HPP_
 
 /* Copyright 2010, Object Management Group, Inc.
  * Copyright 2010, PrismTech, Corp.
@@ -20,13 +20,40 @@
  */
 
 
-#include <dds/core/TEntityQos.hpp>
-#include <org/opensplice/domain/qos/DomainParticipantQosImpl.hpp>
+namespace dds { namespace sub { namespace detail {
+
+template <typename T>
+class Sample {
+public:
+   Sample() { }
+
+   Sample(const T& d, const SampleInfo& i)
+   : data_(d), info_(i) { }
+
+   Sample(const Sample& other) : data_(other.data()), info_(other.info_) { }
+
+public:
+    const T& data() const {
+        return data_;
+    }
+
+    void data(const T& d) {
+       data_ = d;
+    }
+
+    const SampleInfo& info() const {
+        return info_;
+    }
+    void info(const SampleInfo& i) {
+       info_ = i;
+    }
+    
+private:
+    T data_;
+    SampleInfo info_;
+};
+
+} } }
 
 
-namespace dds {namespace domain { namespace qos { namespace detail {
-	typedef ::dds::core::qos::TEntityQos< org::opensplice::domain::qos::DomainParticipantQosImpl > 
-    DomainParticipantQos;
-} } } }
-
-#endif /* OMG_DDS_DOMAIN_QOS_DETAIL_DOMAINPARTICIPANTQOS_HPP_ */
+#endif /* OMG_DDS_PUB_DETAIL_SAMPLE_HPP_ */

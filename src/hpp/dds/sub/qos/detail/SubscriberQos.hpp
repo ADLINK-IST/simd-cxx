@@ -19,7 +19,7 @@
  * limitations under the License.
  */
 
-#include <dds/core/qos/TEntityQos.hpp>
+#include <dds/core/TEntityQos.hpp>
 #include <org/opensplice/sub/qos/SubscriberQosImpl.hpp>
 
 namespace dds { namespace sub { namespace qos { namespace detail {

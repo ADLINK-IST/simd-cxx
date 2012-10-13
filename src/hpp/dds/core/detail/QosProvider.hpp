@@ -1,5 +1,5 @@
-#ifndef OMG_DDS_CORE_QOS_DETAIL_QOS_PROVIDER_HPP_
-#define OMG_DDS_CORE_QOS_DETAIL_QOS_PROVIDER_HPP_
+#ifndef OMG_DDS_CORE_DETAIL_QOS_PROVIDER_HPP_
+#define OMG_DDS_CORE_DETAIL_QOS_PROVIDER_HPP_
 
 
 /* Copyright 2010, Object Management Group, Inc.
@@ -23,15 +23,13 @@
 
 namespace dds {
    namespace core {
-      namespace qos {
-         namespace detail {
-            class QosProvider;
-         }
+      namespace detail {
+         class QosProvider;
       }
    }
 }
 
-class dds::core::qos::detail::QosProvider {
+class dds::core::detail::QosProvider {
 public:
    explicit QosProvider(const std::string& uri) { }
 
@@ -100,4 +98,4 @@ public:
    }
 };
 
-#endif /* OMG_DDS_CORE_QOS_DETAIL_QOS_PROVIDER_HPP_ */
+#endif /* OMG_DDS_CORE_DETAIL_QOS_PROVIDER_HPP_ */

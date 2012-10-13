@@ -38,6 +38,7 @@ namespace demo {
       struct Params;
 
       void printShape(const org::opensplice::demo::ShapeType& s);
+      void printShapeSample(const dds::sub::Sample<org::opensplice::demo::ShapeType>& s);
 
       template<typename T>
       class Runner {
