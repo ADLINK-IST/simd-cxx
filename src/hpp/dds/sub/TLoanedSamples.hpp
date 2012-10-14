@@ -20,7 +20,7 @@ public:
   typedef T                     DataType;
   typedef typename DELEGATE<T>::LoanedDataContainer   LoanedDataContainer;
   typedef typename DELEGATE<T>::iterator              iterator;
-  typedef typename DELEGATE<T>::const_iterator         const_iterator;
+  typedef typename DELEGATE<T>::const_iterator        const_iterator;
 
   typedef typename dds::core::smart_ptr_traits< DELEGATE<T> >::ref_type DELEGATE_REF_T;
 

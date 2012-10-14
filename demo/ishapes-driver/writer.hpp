@@ -27,8 +27,16 @@ public:
          const dds::topic::Topic<T>& topic,
          const Params& params)
    {
-      dds::pub::Publisher pub(dp);
-      dds::pub::DataWriter<T> dw(pub, topic);
+      dds::pub::qos::PublisherQos pqos =
+            dp.default_publisher_qos() << Partition("ishapes");
+
+      dds::pub::Publisher pub(dp, pqos);
+
+      dds::pub::qos::DataWriterQos dwqos =
+            pub.default_writer_qos() << Durability::Transient() << Reliability::Reliable();
+
+      dds::pub::DataWriter<T> dw(pub, topic, dwqos);
+
       const uint32_t period = params.period;
       const uint32_t samples = params.samples;
       uint32_t sleep_time = period * 1000;
@@ -40,21 +48,27 @@ public:
       const uint32_t dx = 5;
       const uint32_t dy = 7;
 
+      // AnyDataWriter work just fine...
       AnyDataWriter adw = dw;
       DataWriter<ShapeType> xdw = adw.get<ShapeType>();
       std::cout << "Topic Name = " << xdw.topic().name()
-                << "\tType Name = " << xdw.topic().type_name() << std::endl;
+                      << "\tType Name = " << xdw.topic().type_name() << std::endl;
 
       // ShapeType s = {params.color, x0, y0, params.shape_size};
       ShapeType s = {params.color.c_str(), x0 , y0, params.shape_size};
 
       for (uint32_t i = 0; i < samples; ++i) {
-    	  dw.write(s);
-    	  s.x = (s.x + dx) % r;
-    	  s.y = (s.y + dy) % r;
-    	  std::cout << ".";
-    	  std::flush(std::cout);
-    	  usleep(sleep_time); // period is in ms
+         // Regular write
+         dw.write(s);
+
+         // Stream write
+         dw << s;
+
+         s.x = (s.x + dx) % r;
+         s.y = (s.y + dy) % r;
+         std::cout << ".";
+         std::flush(std::cout);
+         usleep(sleep_time); // period is in ms
       }
    }
 };

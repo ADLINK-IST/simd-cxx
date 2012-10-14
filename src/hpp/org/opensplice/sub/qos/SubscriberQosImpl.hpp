@@ -7,7 +7,12 @@
 namespace org { namespace opensplice { namespace sub { namespace qos {
 
 	class SubscriberQosImpl {
-	  // TODO
+	public:
+	   void policy(const dds::core::policy::Partition& partition) {
+	      partition_ = partition;
+	   }
+	private:
+	   dds::core::policy::Partition             partition_;
 	};
 	
       } 

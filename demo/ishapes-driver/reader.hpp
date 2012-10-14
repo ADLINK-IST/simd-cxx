@@ -27,13 +27,18 @@ public:
    virtual void run(const dds::domain::DomainParticipant& dp,
          const dds::topic::Topic<T>& topic, const Params& params)
    {
-      dds::sub::Subscriber sub(dp);
+      dds::sub::qos::SubscriberQos sqos =
+            dp.default_subscriber_qos() << Partition("ishapes");
+
+      Subscriber sub(dp, sqos);
+
       dds::sub::qos::DataReaderQos drqos =
             sub.default_datareader_qos()
-            << dds::core::policy::History::KeepLast(params.history_depth);
-
+            << History::KeepLast(params.history_depth)
+            << Durability::Transient();
 
       dds::sub::DataReader<T> dr(sub, topic, drqos);
+
       const uint32_t period = params.period;
       const uint32_t samples = params.samples;
       const uint32_t max_samples = 16;
@@ -42,16 +47,17 @@ public:
       std::vector< Sample<ShapeType> > data(max_samples);
 
 
-      dds::sub::qos::DataReaderQos qos = dr.qos();
-
+      // AnyTopic work fine
       AnyTopic at = topic;
-      Topic<ShapeType> xt = at.get<ShapeType>();
+      dds::topic::Topic<ShapeType> xt = at.get<ShapeType>();
 
       Filter filter("x > 200 AND y > 100");
       ContentFilteredTopic<ShapeType> cft(topic, "CFCircle", filter);
 
-      dds::core::QosProvider qos_provider("http://www.opensplice.org/demo/config/qos.xml",
-                                    "ishapes-profile");
+      // QosProvider...
+      QosProvider qos_provider(
+            "http://www.opensplice.org/demo/config/qos.xml",
+            "ishapes-profile");
 
       DataReader<ShapeType> cfdr(sub, cft);
       DataReader<ShapeType> dr2(sub, topic, qos_provider.datareader_qos());
@@ -62,14 +68,14 @@ public:
 
       // AnyDataReader
       AnyDataReader adr = q.data_reader();
-      dds::sub::DataReader<ShapeType> xdr = adr.get<ShapeType>();
+      DataReader<ShapeType> xdr = adr.get<ShapeType>();
 
       // Conditions
-      cond::ReadCondition rc(dr, params.data_state);
-      cond::QueryCondition qc(q, params.data_state);
+      dds::sub::cond::ReadCondition rc(dr, params.data_state);
+      dds::sub::cond::QueryCondition qc(q, params.data_state);
 
-      dds::core::Entity e = dr;
-      dds::core::cond::StatusCondition sc(dr);
+      Entity e = dr;
+      StatusCondition sc(dr);
       sc.enabled_statuses(StatusMask::data_available());
 
       Subscriber xsub = dr.subscriber();

@@ -13,6 +13,7 @@ REGISTER_TOPIC_TRAITS(org::opensplice::demo::ShapeType)
 
 using namespace org::opensplice::demo;
 
+using namespace dds::core;
 using namespace dds::core::policy;
 using namespace dds::core::cond;
 using namespace dds::core::status;

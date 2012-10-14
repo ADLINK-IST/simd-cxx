@@ -87,8 +87,9 @@ public:
    dds::sub::qos::DataReaderQos default_datareader_qos() const {
       return this->delegate()->default_datareader_qos();
    }
-   void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos) const {
+   TSubscriber& default_datareader_qos(const dds::sub::qos::DataReaderQos &qos) const {
       this->delegate()->default_datareader_qos(qos);
+      return *this;
    }
 
    /**

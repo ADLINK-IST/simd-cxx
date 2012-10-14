@@ -201,26 +201,30 @@ public:
         return this->delegate()->register_instance(key, ts);
     }
 
-    void unregister_instance(const ::dds::core::InstanceHandle& i) 
+    DataWriter& unregister_instance(const ::dds::core::InstanceHandle& i)
     {
         this->delegate()->unregister_instance(i);
+        return *this;
     }
 
-    void unregister_instance(const ::dds::core::InstanceHandle& i,
+    DataWriter& unregister_instance(const ::dds::core::InstanceHandle& i,
                              const dds::core::Time& ts) 
     {
         this->delegate()->unregister_instance(i,ts);
+        return *this;
     }
 
-    void dispose_instance(const ::dds::core::InstanceHandle& i) 
+    DataWriter& dispose_instance(const ::dds::core::InstanceHandle& i)
     {
         this->delegate()->dispose_instance(i);
+        return *this;
     }
 
-    void dispose_instance(const ::dds::core::InstanceHandle& i,
+    DataWriter& dispose_instance(const ::dds::core::InstanceHandle& i,
                           const dds::core::Time& ts) 
     {
         this->delegate()->dispose_instance(i,ts);
+        return *this;
     }
 
     /**

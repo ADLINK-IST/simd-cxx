@@ -210,7 +210,7 @@ public:
 
 public:
     // --- DomainParticipant QoS Defaults --- //
-    static const ::dds::domain::qos::DomainParticipantQos& default_participant_qos() {
+    static dds::domain::qos::DomainParticipantQos default_participant_qos() {
         return DELEGATE::default_participant_qos();
     }
     
@@ -219,29 +219,32 @@ public:
     }
     
     // --- Publisher QoS Defaults --- //
-    const ::dds::pub::qos::PublisherQos& default_publisher_qos() const {
+    dds::pub::qos::PublisherQos default_publisher_qos() const {
         return this->delegate()->default_publisher_qos();
     }
-    void default_publisher_qos(const ::dds::pub::qos::PublisherQos& qos) {
+    TDomainParticipant& default_publisher_qos(const ::dds::pub::qos::PublisherQos& qos) {
     	this->delegate()->default_publisher_qos(qos);
+    	return *this;
     }
 
     // --- Subscriber QoS Defaults --- //
-    const ::dds::sub::qos::SubscriberQos& default_subscriber_qos() const {
+    dds::sub::qos::SubscriberQos default_subscriber_qos() const {
         return this->delegate()->default_subscriber_qos();
     }
     
-    void default_subscriber_qos(const ::dds::sub::qos::SubscriberQos& qos) {
+    TDomainParticipant& default_subscriber_qos(const ::dds::sub::qos::SubscriberQos& qos) {
         this->delegate()->default_subscriber_qos(qos);
+        return *this;
     }
 
     // --- Topic QoS Defaults --- //
-    const dds::topic::qos::TopicQos& default_topic_qos() const {
+    dds::topic::qos::TopicQos default_topic_qos() const {
         return this->delegate()->default_topic_qos();
     }
     
-    void default_topic_qos(const dds::topic::qos::TopicQos& qos) {
+    TDomainParticipant& default_topic_qos(const dds::topic::qos::TopicQos& qos) {
         this->delegate()->default_topic_qos(qos);
+        return *this;
     }
 
 //=============================================================================

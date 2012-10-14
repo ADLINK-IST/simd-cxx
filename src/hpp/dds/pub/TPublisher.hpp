@@ -133,8 +133,9 @@ public:
     * if they are not, the operation will have no effect and raise an
     * InconsistentPolicyError.
     */
-   void default_writer_qos(const dds::pub::qos::DataWriterQos& dwqos) {
+   TPublisher& default_writer_qos(const dds::pub::qos::DataWriterQos& dwqos) {
       this->delegate()->default_writer_qos(dwqos);
+      return *this;
    }
 
    /**
@@ -142,7 +143,7 @@ public:
     * that is, the QoS policies which will be used for newly created DataWriter
     * that don't provide a QoS parameter in the constructor.
     */
-   const dds::pub::qos::DataWriterQos default_writer_qos() const {
+   dds::pub::qos::DataWriterQos default_writer_qos() const {
       return this->delegate()->default_writer_qos();
    }
 

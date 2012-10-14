@@ -51,7 +51,7 @@ public:
      * @param p the policy to be set for this QoS instance.
      */
     template <typename POLICY>
-    void policy(const POLICY& p) {
+    TEntityQos& policy(const POLICY& p) {
         this->dds::core::Value<DELEGATE>::delegate().policy(p);
     }
 

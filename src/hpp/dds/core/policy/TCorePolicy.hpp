@@ -974,7 +974,7 @@ namespace dds { namespace core { namespace policy {
       }
 
       TDurabilityService& max_instances(int32_t the_max_instances) {
-         this->delegate().the_max_instances(the_max_instances);
+         this->delegate().max_instances(the_max_instances);
          return *this;
       }
       int32_t max_instances() const {
@@ -982,7 +982,7 @@ namespace dds { namespace core { namespace policy {
       }
 
       TDurabilityService& max_samples_per_instance(int32_t the_max_samples_per_instance) {
-         this->delegate().the_max_instances(
+         this->delegate().max_samples_per_instance(
                the_max_samples_per_instance);
          return *this;
       }
