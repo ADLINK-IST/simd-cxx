@@ -32,38 +32,17 @@ foreach(idl ${idls})
 	set(OpenSplice_DATAMODEL ${OpenSplice_DATAMODEL} ${VARS_1} ${VARS_2} ${VARS_3} ${VARS_4} ${VARS_5} ${VARS_6} ${VARS_7} ${VARS_8} ${VARS_9})
 endforeach(idl)
 
-set (PUB_SOURCES
- ishapes-writer.cpp
- util.cpp
-)
-set (SUB_SOURCES
- ishapes-reader.cpp
- util.cpp
-)
-
-set (SSUB_SOURCES
- ishapes-sreader.cpp
- util.cpp
-)
-
-set (ASUB_SOURCES
- ishapes-areader.cpp
+set (SOURCES
+ main.cpp
  util.cpp
 )
 
 
-set (PUB_EXE ishapes-writer)
-set (SUB_EXE ishapes-reader)
-set (SSUB_EXE ishapes-sreader)
-set (ASUB_EXE ishapes-areader)
+set (EXE ishapes-driver)
 set (DATAMODEL datamodel)
 
-add_executable (${PUB_EXE} ${PUB_SOURCES})
-add_executable (${SUB_EXE} ${SUB_SOURCES})
-add_executable (${SSUB_EXE} ${SSUB_SOURCES})
-add_executable (${ASUB_EXE} ${ASUB_SOURCES})
+add_executable (${EXE} ${SOURCES})
 add_library (${DATAMODEL} STATIC ${OpenSplice_DATAMODEL})
-#add_library (${DATAMODEL} SHARED ${OpenSplice_DATAMODEL})
 
 add_definitions (
  ${OpenSplice_DEFINITIONS}
@@ -77,27 +56,8 @@ target_link_libraries (
   ${SimD_LIBRARIES}
 )
 
-target_link_libraries (${PUB_EXE}
+target_link_libraries (${EXE}
  ${OpenSplice_LIBRARIES}
  ${Boost_LIBRARIES}
  ${DATAMODEL} 
-)
-
-target_link_libraries (${SUB_EXE}
- ${OpenSplice_LIBRARIES}
- ${Boost_LIBRARIES}
- ${DATAMODEL}
-)
-
-
-target_link_libraries (${SSUB_EXE}
- ${OpenSplice_LIBRARIES}
- ${Boost_LIBRARIES}
- ${DATAMODEL}
-)
-
-target_link_libraries (${ASUB_EXE}
- ${OpenSplice_LIBRARIES}
- ${Boost_LIBRARIES}
- ${DATAMODEL}
 )

@@ -57,6 +57,8 @@ public:
       // ShapeType s = {params.color, x0, y0, params.shape_size};
       ShapeType s = {params.color.c_str(), x0 , y0, params.shape_size};
 
+      std::cout << ">> Writing Data...";
+               std::flush(std::cout);
       for (uint32_t i = 0; i < samples; ++i) {
          // Regular write
          dw.write(s);
@@ -66,8 +68,7 @@ public:
 
          s.x = (s.x + dx) % r;
          s.y = (s.y + dy) % r;
-         std::cout << ".";
-         std::flush(std::cout);
+
          usleep(sleep_time); // period is in ms
       }
    }

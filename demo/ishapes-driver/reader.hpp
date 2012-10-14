@@ -95,7 +95,7 @@ public:
                   .filter_content(q)
                   .read(data.begin(), max_samples);
 
-         std::cout << "==== Read " << rs << " sample(s) ==== \n";
+         std::cout << "==== Read  ==== \n";
          std::for_each(data.begin(), data.begin() + rs, printShapeSample);
          std::cout << std::endl;
          usleep(sleep_time);
@@ -106,11 +106,10 @@ public:
                         .filter_content(q)
                         .read();
 
-         std::cout << "==== Read Loaned Sample(s) ==== \n";
+         std::cout << "==== Loaned Samples Read ==== \n";
          std::for_each(loaned_samples.begin(), loaned_samples.end(), printShapeSample);
          std::cout << std::endl;
          usleep(sleep_time);
-         std::cout << "============================ \n";
       }
    }
 };
