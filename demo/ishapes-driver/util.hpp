@@ -95,4 +95,3 @@ namespace demo {
 
 
 #endif /* ORG_OPENSPLICE_DEMO_ISHAPES_DRIVER_UTIL_HPP_ */
-
