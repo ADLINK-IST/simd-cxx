@@ -23,11 +23,11 @@
 #include <dds/topic/TopicTraits.hpp>
 
 namespace dds { namespace topic {
-    template <typename T, 
+    template <typename T,
     template <typename Q> class DELEGATE>
     class TopicDescription;
 } }
-    
+
 
 /**
  * TopicDescription represents the fact that both publications and
@@ -62,17 +62,17 @@ public:
     const std::string& type_name() const {
         return this->delegate()->type_name();
     }
-    
+
     const dds::domain::DomainParticipant& domain_participant() const {
-    	return this->delegate()->domain_participant();
+        return this->delegate()->domain_participant();
     }
 
 protected:
-    
+
     TopicDescription(const dds::domain::DomainParticipant& dp,
-                     const std::string& name, 
+                     const std::string& name,
                      const std::string& type_name = dds::topic::topic_type_name<T>::value())
-    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(dp, name, type_name)) 
+    : ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(dp, name, type_name))
     { }
 };
 

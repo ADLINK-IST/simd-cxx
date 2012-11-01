@@ -29,7 +29,7 @@
 #ifdef OMG_DDS_CONTENT_SUBSCRIPTION_SUPPORT
 
 namespace dds { namespace sub { namespace cond {
-	class QueryCondition;
+    class QueryCondition;
 } } }
 
 /**

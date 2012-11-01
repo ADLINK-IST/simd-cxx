@@ -23,7 +23,7 @@
 #include <org/opensplice/pub/qos/PublisherQosImpl.hpp>
 
 namespace dds { namespace pub { namespace qos { namespace detail {
-	typedef dds::core::qos::TEntityQos<org::opensplice::pub::qos::PublisherQosImpl> PublisherQos;
+    typedef dds::core::qos::TEntityQos<org::opensplice::pub::qos::PublisherQosImpl> PublisherQos;
 } } } }
 
 #endif /* OMG_DDS_PUB_QOS_DETAIL_PUBLISER_QOS_HPP_ */

@@ -31,36 +31,36 @@ namespace dds { namespace core {
 template <typename T>
 class WeakReference {
 public:
-	typedef T ReferenceType;
+    typedef T ReferenceType;
 
 public:
-	/**
-	 * Creates a weak reference for the reference type passed as argument
-	 *
-	 */
-	WeakReference(const T& t) : impl_(t.delegate()) { }
+    /**
+     * Creates a weak reference for the reference type passed as argument
+     *
+     */
+    WeakReference(const T& t) : impl_(t.delegate()) { }
 
-	~WeakReference() { }
+    ~WeakReference() { }
 
-	/**
-	 * Checks whether the underlying reference has been collected.
-	 *
-	 * @returns true if the underlying reference has expired, false otherwise
-	 */
-	bool expired() {
-		return impl_.expired();
-	}
+    /**
+     * Checks whether the underlying reference has been collected.
+     *
+     * @returns true if the underlying reference has expired, false otherwise
+     */
+    bool expired() {
+        return impl_.expired();
+    }
 
-	/**
-	 * Gives access to the underlying reference. If the reference has expired the
-	 * returned object will be referencing to <code>null</code>
-	 */
-	T lock() {
-		return T(impl_.lock());
-	}
+    /**
+     * Gives access to the underlying reference. If the reference has expired the
+     * returned object will be referencing to <code>null</code>
+     */
+    T lock() {
+        return T(impl_.lock());
+    }
 
 private:
-	typename T::DELEGATE_WEAK_REF_T impl_;
+    typename T::DELEGATE_WEAK_REF_T impl_;
 };
 }}
 

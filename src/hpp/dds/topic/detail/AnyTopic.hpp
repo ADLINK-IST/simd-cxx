@@ -49,27 +49,27 @@ public:
 public:
 
     virtual const dds::domain::DomainParticipant& domain_participant() const {
-    	return topic_->domain_participant();
+        return topic_->domain_participant();
     }
 
     virtual const std::string& name() const {
-    	return topic_->name();
+        return topic_->name();
     }
 
     virtual const std::string& type_name() const {
-    	return topic_->type_name();
+        return topic_->type_name();
     }
 
     virtual const dds::core::status::InconsistentTopicStatus& inconsistent_topic_status() {
-    	return topic_->inconsistent_topic_status();
+        return topic_->inconsistent_topic_status();
     }
 
     virtual const dds::topic::qos::TopicQos& qos() const {
-    	return topic_->qos();
+        return topic_->qos();
     }
 
     virtual void qos(const dds::topic::qos::TopicQos& q) {
-    	topic_->qos(q);
+        topic_->qos(q);
     }
 
     const dds::topic::Topic<T>& get() const { return topic_; }

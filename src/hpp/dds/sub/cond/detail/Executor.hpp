@@ -3,30 +3,30 @@
 
 
 namespace dds { namespace sub { namespace cond { namespace detail {
-	class Executor {
-	public:
-		virtual ~Executor() { }
+    class Executor {
+    public:
+        virtual ~Executor() { }
 
-		virtual void exec() = 0;
-	};
+        virtual void exec() = 0;
+    };
 
-	class TrivialExecutor : public Executor {
-	public:
-		virtual ~TrivialExecutor() { }
-		virtual void exec() { }
-	};
+    class TrivialExecutor : public Executor {
+    public:
+        virtual ~TrivialExecutor() { }
+        virtual void exec() { }
+    };
 
-	template <typename FUN, typename ARG>
-	class ParametrizedExecutor : public Executor {
-	public:
-		ParametrizedExecutor(const FUN& fun, const ARG& arg) : fun_(fun), arg_(arg) { }
-		virtual ~ParametrizedExecutor() { }
-		virtual void exec() { fun_(arg_); }
+    template <typename FUN, typename ARG>
+    class ParametrizedExecutor : public Executor {
+    public:
+        ParametrizedExecutor(const FUN& fun, const ARG& arg) : fun_(fun), arg_(arg) { }
+        virtual ~ParametrizedExecutor() { }
+        virtual void exec() { fun_(arg_); }
 
-	private:
-		FUN fun_;
-		ARG arg_;
-	};
+    private:
+        FUN fun_;
+        ARG arg_;
+    };
 } } } }
 
 

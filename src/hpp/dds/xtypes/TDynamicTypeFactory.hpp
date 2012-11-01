@@ -32,7 +32,7 @@
 template <typename DELEGATE>
 class tdds::type::dynamic::DynamicTypeFactory : dds::core::Reference<DELEGATE>
 {
-	OMG_DDS_REF_TYPE(DynamicTypeFactory, dds::core::Reference, DELEGATE)
+    OMG_DDS_REF_TYPE(DynamicTypeFactory, dds::core::Reference, DELEGATE)
 
 public:
     static DynamicTypeFactory get_instance();

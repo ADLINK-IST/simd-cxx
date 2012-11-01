@@ -36,10 +36,10 @@
 
 
 namespace dds { namespace domain {
-        
+
     template <typename DELEGATE>
     class TDomainParticipant;
-    
+
     class DomainParticipantListener;
 } }
 
@@ -65,11 +65,11 @@ public:
 
 public:
     /**
-     * Create a new <code>DomainParticipant</code> object. 
-     * The <code>DomainParticipant</code> signifies that the calling 
-     * application intends to join the Domain identified by the domain_id 
+     * Create a new <code>DomainParticipant</code> object.
+     * The <code>DomainParticipant</code> signifies that the calling
+     * application intends to join the Domain identified by the domain_id
      * argument.
-     * The <code>DomainParticipant</code> will be created with 
+     * The <code>DomainParticipant</code> will be created with
      * <code>DomainParticipantQos</code> passed as argument.
      *
      * @param id the id of the domain joined by the new
@@ -78,7 +78,7 @@ public:
      */
     TDomainParticipant(uint32_t did)
     : ::dds::core::TEntity<DELEGATE>(new DELEGATE(did)) { }
-    
+
     /**
      * Create a new <code>DomainParticipant</code> object.
      * The <code>DomainParticipant</code> signifies that the calling
@@ -90,14 +90,14 @@ public:
      * @param id the id of the domain joined by this <code>DomainParticipant</code>.
      * @param qos the QoS settings for this <code>DomainParticipant</code>
      */
-    TDomainParticipant(uint32_t 	                                       id,
-                       const dds::domain::qos::DomainParticipantQos& 	qos,
-                       dds::domain::DomainParticipantListener*       	listener = NULL,
-                       const dds::core::status::StatusMask&          	mask = dds::core::status::StatusMask::all())
+    TDomainParticipant(uint32_t                                            id,
+                       const dds::domain::qos::DomainParticipantQos&     qos,
+                       dds::domain::DomainParticipantListener*           listener = NULL,
+                       const dds::core::status::StatusMask&              mask = dds::core::status::StatusMask::all())
     : ::dds::core::TEntity<DELEGATE>(new DELEGATE(id,
                                                   qos,
                                                   listener,
-                                                  mask)) { }    
+                                                  mask)) { }
 
 public:
     OMG_DDS_BASIC_REF_TYPE(TDomainParticipant, ::dds::core::TEntity, DELEGATE)
@@ -119,7 +119,7 @@ public:
      *  will be notified.
      */
     void listener(Listener* the_listener,
-    		const ::dds::core::status::StatusMask& event_mask) {
+            const ::dds::core::status::StatusMask& event_mask) {
         this->delegate()->listener(the_listener, event_mask);
     }
 
@@ -213,25 +213,25 @@ public:
     static dds::domain::qos::DomainParticipantQos default_participant_qos() {
         return DELEGATE::default_participant_qos();
     }
-    
+
     static void default_participant_qos(const ::dds::domain::qos::DomainParticipantQos& qos) {
-    	DELEGATE::default_participant_qos(qos);
+        DELEGATE::default_participant_qos(qos);
     }
-    
+
     // --- Publisher QoS Defaults --- //
     dds::pub::qos::PublisherQos default_publisher_qos() const {
         return this->delegate()->default_publisher_qos();
     }
     TDomainParticipant& default_publisher_qos(const ::dds::pub::qos::PublisherQos& qos) {
-    	this->delegate()->default_publisher_qos(qos);
-    	return *this;
+        this->delegate()->default_publisher_qos(qos);
+        return *this;
     }
 
     // --- Subscriber QoS Defaults --- //
     dds::sub::qos::SubscriberQos default_subscriber_qos() const {
         return this->delegate()->default_subscriber_qos();
     }
-    
+
     TDomainParticipant& default_subscriber_qos(const ::dds::sub::qos::SubscriberQos& qos) {
         this->delegate()->default_subscriber_qos(qos);
         return *this;
@@ -241,7 +241,7 @@ public:
     dds::topic::qos::TopicQos default_topic_qos() const {
         return this->delegate()->default_topic_qos();
     }
-    
+
     TDomainParticipant& default_topic_qos(const dds::topic::qos::TopicQos& qos) {
         this->delegate()->default_topic_qos(qos);
         return *this;

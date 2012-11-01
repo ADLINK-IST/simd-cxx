@@ -6,10 +6,10 @@
 
 
 namespace dds { namespace sub {
-	template <typename T, template <typename Q> class DELEGATE = dds::sub::detail::DataReader>
-	class DataReader;
+    template <typename T, template <typename Q> class DELEGATE = dds::sub::detail::DataReader>
+    class DataReader;
 
-	class Query;
+    class Query;
 } }
 
 
@@ -17,9 +17,9 @@ namespace dds { namespace sub {
 namespace dds { namespace sub { namespace functors {
 
    typedef dds::sub::functors::detail::ContentFilterManipulatorFunctor ContentFilterManipulatorFunctor;
-	typedef dds::sub::functors::detail::StateFilterManipulatorFunctor 	StateFilterManipulatorFunctor;
-	typedef dds::sub::functors::detail::InstanceManipulatorFunctor 		InstanceManipulatorFunctor;
-	typedef dds::sub::functors::detail::NextInstanceManipulatorFunctor 	NextInstanceManipulatorFunctor;
+    typedef dds::sub::functors::detail::StateFilterManipulatorFunctor     StateFilterManipulatorFunctor;
+    typedef dds::sub::functors::detail::InstanceManipulatorFunctor         InstanceManipulatorFunctor;
+    typedef dds::sub::functors::detail::NextInstanceManipulatorFunctor     NextInstanceManipulatorFunctor;
 
 } } }
 
@@ -27,14 +27,14 @@ namespace dds { namespace sub {
 
 template <typename SELECTOR>
 SELECTOR& read(SELECTOR& selector) {
-	selector.read_mode(true);
-	return selector;
+    selector.read_mode(true);
+    return selector;
 }
 
 template <typename SELECTOR>
 SELECTOR& take(SELECTOR& selector) {
-	selector.read_mode(false);
-	return selector;
+    selector.read_mode(false);
+    return selector;
 }
 
 inline dds::sub::functors::ContentFilterManipulatorFunctor

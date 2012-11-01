@@ -35,7 +35,7 @@ namespace dds {
         enum TypeKind
         {
             NO_TYPE          =  0, // sentinel indicating "null" value
-            
+
             BOOLEAN_TYPE     =  1,
             BYTE_TYPE        =  2,
             INT_16_TYPE      =  3,
@@ -49,21 +49,21 @@ namespace dds {
             FLOAT_128_TYPE   = 11,
             CHAR_8_TYPE      = 12,
             CHAR_32_TYPE     = 13,
-            
+
             ENUMERATION_TYPE = 14,
             BITSET_TYPE      = 15,
             ALIAS_TYPE       = 16,
-            
+
             ARRAY_TYPE       = 17,
             SEQUENCE_TYPE    = 18,
             STRING_TYPE      = 19,
             MAP_TYPE         = 20,
-            
+
             UNION_TYPE       = 21,
             STRUCTURE_TYPE   = 22,
             ANNOTATION_TYPE  = 23
         };
-        
+
         namespace typeobject {
             // --- Type ID --- //
             const TypeId NO_TYPE_ID         = NO_TYPE;
@@ -80,7 +80,7 @@ namespace dds {
             const TypeId FLOAT_128_TYPE_ID  = FLOAT_128_TYPE;
             const TypeId CHAR_8_TYPE_ID     = CHAR_8_TYPE;
             const TypeId CHAR_32_TYPE_ID    = CHAR_32_TYPE;
-            
+
             // --- Member ID --- //
             const MemberId MEMBER_ID_INVALID = 0x0FFFFFFF;
         }
@@ -103,7 +103,7 @@ namespace dds {
                     IS_MUTABLE  = (0x0001 << 1),    // | be '1'
                     IS_NESTED   = (0x0001 << 2)
                 };
-                
+
                 typedef std::bitset<16> Mask;
             }
         }
@@ -128,7 +128,7 @@ namespace dds {
                     /** Set if member is union default case */
                     IS_UNION_DEFAULT = (0x0001 << 3)
                 };
-                
+
                 typedef std::bitset<16> Mask;
             }
         }

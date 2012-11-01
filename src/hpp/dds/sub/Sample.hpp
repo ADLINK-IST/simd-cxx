@@ -23,8 +23,8 @@
 #include <dds/sub/detail/Sample.hpp>
 
 namespace dds { namespace sub {
-	template <typename T, template <typename Q> class DELEGATE = dds::sub::detail::Sample >
-	class Sample;
+    template <typename T, template <typename Q> class DELEGATE = dds::sub::detail::Sample >
+    class Sample;
 } }
 
 #endif /* OMG_DDS_SUB_SAMPLE_HPP_ */

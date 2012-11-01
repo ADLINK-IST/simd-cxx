@@ -23,17 +23,17 @@
 #include <dds/topic/TBuiltinTopic.hpp>
 
 namespace dds { namespace topic { namespace detail {
-    
+
     typedef dds::topic::TParticipantBuiltinTopicData<org::opensplice::topic::ParticipantBuiltinTopicDataImpl>
     ParticipantBuiltinTopicData;
-    
-    
+
+
     typedef dds::topic::TTopicBuiltinTopicData<org::opensplice::topic::TopicBuiltinTopicDataImpl>
     TopicBuiltinTopicData;
-    
+
     typedef dds::topic::TPublicationBuiltinTopicData<org::opensplice::topic::PublicationBuiltinTopicDataImpl>
     PublicationBuiltinTopicData;
-    
+
     typedef dds::topic::TSubscriptionBuiltinTopicData<org::opensplice::topic::SubscriptionBuiltinTopicDataImpl>
     SubscriptionBuiltinTopicData;
 

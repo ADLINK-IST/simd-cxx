@@ -69,7 +69,7 @@ public:
     }
 
     explicit Reference(DELEGATE_T* p) : impl_(p) {
-    	//OMG_DDS_LOG("MM", "Reference(DELEGATE_T* p)");
+        //OMG_DDS_LOG("MM", "Reference(DELEGATE_T* p)");
     }
 
 public:

@@ -68,7 +68,7 @@ public:
     explicit IllegalOperationError(const std::string& msg);
     IllegalOperationError(const IllegalOperationError& src);
     virtual ~IllegalOperationError() throw ();
-    
+
 public:
     virtual const char* what() const throw ();
 };
@@ -80,7 +80,7 @@ public:
     explicit ImmutablePolicyError(const std::string& msg);
     ImmutablePolicyError(const ImmutablePolicyError& src);
     virtual ~ImmutablePolicyError() throw ();
-    
+
 public:
     virtual const char* what() const throw ();
 };
@@ -143,7 +143,7 @@ public:
 
 public:
     virtual const char* what() const throw () {
-    	return this->std::logic_error::what();
+        return this->std::logic_error::what();
     }
 
 };
@@ -155,7 +155,7 @@ public:
     explicit TimeoutError(const std::string& msg);
     TimeoutError(const TimeoutError& src);
     virtual ~TimeoutError() throw ();
-    
+
 public:
     virtual const char* what() const throw ();
 };

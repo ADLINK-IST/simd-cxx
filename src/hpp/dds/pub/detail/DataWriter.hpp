@@ -25,7 +25,7 @@
 #include <org/opensplice/core/memory.hpp>
 
 
-namespace dds { namespace pub { 
+namespace dds { namespace pub {
 
     template <typename T>
     class DataWriterListener;
@@ -44,23 +44,23 @@ public:
 
 public:
   DataWriter(const ::dds::pub::Publisher& pub,
-	     const dds::topic::Topic<T>& topic,
-	     const ::dds::pub::qos::DataWriterQos& qos,
-	     DataWriterListener<T>* listener,
-	     const dds::core::status::StatusMask& mask)
+         const dds::topic::Topic<T>& topic,
+         const ::dds::pub::qos::DataWriterQos& qos,
+         DataWriterListener<T>* listener,
+         const dds::core::status::StatusMask& mask)
     :   pub_(pub),
-	topic_(topic),
-	qos_(qos),
-	listener_(listener),
-	mask_(mask)
+    topic_(topic),
+    qos_(qos),
+    listener_(listener),
+    mask_(mask)
   {
     DDS::DataWriterQos dwqos;
     pub_->pub_->get_default_datawriter_qos(dwqos);
     DDS::DataWriter* w =
       pub_->pub_->create_datawriter(topic_->t_,
-				    dwqos,
-				    0,
-				    DDS::ANY_STATUS);
+                    dwqos,
+                    0,
+                    DDS::ANY_STATUS);
     if (w == 0)
       throw dds::core::PreconditionNotMetError("Unable to create DataWriter!");
 
@@ -87,8 +87,8 @@ public:
   }
 
   void write(const T& sample,
-	     const ::dds::core::InstanceHandle& instance,
-	     const dds::core::Time& timestamp) {
+         const ::dds::core::InstanceHandle& instance,
+         const dds::core::Time& timestamp) {
     std::cout << "write(s+i, ts) >>" << sample << std::endl;
   }
 
@@ -96,8 +96,8 @@ public:
     std::cout << ">> write(ti)" << std::endl;
   }
 
-  void write(const dds::topic::TopicInstance<T>& i, 
-	     const dds::core::Time& timestamp) {
+  void write(const dds::topic::TopicInstance<T>& i,
+         const dds::core::Time& timestamp) {
     std::cout << ">> write(ti, ts)" << std::endl;
   }
 

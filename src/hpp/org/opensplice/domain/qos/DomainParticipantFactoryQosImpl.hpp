@@ -6,7 +6,7 @@
 
 
 namespace org { namespace opensplice { namespace domain { namespace qos {
-	class DomainParticipantFactoryQosImpl;
+    class DomainParticipantFactoryQosImpl;
       }
     }
   }

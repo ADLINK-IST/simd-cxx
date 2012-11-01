@@ -3,11 +3,11 @@
 
 #include <dds/core/policy/CorePolicy.hpp>
 
-namespace org { 
-  namespace opensplice { 
-    namespace pub { 
+namespace org {
+  namespace opensplice {
+    namespace pub {
       namespace qos {
-	class PublisherQosImpl;
+    class PublisherQosImpl;
       }
     }
   }

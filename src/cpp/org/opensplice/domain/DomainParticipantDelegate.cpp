@@ -24,41 +24,41 @@
 
 org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate(uint32_t id)
 {
-	DDS::DomainParticipantFactory_var dpf =
-			DDS::DomainParticipantFactory::get_instance();
+    DDS::DomainParticipantFactory_var dpf =
+            DDS::DomainParticipantFactory::get_instance();
 
-	if(dpf.in() == 0)
-		throw dds::core::PreconditionNotMetError("Unable to resolve the DomainParticipant Factory!");
-	DDS::DomainParticipant* dp = 0;
+    if(dpf.in() == 0)
+        throw dds::core::PreconditionNotMetError("Unable to resolve the DomainParticipant Factory!");
+    DDS::DomainParticipant* dp = 0;
 #if (SIMD_OSPL_MAJ_VER < 6)
-	dp = dpf->create_participant("",
-	                  PARTICIPANT_QOS_DEFAULT,
-	                  0,
-	                  DDS::ANY_STATUS);
+    dp = dpf->create_participant("",
+                      PARTICIPANT_QOS_DEFAULT,
+                      0,
+                      DDS::ANY_STATUS);
 #else
-	dp = dpf->create_participant(0,
-	               PARTICIPANT_QOS_DEFAULT,
-	               0,
-	               DDS::ANY_STATUS);
+    dp = dpf->create_participant(0,
+                   PARTICIPANT_QOS_DEFAULT,
+                   0,
+                   DDS::ANY_STATUS);
 #endif
-	if(dp == 0)
-		throw dds::core::PreconditionNotMetError("Failed to create DomainParticipant");
+    if(dp == 0)
+        throw dds::core::PreconditionNotMetError("Failed to create DomainParticipant");
 
-	dp_.reset(dp, org::opensplice::core::DPDeleter());
+    dp_.reset(dp, org::opensplice::core::DPDeleter());
 }
 
 
 org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate
 (uint32_t id,
-		const dds::domain::qos::DomainParticipantQos& qos,
-		dds::domain::DomainParticipantListener* listener,
-		const dds::core::status::StatusMask&)
+        const dds::domain::qos::DomainParticipantQos& qos,
+        dds::domain::DomainParticipantListener* listener,
+        const dds::core::status::StatusMask&)
 {
-	throw dds::core::PreconditionNotMetError("Method not supported");
+    throw dds::core::PreconditionNotMetError("Method not supported");
 }
 
 org::opensplice::domain::DomainParticipantDelegate::~DomainParticipantDelegate() {
-	OMG_DDS_LOG("MM", "~DomainParticipantImpl()");
+    OMG_DDS_LOG("MM", "~DomainParticipantImpl()");
 }
 
 /*
@@ -70,12 +70,12 @@ void org::opensplice::domain::DomainParticipantDelegate::listener(
 
 dds::domain::DomainParticipantListener*
 org::opensplice::domain::DomainParticipantDelegate::listener() const {
-	return NULL;
+    return NULL;
 }
 
 uint32_t
 org::opensplice::domain::DomainParticipantDelegate::domain_id() {
-	return dp_->get_domain_id();
+    return dp_->get_domain_id();
 }
 
 void
@@ -83,17 +83,17 @@ org::opensplice::domain::DomainParticipantDelegate::assert_liveliness() { }
 
 bool
 org::opensplice::domain::DomainParticipantDelegate::contains_entity(const dds::core::InstanceHandle& handle) {
-	return false;
+    return false;
 }
 
 dds::core::Time
 org::opensplice::domain::DomainParticipantDelegate::current_time() {
-	return dds::core::Time();
+    return dds::core::Time();
 }
 
 const dds::domain::qos::DomainParticipantQos
 org::opensplice::domain::DomainParticipantDelegate::qos() const {
-	return this->qos_;
+    return this->qos_;
 }
 
 
@@ -105,46 +105,46 @@ org::opensplice::domain::DomainParticipantDelegate::qos(const dds::domain::qos::
 void
 org::opensplice::domain::DomainParticipantDelegate::close() { }
 
-const dds::topic::qos::TopicQos& 
+const dds::topic::qos::TopicQos&
 org::opensplice::domain::DomainParticipantDelegate::default_topic_qos() const {
-	return default_topic_qos_;
+    return default_topic_qos_;
 }
 
-void 
+void
 org::opensplice::domain::DomainParticipantDelegate::default_topic_qos(const dds::topic::qos::TopicQos& qos) {
-	default_topic_qos_ = qos;
+    default_topic_qos_ = qos;
 }
 
 const ::dds::pub::qos::PublisherQos&
 org::opensplice::domain::DomainParticipantDelegate::default_publisher_qos() const {
-	return default_pub_qos_;
+    return default_pub_qos_;
 }
 
-void 
+void
 org::opensplice::domain::DomainParticipantDelegate::default_publisher_qos(const ::dds::pub::qos::PublisherQos& qos)
 {
-	default_pub_qos_ = qos;
+    default_pub_qos_ = qos;
 }
 
-const ::dds::sub::qos::SubscriberQos& 
+const ::dds::sub::qos::SubscriberQos&
 org::opensplice::domain::DomainParticipantDelegate::default_subscriber_qos() const {
-	return default_sub_qos_;
+    return default_sub_qos_;
 }
 
-void 
+void
 org::opensplice::domain::DomainParticipantDelegate::default_subscriber_qos(const ::dds::sub::qos::SubscriberQos& qos)
 {
-	default_sub_qos_ = qos;
+    default_sub_qos_ = qos;
 }
 
-const ::dds::domain::qos::DomainParticipantQos& 
+const ::dds::domain::qos::DomainParticipantQos&
 org::opensplice::domain::DomainParticipantDelegate::default_domain_qos() {
-	return default_domain_qos_;
+    return default_domain_qos_;
 }
-void 
+void
 org::opensplice::domain::DomainParticipantDelegate::default_domain_qos(const ::dds::domain::qos::DomainParticipantQos& qos)
 {
-	default_domain_qos_ = qos;
+    default_domain_qos_ = qos;
 }
 
 

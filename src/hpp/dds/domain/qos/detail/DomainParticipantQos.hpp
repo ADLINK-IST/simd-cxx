@@ -25,7 +25,7 @@
 
 
 namespace dds {namespace domain { namespace qos { namespace detail {
-	typedef ::dds::core::qos::TEntityQos< org::opensplice::domain::qos::DomainParticipantQosImpl > 
+    typedef ::dds::core::qos::TEntityQos< org::opensplice::domain::qos::DomainParticipantQosImpl >
     DomainParticipantQos;
 } } } }
 

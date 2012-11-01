@@ -28,13 +28,13 @@ namespace dds { namespace topic { namespace detail {
     template <typename T>
     class TopicDescription;
 } } }
-    
+
 template <typename T>
 class dds::topic::detail::TopicDescription : public  org::opensplice::core::EntityDelegate {
-    
-    
+
+
 public:
-    
+
     TopicDescription(const dds::domain::DomainParticipant& dp,
                      const std::string& name,
                      const std::string& type_name)
@@ -42,7 +42,7 @@ public:
       name_(name),
       type_name_(type_name)
     { }
-    
+
 public:
     /**
      * Get the name used to create the TopicDescription.
@@ -50,14 +50,14 @@ public:
     const std::string& name() const {
         return name_;
     }
-    
+
     /**
      * The type_name used to create the TopicDescription.
      */
     const std::string& type_name() const {
         return type_name_;
     }
-    
+
     /**
      * This operation returns the DomainParticipant to which the
      * TopicDescription belongs.
@@ -65,7 +65,7 @@ public:
     const dds::domain::DomainParticipant& domain_participant() const {
         return dp_;
     }
-    
+
 protected:
     dds::domain::DomainParticipant dp_;
     std::string name_;

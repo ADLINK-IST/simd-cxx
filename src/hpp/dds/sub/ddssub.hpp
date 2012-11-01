@@ -121,6 +121,6 @@ std::ostream& operator << (std::ostream& os, const dds::sub::status::DataState& 
 std::ostream& operator << (std::ostream& os, const dds::sub::Rank& r);
 std::ostream& operator << (std::ostream& os, const dds::sub::SampleInfo& si);
 
-// #endif 
+// #endif
 
 #endif /* OMG_DDS_SUB_PACKAGE_INCLUDE_HPP_ */

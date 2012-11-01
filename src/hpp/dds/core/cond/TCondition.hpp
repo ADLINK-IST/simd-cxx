@@ -55,7 +55,7 @@ namespace dds { namespace core { namespace cond {
        }
 
       void close() {
-          	this->delegate()->close();
+              this->delegate()->close();
           }
 
    };

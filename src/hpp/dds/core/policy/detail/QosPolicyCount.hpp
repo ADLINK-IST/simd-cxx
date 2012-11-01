@@ -23,7 +23,7 @@
 #include <org/opensplice/core/policy/QosPolicyCountImpl.hpp>
 
 namespace dds { namespace core { namespace policy { namespace detail {
-	typedef dds::core::policy::TQosPolicyCount<org::opensplice::core::policy::QosPolicyCountImpl> QosPolicyCount;
+    typedef dds::core::policy::TQosPolicyCount<org::opensplice::core::policy::QosPolicyCountImpl> QosPolicyCount;
 } } } }
 
 #endif /* !defined(OMG_DDS_CORE_POLICY_DETAIL_QOS_POLICY_COUNT_HPP_) */

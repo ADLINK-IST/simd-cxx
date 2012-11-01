@@ -23,7 +23,7 @@
 #include <org/opensplice/topic/qos/TopicQosImpl.hpp>
 
 namespace dds { namespace topic { namespace qos { namespace detail {
-	typedef ::dds::core::qos::TEntityQos< ::org::opensplice::topic::qos::TopicQosImpl> TopicQos;
+    typedef ::dds::core::qos::TEntityQos< ::org::opensplice::topic::qos::TopicQosImpl> TopicQos;
 } } } }
 
 #endif /* OMG_DDS_TOPIC_QOS_DETAIL_TOPIC_QOS_HPP_ */

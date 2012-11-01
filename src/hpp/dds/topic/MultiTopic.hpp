@@ -27,8 +27,8 @@
 namespace dds { namespace topic {
 
 #ifdef OMG_DDS_MULTI_TOPIC_SUPPORT
-	template <typename T, template <typename Q> class DELEGATE = dds::topic::detail::MultiTopic>
-	class MultiTopic;
+    template <typename T, template <typename Q> class DELEGATE = dds::topic::detail::MultiTopic>
+    class MultiTopic;
 #endif  // OMG_DDS_MULTI_TOPIC_SUPPORT
 
 } }

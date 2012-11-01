@@ -1,7 +1,7 @@
 // Std C++ Include
 #include <algorithm>
 
-// Utils 
+// Utils
 #include "util.hpp"
 
 int main(int argc, char* argv[]) {
@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
     Topic<ShapeType> topic(dp, "Circle");
     Subscriber sub(dp);
     DataReader<ShapeType> dr(sub, topic);
-      
+
     uint32_t sleepTime = 100000;
 
     while (true) {
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
         * Make available older style API
         * (essentially make public as opposed to private)
         */
-      LoanedSamples<ShapeType> samples = 
+      LoanedSamples<ShapeType> samples =
             dr.selector()
                .instance(handle)
                .filter_state(DataState::any_data())
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
        * auto ss2 = ss; // This create "ref-counted alias" and does
        * not use the move semantics.
        */
-      std::cout << "--------------------------------------------" << std::endl;      
+      std::cout << "--------------------------------------------" << std::endl;
       std::for_each(samples.data().begin(), samples.data().end(), demo::ishapes::printShape);
       usleep(sleepTime);
     }

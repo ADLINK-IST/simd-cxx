@@ -21,7 +21,7 @@
 
 #include <dds/core/cond/detail/WaitSet.hpp>
 
-namespace dds { namespace core { namespace cond { 
+namespace dds { namespace core { namespace cond {
     typedef dds::core::cond::detail::WaitSet WaitSet;
 } } }
 

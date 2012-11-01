@@ -21,7 +21,7 @@
 
 #include <dds/pub/qos/detail/DataWriterQos.hpp>
 
-namespace dds { namespace pub { namespace qos { 
+namespace dds { namespace pub { namespace qos {
     typedef dds::pub::qos::detail:: DataWriterQos DataWriterQos;
 } } }
 

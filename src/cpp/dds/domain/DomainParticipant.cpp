@@ -21,7 +21,7 @@
 
 
 #if 0
- 
+
  namespace dds { namespace domain {
 template <>
 dds::pub::Publisher
@@ -31,8 +31,8 @@ DomainParticipant<org::opensplice::domain::DomainParticipantImpl>::create_publis
         const dds::core::status::StatusMask& event_mask) {
     return dds::pub::Publisher(
             new org::opensplice::pub::PublisherImpl(
-            	dds::core::smart_ptr_traits<dds::domain::detail::DomainParticipantHolder>::ref_type(
-            			new dds::domain::detail::DomainParticipantHolder(*this)),
+                dds::core::smart_ptr_traits<dds::domain::detail::DomainParticipantHolder>::ref_type(
+                        new dds::domain::detail::DomainParticipantHolder(*this)),
                 pub_qos,
                 pub_listener,
                 event_mask));

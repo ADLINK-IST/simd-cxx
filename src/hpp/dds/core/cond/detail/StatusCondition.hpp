@@ -26,23 +26,23 @@
 
 namespace dds { namespace core { namespace cond {namespace detail {
 
-	class StatusCondition : public org::opensplice::core::ConditionImpl {
+    class StatusCondition : public org::opensplice::core::ConditionImpl {
     public:
 
 
-    	StatusCondition(const dds::core::Entity& entity) : entity_(entity) { }
+        StatusCondition(const dds::core::Entity& entity) : entity_(entity) { }
 
         void enabled_statuses(const dds::core::status::StatusMask& status) {
             mask_ = status;
-        } 
+        }
 
         const dds::core::status::StatusMask enabled_statuses() const {
             return mask_;
         }
 
         dds::core::Entity entity() const {
-			return entity_;
-		}
+            return entity_;
+        }
     private:
         dds::core::Entity entity_;
         dds::core::status::StatusMask mask_;

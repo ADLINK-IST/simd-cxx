@@ -11,8 +11,8 @@ namespace org { namespace opensplice { namespace topic {
       class TopicBuiltinTopicDataImpl;
       class PublicationBuiltinTopicDataImpl;
       class SubscriptionBuiltinTopicDataImpl;
-    } 
-  } 
+    }
+  }
 }
 
 class org::opensplice::topic::ParticipantBuiltinTopicDataImpl {

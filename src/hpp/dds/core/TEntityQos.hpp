@@ -31,7 +31,7 @@ template <typename DELEGATE>
 class TEntityQos : public dds::core::Value<DELEGATE> {
 public:
     TEntityQos() : dds::core::Value<DELEGATE>() { }
-    
+
     TEntityQos(const TEntityQos& other)
         : dds::core::Value<DELEGATE>(other.delegate()) { }
 

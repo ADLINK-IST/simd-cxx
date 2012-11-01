@@ -87,12 +87,12 @@ dds::core::Duration::operator <(const Duration& that) const {
 
 const dds::core::Duration
 dds::core::Duration::infinite() {
-	static Duration d(0x7fffffff, 0x7fffffff);
-	return d;
+    static Duration d(0x7fffffff, 0x7fffffff);
+    return d;
 }
 
 const dds::core::Duration
 dds::core::Duration::zero() {
-	static Duration d(0,0);
-	return d;
+    static Duration d(0,0);
+    return d;
 }

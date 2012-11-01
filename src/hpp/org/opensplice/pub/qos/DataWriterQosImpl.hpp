@@ -5,11 +5,11 @@
 #include <dds/core/policy/CorePolicy.hpp>
 #include <org/opensplice/topic/qos/TopicQosImpl.hpp>
 
-namespace org { 
-  namespace opensplice { 
-    namespace pub  { 
+namespace org {
+  namespace opensplice {
+    namespace pub  {
       namespace qos {
-	class DataWriterQosImpl;
+    class DataWriterQosImpl;
       }
     }
   }

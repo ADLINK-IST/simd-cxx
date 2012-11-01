@@ -73,7 +73,7 @@ namespace dds { namespace core { namespace cond { namespace detail {
             std::cout << "attach_condition(condition)" << std::endl;
             return *this;
         }
-        
+
         bool detach_condition(const dds::core::cond::Condition& cond) {
             std::cout << "detach_condition(condition)" << std::endl;
             return false;

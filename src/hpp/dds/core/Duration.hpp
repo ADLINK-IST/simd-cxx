@@ -47,7 +47,7 @@ public:
     static const Duration from_microsecs(int64_t microseconds);
     static const Duration from_millisecs(int64_t milliseconds);
     static const Duration from_secs(double seconds);
-    
+
 public:
     int32_t sec() const;
     void    sec(int32_t s);
@@ -84,16 +84,16 @@ public:
      * Returns this <code>Duration</code> in micro-seconds.
      *
      * @return the duration in micro-seconds
-     */    
+     */
     int64_t to_microsecs() const;
-    
+
     /**
      * Returns this <code>Duration</code> in seconds.
      *
      * @return the duration in seconds
      */
     double to_secs() const;
-    
+
 private:
     uint32_t sec_;
     uint32_t nsec_;
@@ -108,7 +108,7 @@ const Duration operator *(const Duration& lhs,
 
 const Duration operator /(const Duration& lhs,
                           uint32_t rhs);
-    
+
 } } /* namespace dds / namespace core  */
 #endif /* OMG_DDS_CORE_DURATION_HPP_ */
 

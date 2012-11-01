@@ -6,7 +6,7 @@
 #include <dds/sub/GenerationCount.hpp>
 #include <dds/sub/Rank.hpp>
 
-namespace dds { 
+namespace dds {
   namespace sub {
     template <typename DELEGATE>
     class TSampleInfo;
@@ -19,12 +19,12 @@ class dds::sub::TSampleInfo : dds::core::Value<DELEGATE> {
 public:
   // Required for containers
   TSampleInfo() { }
-          
+
 public:
   const dds::core::Time timestamp() const {
     return this->delegate().timestamp();
   }
-        
+
   const dds::sub::status::DataState state() const {
     return this->delegate().state();
   }
@@ -34,7 +34,7 @@ public:
   dds::sub::Rank rank() const {
     return this->delegate().rank();
   }
-        
+
   bool valid() const {
     return this->delegate().valid();
   }
@@ -47,5 +47,5 @@ public:
     return this->delegate().publication_handle();
   }
 };
-    
+
 #endif /* OMG_DDS_SUB_TSAMPLE_INFO_HPP_ */

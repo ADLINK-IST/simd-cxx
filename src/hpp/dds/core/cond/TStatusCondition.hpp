@@ -25,8 +25,8 @@
 #include <dds/core/Entity.hpp>
 
 namespace dds { namespace core { namespace cond {
-	template <typename DELEGATE>
-	class TStatusCondition;
+    template <typename DELEGATE>
+    class TStatusCondition;
 } } }
 
 /**
@@ -41,50 +41,50 @@ namespace dds { namespace core { namespace cond {
 template <typename DELEGATE>
 class dds::core::cond::TStatusCondition : public dds::core::cond::TCondition<DELEGATE> {
 public:
-	/**
-	 * Create a <code>StatusCondition</code> (Section 7.1.2.1.9,
-	 * StatusCondition Class) associated with the Entity. The
-	 * condition can then be added to a WaitSet (Section 7.1.2.1.6,
-	 * WaitSet Class) so that the application can wait for specific
-	 * status changes that affect the Entity.
-	 */
-	TStatusCondition(const dds::core::Entity& e)
-	: dds::core::cond::TCondition<DELEGATE>(new DELEGATE(e)) { }
+    /**
+     * Create a <code>StatusCondition</code> (Section 7.1.2.1.9,
+     * StatusCondition Class) associated with the Entity. The
+     * condition can then be added to a WaitSet (Section 7.1.2.1.6,
+     * WaitSet Class) so that the application can wait for specific
+     * status changes that affect the Entity.
+     */
+    TStatusCondition(const dds::core::Entity& e)
+    : dds::core::cond::TCondition<DELEGATE>(new DELEGATE(e)) { }
 
 public:
-	/**
-	 * This operation defines the list of communication statuses that
-	 * are taken into account to determine the trigger_value of the
-	 * StatusCondition. This operation may change the trigger_value of
-	 * the StatusCondition.
-	 * WaitSet objects behavior depend on the changes of the trigger_value
-	 * of their attached conditions. Therefore, any WaitSet to which the
-	 * StatusCondition is attached is potentially affected by this operation.
-	 * If this function is not invoked, the default list of enabled statuses
-	 * includes all the statuses.
-	 *
-	 * @param status the enabled statuses
-	 */
-	void
-	enabled_statuses(const ::dds::core::status::StatusMask& status) const {
-		this->delegate()->enabled_statuses(status);
-	}
+    /**
+     * This operation defines the list of communication statuses that
+     * are taken into account to determine the trigger_value of the
+     * StatusCondition. This operation may change the trigger_value of
+     * the StatusCondition.
+     * WaitSet objects behavior depend on the changes of the trigger_value
+     * of their attached conditions. Therefore, any WaitSet to which the
+     * StatusCondition is attached is potentially affected by this operation.
+     * If this function is not invoked, the default list of enabled statuses
+     * includes all the statuses.
+     *
+     * @param status the enabled statuses
+     */
+    void
+    enabled_statuses(const ::dds::core::status::StatusMask& status) const {
+        this->delegate()->enabled_statuses(status);
+    }
 
-	/**
-	 * This operation retrieves the list of communication statuses that are
-	 * taken into account to determine the trigger_value of the
-	 * StatusCondition. This operation returns the statuses that were
-	 * explicitly set on the last call to set enabled_statuses or, if
-	 * set enabled_statuses was never called, the default list
-	 * (see Section 7.1.2.1.9.1).
-	 */
-	const ::dds::core::status::StatusMask enabled_statuses() const {
-		return this->delegate()->enabled_statuses();
-	}
+    /**
+     * This operation retrieves the list of communication statuses that are
+     * taken into account to determine the trigger_value of the
+     * StatusCondition. This operation returns the statuses that were
+     * explicitly set on the last call to set enabled_statuses or, if
+     * set enabled_statuses was never called, the default list
+     * (see Section 7.1.2.1.9.1).
+     */
+    const ::dds::core::status::StatusMask enabled_statuses() const {
+        return this->delegate()->enabled_statuses();
+    }
 
-	const dds::core::Entity& entity() const {
-		return this->delegate()->entity();
-	}
+    const dds::core::Entity& entity() const {
+        return this->delegate()->entity();
+    }
 };
 
 #endif  /* OMG_DDS_CORE_T_STATUS_CONDITION_HPP_ */

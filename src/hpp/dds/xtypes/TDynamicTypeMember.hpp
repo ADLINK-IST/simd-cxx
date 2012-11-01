@@ -33,7 +33,7 @@
 template <typename DELEGATE>
 class tdds::type::dynamic::DynamicTypeMember : dds::core::Reference<DELEGATE>
 {
-	OMG_DDS_REF_TYPE(DynamicTypeMember, dds::core::Reference, DELEGATE)
+    OMG_DDS_REF_TYPE(DynamicTypeMember, dds::core::Reference, DELEGATE)
 
 public:
     dds::type::dynamic::MemberDescriptor descriptor() const;

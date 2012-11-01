@@ -6,11 +6,11 @@
 #include <org/opensplice/pub/pubfwd.hpp>
 
 
-namespace org { 
-  namespace opensplice { 
+namespace org {
+  namespace opensplice {
     namespace pub {
       class CoherentSetImpl;
-    } 
+    }
   }
 }
 
@@ -36,4 +36,4 @@ private:
     bool ended_;
 };
 
-#endif /* OMG_IDDS_PUB_COHERENT_SET_IMPL_HPP_ */ 
+#endif /* OMG_IDDS_PUB_COHERENT_SET_IMPL_HPP_ */

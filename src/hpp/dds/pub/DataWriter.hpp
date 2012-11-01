@@ -26,13 +26,13 @@
 #include <dds/pub/Publisher.hpp>
 
 #include <dds/pub/detail/DataWriter.hpp>
- 
+
 //==============================================================================
 // Forward Declaration
 //==============================================================================
 namespace dds { namespace pub {
 
-    template <typename T, 
+    template <typename T,
     template <typename Q> class DELEGATE = dds::pub::detail::DataWriter >
     class DataWriter;
 
@@ -52,28 +52,28 @@ public:
     OMG_DDS_REF_TYPE(DataWriter, ::dds::core::TEntity, DELEGATE<T>)
 
 public:
-    DataWriter(const dds::pub::Publisher& pub, 
-               const dds::topic::Topic<T>& topic) : 
-        ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(pub, 
+    DataWriter(const dds::pub::Publisher& pub,
+               const dds::topic::Topic<T>& topic) :
+        ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(pub,
                                                             topic,
                                                             pub.default_writer_qos(),
                                                             0,
                                                             dds::core::status::StatusMask::all()))
     { }
-    
+
 
     DataWriter(const dds::pub::Publisher& pub,
                const ::dds::topic::Topic<T>& topic,
                const dds::pub::qos::DataWriterQos& qos,
                dds::pub::DataWriterListener<T>* listener = NULL,
                const dds::core::status::StatusMask& mask = ::dds::core::status::StatusMask::all()) :
-        ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(pub, 
+        ::dds::core::TEntity< DELEGATE<T> >(new DELEGATE<T>(pub,
                                                             topic,
                                                             qos,
                                                             listener,
                                                             mask))
     { }
-    
+
 public:
     ~DataWriter() { }
 
@@ -99,13 +99,13 @@ public:
         this->delegate()->write(data, instance, timestamp);
     }
 
-    void write(const dds::topic::TopicInstance<T>& i) 
+    void write(const dds::topic::TopicInstance<T>& i)
     {
         this->delegate()->write(i);
     }
 
-    void write(const dds::topic::TopicInstance<T>& i, 
-               const dds::core::Time& timestamp) 
+    void write(const dds::topic::TopicInstance<T>& i,
+               const dds::core::Time& timestamp)
     {
         this->delegate()->write(i, timestamp);
     }
@@ -115,7 +115,7 @@ public:
      * specialization).
      */
     template <typename FWIterator>
-    void write(const FWIterator& begin, const FWIterator& end) 
+    void write(const FWIterator& begin, const FWIterator& end)
     {
         while (begin != end) {
             this->delegate()->write(*begin);
@@ -125,7 +125,7 @@ public:
 
     template <typename FWIterator>
     void write(const FWIterator& begin, const FWIterator& end,
-               const dds::core::Time& timestamp) 
+               const dds::core::Time& timestamp)
     {
         while (begin != end) {
             this->delegate()->write(*begin, timestamp);
@@ -140,7 +140,7 @@ public:
     void write(const SamplesFWIterator& data_begin,
                const SamplesFWIterator& data_end,
                const HandlesFWIterator& handle_begin,
-               const HandlesFWIterator& handle_end) 
+               const HandlesFWIterator& handle_end)
     {
         while (data_begin != data_end && handle_begin != handle_end) {
             this->delegate()->write(*data_begin, *handle_begin);
@@ -156,7 +156,7 @@ public:
                const SamplesFWIterator& data_end,
                const HandlesFWIterator& handle_begin,
                const HandlesFWIterator& handle_end,
-               const dds::core::Time& timestamp) 
+               const dds::core::Time& timestamp)
     {
         while (data_begin != data_end && handle_begin != handle_end) {
             this->delegate()->write(*data_begin, *handle_begin, timestamp);
@@ -165,38 +165,38 @@ public:
     }
 
 
-    DataWriter& operator << (const T& data) 
+    DataWriter& operator << (const T& data)
     {
         this->write(data);
         return *this;
     }
-    
+
     DataWriter& operator << (const std::pair<T, dds::core::Time>& data) {
         this->write(data.first, data.second);
         return *this;
     }
-    
+
     DataWriter& operator << (const std::pair<T, ::dds::core::InstanceHandle>& data) {
         this->write(data.first, data.second);
         return *this;
     }
-    
+
     DataWriter&
-    operator <<(DataWriter& (*manipulator)(DataWriter&)) 
+    operator <<(DataWriter& (*manipulator)(DataWriter&))
     {
         return manipulator(*this);
     }
-    
+
 
     //==========================================================================
     //== Instance Management
-    const ::dds::core::InstanceHandle register_instance(const T& key) 
+    const ::dds::core::InstanceHandle register_instance(const T& key)
     {
         return this->delegate()->register_instance(key);
     }
 
     const ::dds::core::InstanceHandle register_instance(const T& key,
-                                                      const dds::core::Time& ts) 
+                                                      const dds::core::Time& ts)
     {
         return this->delegate()->register_instance(key, ts);
     }
@@ -208,7 +208,7 @@ public:
     }
 
     DataWriter& unregister_instance(const ::dds::core::InstanceHandle& i,
-                             const dds::core::Time& ts) 
+                             const dds::core::Time& ts)
     {
         this->delegate()->unregister_instance(i,ts);
         return *this;
@@ -221,7 +221,7 @@ public:
     }
 
     DataWriter& dispose_instance(const ::dds::core::InstanceHandle& i,
-                          const dds::core::Time& ts) 
+                          const dds::core::Time& ts)
     {
         this->delegate()->dispose_instance(i,ts);
         return *this;
@@ -237,7 +237,7 @@ public:
      * result in this situation is unspecified.
      */
     dds::topic::TopicInstance<T>& key_value(dds::topic::TopicInstance<T>& i,
-                                            const ::dds::core::InstanceHandle& h) 
+                                            const ::dds::core::InstanceHandle& h)
     {
         return this->delegate()->key_value(i, h);
     }
@@ -251,7 +251,7 @@ public:
      * If the implementation is not able to check invalid handles, then the
      * result in this situation is unspecified.
      */
-    T& key_value(T& sample, const ::dds::core::InstanceHandle& h) 
+    T& key_value(T& sample, const ::dds::core::InstanceHandle& h)
     {
         return this->delegate()->key_value(sample, h);
     }
@@ -266,7 +266,7 @@ public:
      * to provide an instance handle, the Service will return a TopicInstance
      * whose handle will be set to the HANDLE_NIL value.
      */
-    const ::dds::core::InstanceHandle lookup_instance(const T& key) 
+    const ::dds::core::InstanceHandle lookup_instance(const T& key)
     {
         return this->delegate()->lookup_instance(key);
     }
@@ -278,18 +278,18 @@ public:
         return this->delegate()->qos();
     }
 
-    void qos(const ::dds::pub::qos::DataWriterQos& the_qos) 
+    void qos(const ::dds::pub::qos::DataWriterQos& the_qos)
     {
         this->delegate()->qos(the_qos);
     }
 
-    DataWriter& operator <<(const ::dds::pub::qos::DataWriterQos& the_qos) 
+    DataWriter& operator <<(const ::dds::pub::qos::DataWriterQos& the_qos)
     {
         this->delegate()->qos(the_qos);
         return *this;
     }
 
-    const DataWriter& operator >> (::dds::pub::qos::DataWriterQos& the_qos) const 
+    const DataWriter& operator >> (::dds::pub::qos::DataWriterQos& the_qos) const
     {
         the_qos = this->delegate()->qos();
         return *this;
@@ -319,7 +319,7 @@ public:
      * acknowledged by all reliable matched data readers; A TimeoutError
      * indicates that max_wait elapsed before all the data was acknowledged.
      */
-    void wait_for_acknowledgments(const dds::core::Duration& timeout) 
+    void wait_for_acknowledgments(const dds::core::Duration& timeout)
     {
         this->delegate()->wait_for_acknowledgments(timeout);
     }
@@ -335,7 +335,7 @@ public:
      * @param listener the data writer listener
      */
     void listener(DataWriterListener<T>* the_listener,
-                  const ::dds::core::status::StatusMask& mask) 
+                  const ::dds::core::status::StatusMask& mask)
     {
         this->delegate()->listener(the_listener, mask);
     }
@@ -345,7 +345,7 @@ public:
      *
      * @return the <code>DataWriterListener</code>.
      */
-    DataWriterListener<T>* listener() const 
+    DataWriterListener<T>* listener() const
     {
         return this->delegate()->listener();
     }
@@ -353,25 +353,25 @@ public:
     //==========================================================================
     //== Status Management
 
-    const ::dds::core::status::LivelinessLostStatus liveliness_lost_status() 
+    const ::dds::core::status::LivelinessLostStatus liveliness_lost_status()
     {
         return this->delegate()->liveliness_lost_status();
     }
 
-    const ::dds::core::status::OfferedDeadlineMissedStatus 
-    offered_deadlined_missed_status() 
+    const ::dds::core::status::OfferedDeadlineMissedStatus
+    offered_deadlined_missed_status()
     {
         return this->delegate()->offered_deadlined_missed_status();
     }
 
-    const ::dds::core::status::OfferedIncompatibleQosStatus 
-    offered_incompatible_qos_staus() 
+    const ::dds::core::status::OfferedIncompatibleQosStatus
+    offered_incompatible_qos_staus()
     {
         return this->delegate()->offered_incompatible_qos_staus();
     }
 
-    const ::dds::core::status::PublicationMatchedStatus 
-    publication_matched_status() 
+    const ::dds::core::status::PublicationMatchedStatus
+    publication_matched_status()
     {
         return this->delegate()->publication_matched_status();
     }
@@ -380,7 +380,7 @@ public:
     //==========================================================================
     //== Liveliness Management
     void assert_liveliness() {
-    	this->delegate()->assert_liveliness();
+        this->delegate()->assert_liveliness();
     }
 };
 

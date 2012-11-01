@@ -54,19 +54,19 @@ public:
     virtual ~NoOpDataWriterListener() { }
 
 public:
-    virtual void 
+    virtual void
     on_offered_deadline_missed(dds::pub::DataWriter<T>& writer,
                                const dds::core::status::OfferedDeadlineMissedStatus& status) { }
-    
-    virtual void 
+
+    virtual void
     on_offered_incompatible_qos(dds::pub::DataWriter<T> writer,
                                 const dds::core::status::OfferedIncompatibleQosStatus&  status) { }
-    
-    virtual void 
+
+    virtual void
     on_liveliness_lost(dds::pub::DataWriter<T>& writer,
                        const dds::core::status::LivelinessLostStatus& status) { }
-    
-    virtual void 
+
+    virtual void
     on_publication_matched(dds::pub::DataWriter<T>& writer,
                            const dds::core::status::PublicationMatchedStatus& status) { }
 };

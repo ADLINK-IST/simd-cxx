@@ -24,7 +24,7 @@
 
 namespace dds { namespace sub { namespace cond {
    template <typename DELEGATE>
-	class TReadCondition;
+    class TReadCondition;
 } } }
 
 /**
@@ -45,13 +45,13 @@ public:
    OMG_DDS_REF_TYPE(TReadCondition, dds::core::cond::TCondition, DELEGATE)
 
 public:
-	template <typename T>
-	TReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status)
-	: dds::core::cond::TCondition<DELEGATE>(new DELEGATE(dr, status)) { }
+    template <typename T>
+    TReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status)
+    : dds::core::cond::TCondition<DELEGATE>(new DELEGATE(dr, status)) { }
 
-	template <typename T, typename FUN>
-	TReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status, const FUN& functor)
-		: dds::core::cond::TCondition<DELEGATE>(new DELEGATE(dr, status, functor)) { }
+    template <typename T, typename FUN>
+    TReadCondition(const dds::sub::DataReader<T>& dr, const dds::sub::status::DataState& status, const FUN& functor)
+        : dds::core::cond::TCondition<DELEGATE>(new DELEGATE(dr, status, functor)) { }
 
     ~TReadCondition() { }
 

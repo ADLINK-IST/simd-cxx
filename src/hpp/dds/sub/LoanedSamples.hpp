@@ -7,9 +7,9 @@
 
 namespace dds { namespace sub {
     template <typename T,
-	      template <typename Q> class DELEGATE = org::opensplice::sub::LoanedSamplesImpl>
+          template <typename Q> class DELEGATE = org::opensplice::sub::LoanedSamplesImpl>
     class LoanedSamples;
-  } 
+  }
 }
 
 #endif /* OMG_DDS_SUB_LOANED_SAMPLES_HPP_ */

@@ -61,7 +61,7 @@ public:
 template <typename D>
 class TSampleRejectedStatus : public dds::core::Value<D> {
 public:
-	TSampleRejectedStatus() : dds::core::Value<D>() { }
+    TSampleRejectedStatus() : dds::core::Value<D>() { }
 
 public:
     int32_t total_count() const {

@@ -34,8 +34,8 @@ public:
             AnyTopic& topic,
             const dds::core::status::InconsistentTopicStatus& status) = 0;
 };
-    
-    
+
+
 class NoOpAnyTopicListener : public virtual AnyTopicListener {
 public:
     virtual ~NoOpAnyTopicListener() { }
@@ -45,7 +45,7 @@ public:
             AnyTopic& topic,
             const dds::core::status::InconsistentTopicStatus& status) { }
 };
-    
+
 } }
 
 #endif /* OMG_DDS_TOPIC_ANY_TOPIC_LISTENER_HPP_ */

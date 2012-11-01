@@ -66,7 +66,7 @@ public:
 
     using dds::pub::DataWriter<KeyedString>::key_value;
     const std::string key_value(const dds::core::InstanceHandle& handle);
-    
+
     using dds::pub::DataWriter<KeyedString>::lookup_instance;
     const dds::core::InstanceHandle lookup_instance(const std::string& key);
 };

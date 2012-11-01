@@ -32,8 +32,8 @@ public:
             Topic<T>& topic,
             const dds::core::status::InconsistentTopicStatus& status) = 0;
 };
-    
-    
+
+
 template <typename T>
 class NoOpTopicListener : public virtual TopicListener<T> {
 public:
@@ -44,7 +44,7 @@ public:
             Topic<T>& topic,
             const dds::core::status::InconsistentTopicStatus& status) { }
 };
-    
+
 } }
 
 #endif /* OMG_DDS_TOPIC_TOPIC_LISTENER_HPP_ */

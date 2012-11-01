@@ -23,7 +23,7 @@
 #include <org/opensplice/sub/qos/SubscriberQosImpl.hpp>
 
 namespace dds { namespace sub { namespace qos { namespace detail {
-	typedef ::dds::core::qos::TEntityQos< ::org::opensplice::sub::qos::SubscriberQosImpl > SubscriberQos;
+    typedef ::dds::core::qos::TEntityQos< ::org::opensplice::sub::qos::SubscriberQosImpl > SubscriberQos;
 } } } }
 
 #endif /* OMG_DDS_SUB_QOS_DETAIL_SUBSCRIBER_QOS_HPP_ */

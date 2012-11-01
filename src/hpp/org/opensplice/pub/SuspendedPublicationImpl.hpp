@@ -6,7 +6,7 @@
 #include <org/opensplice/pub/pubfwd.hpp>
 
 
-namespace org { 
+namespace org {
   namespace opensplice {
     namespace pub {
       class SuspendedPublicationImpl;

@@ -73,7 +73,7 @@ public:
      * constructor.
      */
     ~TCoherentSet() {
-    	this->delegate().end();
+        this->delegate().end();
     }
 };
 

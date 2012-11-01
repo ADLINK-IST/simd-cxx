@@ -22,7 +22,7 @@
 #include <dds/sub/detail/CoherentAccess.hpp>
 
 namespace dds { namespace sub {
-	typedef dds::sub::detail::CoherentAccess CoherentAccess;
+    typedef dds::sub::detail::CoherentAccess CoherentAccess;
 } }
 
 namespace dds { namespace sub {

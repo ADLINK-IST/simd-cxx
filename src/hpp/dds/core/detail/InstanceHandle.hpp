@@ -23,7 +23,7 @@
 #include <org/opensplice/core/InstanceHandleImpl.hpp>
 
 namespace dds { namespace core { namespace detail {
-      typedef dds::core::TInstanceHandle<org::opensplice::core::InstanceHandleImpl> InstanceHandle; 
+      typedef dds::core::TInstanceHandle<org::opensplice::core::InstanceHandleImpl> InstanceHandle;
 } } }
 
 #endif /* !defined(OMG_DDS_CORE_DETAIL_INSTANCE_HANDLE_HPP_) */

@@ -42,7 +42,7 @@ namespace dds { namespace pub {
 
 class org::opensplice::pub::PublisherDelegate : public org::opensplice::core::EntityDelegate {
 public:
-    
+
     PublisherDelegate(const dds::domain::DomainParticipant& dp,
                   const dds::pub::qos::PublisherQos& qos,
                   dds::pub::PublisherListener* the_listener,

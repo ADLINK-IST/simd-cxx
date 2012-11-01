@@ -24,7 +24,7 @@
 namespace dds { namespace core {
 
 class Duration;
-    
+
 class OMG_DDS_API Time {
 public:
     static const Time invalid();       // {-1, 0xffffffff}
@@ -35,7 +35,7 @@ public:
     static const Time from_secs(double seconds);
 
 public:
-	Time();
+    Time();
     explicit Time(int64_t sec, uint32_t nanosec = 0);
 
 public:
@@ -47,23 +47,23 @@ public:
 
 public:
     int compare(const Time& that);
-	bool operator >(const Time& that);
-	bool operator >=(const Time& that);
+    bool operator >(const Time& that);
+    bool operator >=(const Time& that);
 
-	bool operator ==(const Time& that);
+    bool operator ==(const Time& that);
 
-	bool operator <=(const Time& that);
-	bool operator <(const Time& that);
+    bool operator <=(const Time& that);
+    bool operator <(const Time& that);
 
 public:
     Time& operator+=(const Duration& a_ti);
     Time& operator-=(const Duration& a_ti);
-    
+
 public:
     int64_t to_millisecs() const;
     void to_microsecs(int64_t microsec);
     double to_secs() const;
-    
+
 private:
     int64_t sec_;
     uint32_t nsec_;

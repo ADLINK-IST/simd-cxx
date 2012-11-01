@@ -22,7 +22,7 @@
 #include <dds/core/cond/TCondition.hpp>
 #include <org/opensplice/core/ConditionImpl.hpp>
 namespace dds { namespace core { namespace cond { namespace detail {
-	typedef dds::core::cond::TCondition<org::opensplice::core::ConditionImpl> Condition;
+    typedef dds::core::cond::TCondition<org::opensplice::core::ConditionImpl> Condition;
 } } } }
 
 #endif  /* OMG_DDS_CORE_CONDITION_DETAIL_HPP_ */

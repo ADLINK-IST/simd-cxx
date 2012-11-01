@@ -30,7 +30,7 @@
 template <typename DELEGATE>
 class tdds::type::dynamic::DynamicDataFactory : dds::core::Reference<DELEGATE>
 {
-	OMG_DDS_REF_TYPE(DynamicDataFactory, dds::core::Reference, DELEGATE)
+    OMG_DDS_REF_TYPE(DynamicDataFactory, dds::core::Reference, DELEGATE)
 
 public:
     static DynamicDataFactory get_instance();
@@ -44,5 +44,5 @@ public:
 
 #endif  // OMG_DDS_EXTENSIBLE_AND_DYNAMIC_TOPIC_TYPE_SUPPORT
 
-    
+
 #endif // !defined(OMG_DDS_DYNAMIC_DATA_FACTORY_HPP_)

@@ -62,7 +62,7 @@ public:
     }
 
     virtual void qos(const ::dds::pub::qos::DataWriterQos& the_qos) {
-    	dw_.qos(the_qos);
+        dw_.qos(the_qos);
     }
 
     virtual const std::string& topic_name() const {

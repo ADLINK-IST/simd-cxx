@@ -118,7 +118,7 @@ public:
     }
 
     void qos(const dds::topic::qos::TopicQos& the_qos) {
-    	this->::dds::core::Reference<DELEGATE<T> >::delegate()->qos(the_qos);
+        this->::dds::core::Reference<DELEGATE<T> >::delegate()->qos(the_qos);
     }
 
     /**

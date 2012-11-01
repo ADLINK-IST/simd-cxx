@@ -38,56 +38,56 @@
 template <typename DELEGATE>
 class tdds::type::typeobject::AnnotationMemberValue : public dds::core::Value<DELEGATE>
 {
-    
+
 public:
     dds::type::TypeKind discriminator() const;
     void discriminator(dds::type::TypeKind d);
-    
+
     bool as_bool() const;
     void as_bool(bool value);
-    
+
     uint8_t as_byte() const;
     void as_byte(uint8_t value);
-    
+
     int16_t as_int16() const;
     void as_int_16(int16_t value);
-    
+
     uint16_t as_uint16() const;
     void as_uint_16(uint16_t value);
-    
+
     int32_t as_int32() const;
     void as_int_32(int32_t value);
-    
+
     uint32_t as_uint32() const;
     void as_uint32(uint32_t value);
-    
+
     int32_t as_int64() const;
     void as_int64(int32_t value);
-    
+
     uint64_t as_uint64() const;
     void as_uint64(uint64_t value);
-    
+
     float as_float32() const;
     void as_float32(float value);
-    
+
     double as_float64() const;
     void as_float64(double value);
-    
+
     ldouble_t as_float128() const;
     void as_float128(ldouble_t value);
-    
+
     char as_char() const;
     void as_char(char value);
-    
+
     wchar_t as_wchar() const;
     void as_wchar(wchar_t value);
-    
+
     int as_enum();
     void as_enum(int value);
-    
+
     const std::string as_string();
     void as_string(const std::string& value);
-    
+
     const std::wstring as_wstring();
     void as_wstring(const std::wstring& value);
 };
@@ -99,14 +99,14 @@ public:
 template <typename DELEGATE>
 class tdds::type::typeobject::AnnotationUsageMember : public dds::core::Value<DELEGATE>
 {
-    
+
 public:
     /**
      * Member of the annotation type
      */
     dds::type::MemberId member_id() const;
     void member_id(dds::type::MemberId id);
-    
+
     /**
      * Value that member is set to
      */
@@ -121,11 +121,11 @@ public:
 template <typename DELEGATE>
 class tdds::type::typeobject::AnnotationUsage : public dds::core::Value<DELEGATE>
 {
-    
+
 public:
     dds::type::typeobject::TypeId type_id() const;
     void type_id(dds::type::typeobject::TypeId id);
-    
+
     const dds::type::typeobject::AnnotationUsageMemberSeq member() const;
     dds::type::typeobject::AnnotationUsageMemberSeq& member(
         dds::type::typeobject::AnnotationUsageMemberSeq& dst);
@@ -141,14 +141,14 @@ public:
 template <typename DELEGATE>
 class tdds::type::typeobject::TypeProperty : public dds::core::Value<DELEGATE>
 {
-    
+
 public:
     const dds::type::typeobject::TypeFlag::Mask flag() const;
     void flag(const dds::type::typeobject::TypeFlag::Mask& mask);
-    
+
     dds::type::typeobject::TypeId type_id() const;
     void type_id(dds::type::typeobject::TypeId id);
-    
+
     const std::string name();
     void name(const std::string& name);
 };
@@ -165,7 +165,7 @@ protected:
 
 public:
     virtual ~Type();
-    
+
 public:
     /**
      * Member IDs used in the Type base type
@@ -175,11 +175,11 @@ public:
         PROPERTY_TYPE_MEMBER_ID   = 0,
         ANNOTATION_TYPE_MEMBER_ID = 1
     };
-    
+
 public:
     const dds::type::typeobject::TypeProperty property() const;
     void property(const dds::type::typeobject::TypeProperty& value);
-    
+
     const dds::type::typeobject::AnnotationUsageSeq annotation() const;
     dds::type::typeobject::AnnotationUsageSeq& annotation(
         dds::type::typeobject::AnnotationUsageSeq& dst);
@@ -195,17 +195,17 @@ public:
 template <typename DELEGATE>
 class tdds::type::typeobject::MemberProperty : public dds::core::Value<DELEGATE>
 {
-    
+
 public:
     const dds::type::typeobject::MemberFlag::Mask flag() const;
     void flag(const dds::type::typeobject::MemberFlag::Mask& value);
-    
+
     dds::type::MemberId member_id() const;
     void member_id(dds::type::MemberId value);
-    
+
     dds::type::typeobject::TypeId type_id() const;
     void type_id(dds::type::typeobject::TypeId value);
-    
+
     const std::string name() const;
     void name(const std::string& value);
 };
@@ -231,11 +231,11 @@ public:
         PROPERTY_MEMBER_MEMBER_ID   = 0,
         ANNOTATION_MEMBER_MEMBER_ID = 1
     };
-    
+
 public:
     const dds::type::typeobject::MemberProperty property() const;
     void property(const dds::type::typeobject::MemberProperty& value);
-    
+
     const dds::type::typeobject::AnnotationUsageSeq annotation();
     dds::type::typeobject::AnnotationUsageSeq& annotation(
         dds::type::typeobject::AnnotationUsageSeq& dst);
@@ -632,10 +632,10 @@ public:
         STRING_TYPE_ELEMENT       = dds::type::STRING_TYPE,
         STRUCTURE_TYPE_ELEMENT    = dds::type::STRUCTURE_TYPE,
         UNION_TYPE_ELEMENT        = dds::type::UNION_TYPE,
-        
+
         MODULE_ELEMENT         // = auto-assigned value
     };
-    
+
 public:
     Kind discriminator() const;
     void discriminator(Kind d);
@@ -679,7 +679,7 @@ public:
 template <typename DELEGATE>
 class tdds::type::typeobject::TypeLibrary : public dds::core::Value<DELEGATE>
 {
-    
+
 public:
     const dds::type::typeobject::TypeLibraryElementSeq element() const;
     dds::type::typeobject::TypeLibraryElementSeq&

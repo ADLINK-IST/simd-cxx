@@ -20,34 +20,34 @@ class SubscriberDelegate : public org::opensplice::core::EntityDelegate {
 public:
 
 public:
-	SubscriberDelegate(
-			const dds::domain::DomainParticipant& dp,
-			const dds::sub::qos::SubscriberQos& the_qos,
-			dds::sub::SubscriberListener* the_listener,
-			const dds::core::status::StatusMask& event_mask);
+    SubscriberDelegate(
+            const dds::domain::DomainParticipant& dp,
+            const dds::sub::qos::SubscriberQos& the_qos,
+            dds::sub::SubscriberListener* the_listener,
+            const dds::core::status::StatusMask& event_mask);
 
-	virtual ~SubscriberDelegate();
+    virtual ~SubscriberDelegate();
 
 
 public:
-	/**
-	 * This operation invokes the operation on_data_available on the
-	 * DataReaderListener objects attached to contained DataReader
-	 * entities with a DATA_AVAILABLE status that is considered changed
-	 * as described in Section 7.1.4.2.2, Changes in Read Communication
-	 * Statuses.
-	 */
-	void notify_datareaders();
+    /**
+     * This operation invokes the operation on_data_available on the
+     * DataReaderListener objects attached to contained DataReader
+     * entities with a DATA_AVAILABLE status that is considered changed
+     * as described in Section 7.1.4.2.2, Changes in Read Communication
+     * Statuses.
+     */
+    void notify_datareaders();
 
-	const dds::domain::DomainParticipant& participant() const;
+    const dds::domain::DomainParticipant& participant() const;
 
-	const dds::sub::qos::SubscriberQos qos() const;
+    const dds::sub::qos::SubscriberQos qos() const;
 
-	void qos(const dds::sub::qos::SubscriberQos& the_qos);
+    void qos(const dds::sub::qos::SubscriberQos& the_qos);
 
-	const dds::sub::qos::DataReaderQos default_datareader_qos() const;
+    const dds::sub::qos::DataReaderQos default_datareader_qos() const;
 
-	void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos);
+    void default_datareader_qos(const dds::sub::qos::DataReaderQos &qos);
 
 private:
    dds::domain::DomainParticipant dp_;
@@ -58,7 +58,7 @@ private:
 
 public:
    dds::core::smart_ptr_traits<DDS::Subscriber>::ref_type sub_;
-   
+
 
 };
 

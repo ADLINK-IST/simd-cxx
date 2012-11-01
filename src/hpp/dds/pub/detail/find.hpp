@@ -29,9 +29,9 @@ namespace dds { namespace pub { namespace detail {
 template <typename WRITER, typename FwdIterator>
 uint32_t
 find(const dds::pub::Publisher& pub, const std::string& topic_name,
-		FwdIterator begin, int32_t max_size)
+        FwdIterator begin, int32_t max_size)
 {
-	return 0;
+    return 0;
 }
 
 

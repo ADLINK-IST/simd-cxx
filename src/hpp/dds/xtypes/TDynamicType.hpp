@@ -49,7 +49,7 @@ public:
 
     dds::type::dynamic::DynamicTypeMembersByName&
     all_members_by_name(dds::type::dynamic::DynamicTypeMembersByName& dst);
-    
+
     dds::type::dynamic::DynamicTypeMember
     member(dds::type::MemberId id);
 
@@ -63,7 +63,7 @@ public:
     const dds::type::dynamic::AnnotationDescriptorSeq annotation() const;
     dds::type::dynamic::AnnotationDescriptorSeq&
     annotation(dds::type::dynamic::AnnotationDescriptorSeq& dst) const;
-    
+
     void apply_annotation(
         const dds::type::dynamic::AnnotationDescriptor& descriptor);
 

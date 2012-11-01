@@ -24,7 +24,7 @@
 
 
 namespace dds { namespace core {
-    typedef dds::core::detail::InstanceHandle InstanceHandle; 
+    typedef dds::core::detail::InstanceHandle InstanceHandle;
     typedef std::vector<InstanceHandle> InstanceHandleSeq;
 } }
 

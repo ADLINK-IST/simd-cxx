@@ -33,118 +33,118 @@ template <typename DELEGATE>
 class tdds::type::dynamic::DynamicData : public dds::core::Value<DELEGATE> {
 
 public:
-	class MemberDescriptorIterator : public std::iterator<std::forward_iterator_tag, dds::type::dynamic::MemberDescriptor>
-	{
-	public:
-		MemberDescriptorIterator();
-		MemberDescriptorIterator(const MemberDescriptorIterator& src);
-		~MemberDescriptorIterator();
+    class MemberDescriptorIterator : public std::iterator<std::forward_iterator_tag, dds::type::dynamic::MemberDescriptor>
+    {
+    public:
+        MemberDescriptorIterator();
+        MemberDescriptorIterator(const MemberDescriptorIterator& src);
+        ~MemberDescriptorIterator();
 
-	public:
-		MemberDescriptorIterator&
-		operator=(const MemberDescriptorIterator& src);
+    public:
+        MemberDescriptorIterator&
+        operator=(const MemberDescriptorIterator& src);
 
-		bool operator==(const MemberDescriptorIterator& other) const;
-		bool operator!=(const MemberDescriptorIterator& other) const;
+        bool operator==(const MemberDescriptorIterator& other) const;
+        bool operator!=(const MemberDescriptorIterator& other) const;
 
-		MemberDescriptorIterator& operator++();       // prefix
-		MemberDescriptorIterator  operator++(int);    // postfix
+        MemberDescriptorIterator& operator++();       // prefix
+        MemberDescriptorIterator  operator++(int);    // postfix
 
-		dds::type::dynamic::MemberDescriptor& operator*();
+        dds::type::dynamic::MemberDescriptor& operator*();
 
-		dds::type::dynamic::MemberDescriptor* operator->();
+        dds::type::dynamic::MemberDescriptor* operator->();
 
-	};
+    };
 
-	public:
-	class ConstMemberDescriptorIterator : public std::iterator<std::forward_iterator_tag, const dds::type::dynamic::MemberDescriptor>
-	{
-	public:
-		ConstMemberDescriptorIterator();
-		ConstMemberDescriptorIterator(const ConstMemberDescriptorIterator& src);
-		~ConstMemberDescriptorIterator();
+    public:
+    class ConstMemberDescriptorIterator : public std::iterator<std::forward_iterator_tag, const dds::type::dynamic::MemberDescriptor>
+    {
+    public:
+        ConstMemberDescriptorIterator();
+        ConstMemberDescriptorIterator(const ConstMemberDescriptorIterator& src);
+        ~ConstMemberDescriptorIterator();
 
-	public:
-		ConstMemberDescriptorIterator&
-		operator=(const ConstMemberDescriptorIterator& src);
+    public:
+        ConstMemberDescriptorIterator&
+        operator=(const ConstMemberDescriptorIterator& src);
 
-		bool operator==(const ConstMemberDescriptorIterator& other) const;
-		bool operator!=(const ConstMemberDescriptorIterator& other) const;
+        bool operator==(const ConstMemberDescriptorIterator& other) const;
+        bool operator!=(const ConstMemberDescriptorIterator& other) const;
 
-		ConstMemberDescriptorIterator& operator++();       // prefix
-		ConstMemberDescriptorIterator  operator++(int);    // postfix
+        ConstMemberDescriptorIterator& operator++();       // prefix
+        ConstMemberDescriptorIterator  operator++(int);    // postfix
 
-		const dds::type::dynamic::MemberDescriptor& operator*();
+        const dds::type::dynamic::MemberDescriptor& operator*();
 
-		const dds::type::dynamic::MemberDescriptor* operator->();
-	};
+        const dds::type::dynamic::MemberDescriptor* operator->();
+    };
 
-	public:
-	const dds::type::dynamic::DynamicType& type() const;
+    public:
+    const dds::type::dynamic::DynamicType& type() const;
 
-	MemberDescriptorIterator begin();
-	MemberDescriptorIterator end();
+    MemberDescriptorIterator begin();
+    MemberDescriptorIterator end();
 
-	ConstMemberDescriptorIterator begin() const;
-	ConstMemberDescriptorIterator end() const;
+    ConstMemberDescriptorIterator begin() const;
+    ConstMemberDescriptorIterator end() const;
 
-	dds::type::MemberId member_id(const std::string& name) const;
-	dds::type::MemberId member_idx(unsigned long index) const;
+    dds::type::MemberId member_id(const std::string& name) const;
+    dds::type::MemberId member_idx(unsigned long index) const;
 
-	void clear_all_values();
-	void clear_nonkey_values();
-	void clear_value(dds::type::MemberId id);
+    void clear_all_values();
+    void clear_nonkey_values();
+    void clear_value(dds::type::MemberId id);
 
-	const dds::type::dynamic::DynamicData&
-	loan_value(dds::type::MemberId id) const;
+    const dds::type::dynamic::DynamicData&
+    loan_value(dds::type::MemberId id) const;
 
-	dds::type::dynamic::DynamicData& loan_value(dds::type::MemberId id);
-	void return_loaned_value(const dds::type::dynamic::DynamicData& value);
+    dds::type::dynamic::DynamicData& loan_value(dds::type::MemberId id);
+    void return_loaned_value(const dds::type::dynamic::DynamicData& value);
 
-	/**
-	 * Implementations shall minimally provide specializations for all DDS
-	 * primitive types, strings, wide strings, and DynamicData.
-	 */
-	template <typename T>
-	T value(dds::type::MemberId id) const;
+    /**
+     * Implementations shall minimally provide specializations for all DDS
+     * primitive types, strings, wide strings, and DynamicData.
+     */
+    template <typename T>
+    T value(dds::type::MemberId id) const;
 
-	/**
-	 * Implementations shall minimally provide specializations for all DDS
-	 * primitive types, strings, wide strings, and DynamicData.
-	 */
-	template <typename T>
-	void value(dds::type::MemberId id, const T& value);
+    /**
+     * Implementations shall minimally provide specializations for all DDS
+     * primitive types, strings, wide strings, and DynamicData.
+     */
+    template <typename T>
+    void value(dds::type::MemberId id, const T& value);
 
-	/**
-	 * Implementations shall minimally provide specializations of T for all
-	 * DDS primitive types, strings, wide strings, and DynamicData.
-	 *
-	 * T_FWD_ITER is a forward iterator over elements of type T.
-	 *
-	 * As an input, element_count indicates the maximum number of elements of
-	 * the collection to retrieve into the provided iterator. As an output,
-	 * it indicates the number of elements in the collection, regardless of
-	 * how many were retrieved. By comparing the input and output values of
-	 * this argument, applications can detect overflow and underflow
-	 * conditions.
-	 */
-	template <typename T, typename T_FWD_ITER>
-	void values(T_FWD_ITER begin,
-			dds::type::MemberId id,
-			uint32_t& element_count = dds::core::LENGTH_UNLIMITED) const;
+    /**
+     * Implementations shall minimally provide specializations of T for all
+     * DDS primitive types, strings, wide strings, and DynamicData.
+     *
+     * T_FWD_ITER is a forward iterator over elements of type T.
+     *
+     * As an input, element_count indicates the maximum number of elements of
+     * the collection to retrieve into the provided iterator. As an output,
+     * it indicates the number of elements in the collection, regardless of
+     * how many were retrieved. By comparing the input and output values of
+     * this argument, applications can detect overflow and underflow
+     * conditions.
+     */
+    template <typename T, typename T_FWD_ITER>
+    void values(T_FWD_ITER begin,
+            dds::type::MemberId id,
+            uint32_t& element_count = dds::core::LENGTH_UNLIMITED) const;
 
-	/**
-	 * Implementations shall minimally provide specializations of T for all
-	 * DDS primitive types, strings, wide strings, and DynamicData.
-	 *
-	 * T_RNDA_ITER is a random-access iterator over elements of type T.
-	 * However, implementations shall not modify the values within the range
-	 * [begin, end).
-	 */
-	template <typename T, typename T_RNDA_ITER>
-	void values(dds::type::MemberId id,
-			T_RNDA_ITER begin,
-			T_RNDA_ITER end);
+    /**
+     * Implementations shall minimally provide specializations of T for all
+     * DDS primitive types, strings, wide strings, and DynamicData.
+     *
+     * T_RNDA_ITER is a random-access iterator over elements of type T.
+     * However, implementations shall not modify the values within the range
+     * [begin, end).
+     */
+    template <typename T, typename T_RNDA_ITER>
+    void values(dds::type::MemberId id,
+            T_RNDA_ITER begin,
+            T_RNDA_ITER end);
 };
 
 

@@ -31,7 +31,7 @@ namespace dds { namespace core {
       TInstanceHandle() { }
 
       template <typename ARG0>
-      TInstanceHandle(const ARG0& arg0) 
+      TInstanceHandle(const ARG0& arg0)
       : dds::core::Value<DELEGATE>(arg0) { }
 
       TInstanceHandle(const dds::core::null_type& nullHandle)

@@ -8,7 +8,7 @@ namespace org { namespace opensplice { namespace core {
 
    class EntityDelegate {
    public:
-	   EntityDelegate();
+       EntityDelegate();
       virtual ~EntityDelegate();
 
    public:

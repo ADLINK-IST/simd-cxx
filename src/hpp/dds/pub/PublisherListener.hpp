@@ -33,14 +33,14 @@ public:
     virtual ~PublisherListener();
 };
 
-    
+
 class dds::pub::NoOpPublisherListener :
     public virtual dds::pub::PublisherListener,
     public virtual dds::pub::NoOpAnyDataWriterListener {
 public:
     virtual ~NoOpPublisherListener() { }
 };
-    
+
 
 
 #endif /* OMG_DDS_PUB_PUBLISHER_LISTENER_HPP_ */

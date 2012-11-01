@@ -16,11 +16,11 @@ public:
   inline int32_t absolute_generation() const {
     return ag_;
   }
-    
+
   inline int32_t generation() const {
     return g_;
   }
-    
+
   inline int32_t sample() const {
     return s_;
   }

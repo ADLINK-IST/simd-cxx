@@ -30,7 +30,7 @@ public:
         : dds::core::Value<D>(policy_id, count)
     { }
 
-    TQosPolicyCount(const TQosPolicyCount& other) 
+    TQosPolicyCount(const TQosPolicyCount& other)
         : dds::core::Value<D>(other.policy_id(), other.count())
     { }
 public:

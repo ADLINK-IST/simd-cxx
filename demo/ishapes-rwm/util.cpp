@@ -1,14 +1,14 @@
 #include "util.hpp"
 
-std::ostream& 
+std::ostream&
 operator << (std::ostream& os, const org::opensplice::demo::ShapeType& s) {
-  os << "("  << s.color.in() << "," 
-     << s.x << ", " << s.y 
+  os << "("  << s.color.in() << ","
+     << s.x << ", " << s.y
      << ", " << s.shapesize << ")";
   return os;
 }
 
-std::ostream& 
+std::ostream&
 operator << (std::ostream& os, const dds::sub::SampleInfo& si) {
   os << "SampleInfo {"
      // << "\n\tDataState = " << si.state()

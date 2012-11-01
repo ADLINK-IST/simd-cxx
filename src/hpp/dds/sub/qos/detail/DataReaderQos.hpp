@@ -23,7 +23,7 @@
 #include <org/opensplice/sub/qos/DataReaderQosImpl.hpp>
 
 namespace dds { namespace sub { namespace qos { namespace detail {
-	typedef ::dds::core::qos::TEntityQos< ::org::opensplice::sub::qos::DataReaderQosImpl > DataReaderQos;
+    typedef ::dds::core::qos::TEntityQos< ::org::opensplice::sub::qos::DataReaderQosImpl > DataReaderQos;
 } } } }
 
 

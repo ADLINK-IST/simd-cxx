@@ -50,7 +50,7 @@ namespace tdds {
             // --- Dynamic data factory: --- //
             template <typename DELEGATE>
             class OMG_DDS_API DynamicDataFactory;
-            
+
             // --- Dynamic type: --- //
             template <typename DELEGATE>
             class OMG_DDS_API DynamicType;
@@ -58,7 +58,7 @@ namespace tdds {
             // --- Dynamic type factory: --- //
             template <typename DELEGATE>
             class OMG_DDS_API DynamicTypeFactory;
-            
+
             // --- Dynamic type factory: --- //
             template <typename DELEGATE>
             class OMG_DDS_API DynamicTypeMember;
@@ -66,7 +66,7 @@ namespace tdds {
             // --- Member descriptor: --- //
             template <typename DELEGATE>
             class OMG_DDS_API MemberDescriptor;
-            
+
             // --- Type descriptor: --- //
             template <typename DELEGATE>
             class OMG_DDS_API TypeDescriptor;
@@ -129,7 +129,7 @@ namespace tdds {
             // --- Member: --- //
             template <typename DELEGATE>
             class OMG_DDS_API Member;
-            
+
             // --- Member property: --- //
             template <typename DELEGATE>
             class OMG_DDS_API MemberProperty;
@@ -177,7 +177,7 @@ namespace tdds {
             // --- Union member: --- //
             template <typename DELEGATE>
             class OMG_DDS_API UnionMember;
-            
+
             // --- Union type: --- //
             template <typename DELEGATE>
             class OMG_DDS_API UnionType;

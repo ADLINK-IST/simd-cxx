@@ -22,11 +22,11 @@ namespace dds {
 }
 
 namespace org { namespace opensplice { namespace domain {
-	class DomainParticipantDelegate;
+    class DomainParticipantDelegate;
 } } }
 
 class org::opensplice::domain::DomainParticipantDelegate :
-	public virtual  ::org::opensplice::core::EntityDelegate
+    public virtual  ::org::opensplice::core::EntityDelegate
 {
 public:
     explicit DomainParticipantDelegate(uint32_t id);
@@ -62,13 +62,13 @@ public:
 
     const dds::topic::qos::TopicQos& default_topic_qos() const;
     void default_topic_qos(const dds::topic::qos::TopicQos& qos);
-    
+
     const ::dds::pub::qos::PublisherQos& default_publisher_qos() const;
     void default_publisher_qos(const ::dds::pub::qos::PublisherQos& qos);
-    
+
     const ::dds::sub::qos::SubscriberQos& default_subscriber_qos() const;
     void default_subscriber_qos(const ::dds::sub::qos::SubscriberQos& qos);
-    
+
     const ::dds::domain::qos::DomainParticipantQos& default_domain_qos();
     void default_domain_qos(const ::dds::domain::qos::DomainParticipantQos& qos);
 

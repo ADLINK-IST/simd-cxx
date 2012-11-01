@@ -32,7 +32,7 @@ public:
 
 public:
     SampleRejectedState() : MaskType() { }
-	SampleRejectedState(const SampleRejectedState& src) : MaskType(static_cast<int>(src.to_ulong())) { }
+    SampleRejectedState(const SampleRejectedState& src) : MaskType(static_cast<int>(src.to_ulong())) { }
     SampleRejectedState(const MaskType& src) : MaskType(static_cast<int>(src.to_ulong())) { }
 
 public:
@@ -51,11 +51,11 @@ public:
 
 private:
     // @TODO
-    // -- This Ctor should be fixed as currently there is this 
+    // -- This Ctor should be fixed as currently there is this
     // -- cast only to avoid an error when compiling with the  MS vC++ compiler
-    SampleRejectedState(uint32_t s) 
+    SampleRejectedState(uint32_t s)
         : MaskType((uint64_t)s)
-    { } 
+    { }
 
 };
 
@@ -64,7 +64,7 @@ private:
 
 class StatusMask : public std::bitset<OMG_DDS_STATUS_COUNT> {
 public:
-	typedef std::bitset<OMG_DDS_STATUS_COUNT> MaskType;
+    typedef std::bitset<OMG_DDS_STATUS_COUNT> MaskType;
 
 public:
     StatusMask() { }

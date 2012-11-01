@@ -43,15 +43,15 @@ public:
     virtual ~TDHolder() { }
 public:
     virtual const dds::domain::DomainParticipant& domain_participant() const {
-    	return td_.domain_participant();
+        return td_.domain_participant();
     }
 
     virtual const std::string& name() const {
-    	return td_.name();
+        return td_.name();
     }
 
     virtual const std::string& type_name() const {
-    	return td_.type_name();
+        return td_.type_name();
     }
 
     const dds::topic::TopicDescription<T>& get() const { return td_; }

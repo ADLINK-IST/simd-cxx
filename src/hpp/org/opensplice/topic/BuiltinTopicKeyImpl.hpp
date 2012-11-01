@@ -5,16 +5,16 @@ namespace org { namespace opensplice { namespace topic {
 
       class BuiltinTopicKeyImpl {
       public:
-	typedef uint32_t VALUE_T;
+    typedef uint32_t VALUE_T;
       public:
-	BuiltinTopicKeyImpl(uint32_t v) : key_(v) { }
+    BuiltinTopicKeyImpl(uint32_t v) : key_(v) { }
       public:
-	uint32_t value() const {
-	  return key_;
-	}
+    uint32_t value() const {
+      return key_;
+    }
 
       protected:
-	uint32_t key_;
+    uint32_t key_;
       };
 
     }

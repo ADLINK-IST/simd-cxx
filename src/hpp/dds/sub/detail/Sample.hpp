@@ -47,7 +47,7 @@ public:
     void info(const SampleInfo& i) {
        info_ = i;
     }
-    
+
 private:
     T data_;
     SampleInfo info_;

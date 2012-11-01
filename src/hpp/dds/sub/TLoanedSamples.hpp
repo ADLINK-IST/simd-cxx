@@ -6,15 +6,15 @@
 
 namespace dds { namespace sub {
     template <typename T,
-	           template <typename Q> class DELEGATE>
+               template <typename Q> class DELEGATE>
     class LoanedSamples;
-	
-  } 
+
+  }
 }
 
 template <typename T,
-	  template <typename Q> class DELEGATE>
-class dds::sub::LoanedSamples 
+      template <typename Q> class DELEGATE>
+class dds::sub::LoanedSamples
 {
 public:
   typedef T                     DataType;
@@ -28,12 +28,12 @@ public:
   LoanedSamples()
     : delegate_(new DELEGATE<T>())
   { }
-  
+
   /**
    * Implicitly return the loan.
    */
   ~LoanedSamples() {  }
-  
+
 
 public:
   const_iterator begin() const {
@@ -51,7 +51,7 @@ public:
   DELEGATE_REF_T& delegate() {
     return delegate_;
   }
-  
+
   uint32_t length() const {
     return delegate_->length();
   }

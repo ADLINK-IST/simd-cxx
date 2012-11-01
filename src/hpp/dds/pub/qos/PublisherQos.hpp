@@ -21,8 +21,8 @@
 
 #include <dds/pub/qos/detail/PublisherQos.hpp>
 
-namespace dds { namespace pub { namespace qos { 
+namespace dds { namespace pub { namespace qos {
     typedef dds::pub::qos::detail::PublisherQos PublisherQos;
-} } } 
+} } }
 
 #endif /* OMG_DDS_QOS_PUBLISER_QOS_HPP_ */

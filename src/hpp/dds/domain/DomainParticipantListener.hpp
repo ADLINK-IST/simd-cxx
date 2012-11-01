@@ -34,7 +34,7 @@ class DomainParticipantListener :
 public:
     virtual ~DomainParticipantListener() { }
 };
-    
+
 
 class NoOpDomainParticipantListener :
     public virtual DomainParticipantListener,
@@ -45,7 +45,7 @@ class NoOpDomainParticipantListener :
 public:
     virtual ~NoOpDomainParticipantListener() { }
 };
-    
+
 }}
 
 #endif /* OMG_DDS_DOMAIN_DOMAINPARTICIPANT_LISTENER_HPP_ */

@@ -67,15 +67,15 @@ namespace demo {
       typedef boost::shared_ptr<demo::ishapes::Runner<ShapeType> > Runner_t;
 
       struct Params {
-    	  Params() :
-    		  shape("Circle"),
-    		  color("RED"),
-    		  period(1000),
-    		  samples(10),
-    		  shape_size(80),
-    		  history_depth(1),
-    		  data_state(dds::sub::status::DataState::new_data())
-    	  { }
+          Params() :
+              shape("Circle"),
+              color("RED"),
+              period(1000),
+              samples(10),
+              shape_size(80),
+              history_depth(1),
+              data_state(dds::sub::status::DataState::new_data())
+          { }
           std::string shape;
           std::string color;
           uint32_t period;

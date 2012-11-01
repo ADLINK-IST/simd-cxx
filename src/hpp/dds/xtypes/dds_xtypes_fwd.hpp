@@ -33,45 +33,45 @@
 namespace dds { namespace type {
 
 namespace builtin { namespace detail {
-	class KeyedBytes;
-	class KeyedString;
+    class KeyedBytes;
+    class KeyedString;
 } }
 
 namespace dynamic { namespace detail {
-	class AnnotationDescription;
-	class DynamicData;
-	class DynamicDataFactory;
-	class DynamicType;
-	class DynamicTypeFactory;
-	class DynamicTypeMember;
-	class MemberDescriptor;
-	class TypeDescriptor;
+    class AnnotationDescription;
+    class DynamicData;
+    class DynamicDataFactory;
+    class DynamicType;
+    class DynamicTypeFactory;
+    class DynamicTypeMember;
+    class MemberDescriptor;
+    class TypeDescriptor;
 } }
 namespace typeobject { namespace detail {
-	class AliasType;
-	class AnnotationMember;
-	class AnnotationMemberValue;
-	class AnnotationType;
-	class AnnotationUsage;
-	class AnnotationUsageMember;
-	class ArrayType;
-	class Bit;
-	class BitSetType;
-	class EnumeratedConstant;
-	class EnumerationType;
-	class MapType;
-	class MemberProperty;
-	class Module;
-	class SequenceType;
-	class StringType;
-	class StructureMember;
-	class StructureType;
-	class TypeLibrary;
-	class TypeLibraryElement;
-	class TypeObject;
-	class TypeProperty;
-	class UnionMember;
-	class UnionType;
+    class AliasType;
+    class AnnotationMember;
+    class AnnotationMemberValue;
+    class AnnotationType;
+    class AnnotationUsage;
+    class AnnotationUsageMember;
+    class ArrayType;
+    class Bit;
+    class BitSetType;
+    class EnumeratedConstant;
+    class EnumerationType;
+    class MapType;
+    class MemberProperty;
+    class Module;
+    class SequenceType;
+    class StringType;
+    class StructureMember;
+    class StructureType;
+    class TypeLibrary;
+    class TypeLibraryElement;
+    class TypeObject;
+    class TypeProperty;
+    class UnionMember;
+    class UnionType;
 
 } } } }
 
@@ -152,16 +152,16 @@ namespace dds {
             typedef std::map<std::string, DynamicTypeMember>
             DynamicTypeMembersByName;
 
-            typedef std::map<dds::type::MemberId, DynamicTypeMember>  
+            typedef std::map<dds::type::MemberId, DynamicTypeMember>
             DynamicTypeMembersById;
 
             // --- Include path sequence: --- //
             typedef std::vector<std::string> IncludePathSeq;
-            
+
             // --- Member descriptor: --- //
             typedef tdds::type::dynamic::MemberDescriptor<dds::type::dynamic::detail::MemberDescriptor>
             MemberDescriptor;
-            
+
             // --- Parameters: --- //
             typedef std::map<std::string, std::string> Parameters;
 
@@ -189,7 +189,7 @@ namespace dds {
             // --- Annotation type: --- //
             typedef tdds::type::typeobject::AnnotationType<dds::type::typeobject::detail::AnnotationType>
             AnnotationType;
-            
+
             // --- Annotation usage: --- //
             typedef tdds::type::typeobject::AnnotationUsage<dds::type::typeobject::detail::AnnotationUsage>
             AnnotationUsage;
@@ -224,7 +224,7 @@ namespace dds {
             // --- Enumeration type: --- //
             typedef tdds::type::typeobject::EnumerationType< dds::type::typeobject::detail::EnumerationType>
             EnumerationType;
-            
+
             // --- Map type: --- //
             typedef tdds::type::typeobject::MapType<dds::type::typeobject::detail::MapType>
             MapType;
@@ -279,7 +279,7 @@ namespace dds {
             // --- Union member: --- //
             typedef tdds::type::typeobject::UnionMember<dds::type::typeobject::detail::UnionMember>
             UnionMember;
-            
+
             typedef std::vector<UnionMember> UnionMemberSeq;
 
             // --- Union type: --- //

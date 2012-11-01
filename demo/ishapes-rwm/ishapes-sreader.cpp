@@ -1,7 +1,7 @@
 // Std C++ Include
 #include <algorithm>
 
-// Utils 
+// Utils
 #include "util.hpp"
 
 int main(int argc, char* argv[]) {
@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
     Topic<ShapeType> topic(dp, "Circle");
     Subscriber sub(dp);
     DataReader<ShapeType> dr(sub, topic);
-      
+
     uint32_t sleepTime = 100000;
 
     while (true) {

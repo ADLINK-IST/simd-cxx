@@ -4,11 +4,11 @@
 #include <dds/core/detail/conformance.hpp>
 #include <dds/core/policy/CorePolicy.hpp>
 
-namespace org { 
-  namespace opensplice { 
-    namespace sub { 
+namespace org {
+  namespace opensplice {
+    namespace sub {
       namespace qos {
-	class DataReaderQosImpl;
+    class DataReaderQosImpl;
       }
     }
   }

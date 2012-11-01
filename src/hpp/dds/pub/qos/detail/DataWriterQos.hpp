@@ -22,8 +22,8 @@
 #include <dds/core/TEntityQos.hpp>
 #include <org/opensplice/pub/qos/DataWriterQosImpl.hpp>
 
-namespace dds { namespace pub { namespace qos { namespace detail { 
-	typedef dds::core::qos::TEntityQos<org::opensplice::pub::qos::DataWriterQosImpl> DataWriterQos;
+namespace dds { namespace pub { namespace qos { namespace detail {
+    typedef dds::core::qos::TEntityQos<org::opensplice::pub::qos::DataWriterQosImpl> DataWriterQos;
 } } } }
 
 #endif /* OMG_DDS_QOS_DETAIL_DATA_WRITER_QOS_HPP_ */

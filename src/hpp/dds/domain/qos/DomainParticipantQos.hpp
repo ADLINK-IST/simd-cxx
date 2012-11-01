@@ -21,7 +21,7 @@
 
 #include <dds/domain/qos/detail/DomainParticipantQos.hpp>
 
-namespace dds {namespace domain { namespace qos { 
+namespace dds {namespace domain { namespace qos {
     typedef dds::domain::qos::detail::DomainParticipantQos DomainParticipantQos;
 } } }
 

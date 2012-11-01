@@ -28,8 +28,8 @@ namespace dds { namespace topic {
  *  This operation usually results in network look-ups.
 template <typename TOPIC>
 TOPIC discover(const dds::domain::DomainParticipant& dp,
-			const std::string& name,
-			const dds::core::Duration& timeout = dds::core::Duration::infinite());
+            const std::string& name,
+            const dds::core::Duration& timeout = dds::core::Duration::infinite());
  */
 
 template <typename ANYTOPIC, typename FwdIterator>

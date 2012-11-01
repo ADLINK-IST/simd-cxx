@@ -5,7 +5,7 @@
 #include <dds/sub/Rank.hpp>
 #include <dds/sub/GenerationCount.hpp>
 
-namespace org { 
+namespace org {
   namespace opensplice {
     namespace sub {
       class SampleInfoImpl;
@@ -24,33 +24,33 @@ class org::opensplice::sub::SampleInfoImpl : private DDS::SampleInfo {
 public:
   SampleInfoImpl() { }
 public:
-  
-  inline const dds::core::Time 
+
+  inline const dds::core::Time
   timestamp() const {
     return dds::core::Time(this->source_timestamp.sec, this->source_timestamp.nanosec);
   }
-  
-  inline const dds::sub::status::DataState 
+
+  inline const dds::sub::status::DataState
   state() const {
-    return dds::sub::status::DataState(dds::sub::status::SampleState(this->sample_state), 
-				       dds::sub::status::ViewState(this->view_state),
-				       dds::sub::status::InstanceState(this->instance_state));
+    return dds::sub::status::DataState(dds::sub::status::SampleState(this->sample_state),
+                       dds::sub::status::ViewState(this->view_state),
+                       dds::sub::status::InstanceState(this->instance_state));
   }
-    
-  inline dds::sub::GenerationCount 
-  generation_count() const {    
-    return dds::sub::GenerationCount(this->disposed_generation_count, 
-			   this->no_writers_generation_count);
+
+  inline dds::sub::GenerationCount
+  generation_count() const {
+    return dds::sub::GenerationCount(this->disposed_generation_count,
+               this->no_writers_generation_count);
   }
-  
-  inline dds::sub::Rank 
+
+  inline dds::sub::Rank
   rank() const {
-    return dds::sub::Rank(this->sample_rank, 
-		this->generation_rank, 
-		this->absolute_generation_rank);
+    return dds::sub::Rank(this->sample_rank,
+        this->generation_rank,
+        this->absolute_generation_rank);
   }
-    
-  inline bool 
+
+  inline bool
   valid() const {
     return this->valid_data;
   }

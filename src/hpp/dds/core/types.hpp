@@ -31,15 +31,15 @@
 namespace dds { namespace core {
     typedef std::vector<uint8_t> ByteSeq;
     typedef std::vector<std::string> StringSeq;
-    
-    // DDS Null-Reference 
-    class null_type { };    
+
+    // DDS Null-Reference
+    class null_type { };
     extern const null_type null;
 
 
-#ifdef OMG_DDS_EXTENSIBLE_AND_DYNAMIC_TOPIC_TYPE_SUPPORT    
+#ifdef OMG_DDS_EXTENSIBLE_AND_DYNAMIC_TOPIC_TYPE_SUPPORT
     namespace policy {
-        
+
         typedef uint16_t DataRepresentationId;
         typedef std::vector<DataRepresentationId> DataRepresentationIdSeq;
     }

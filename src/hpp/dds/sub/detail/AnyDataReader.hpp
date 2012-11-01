@@ -53,7 +53,7 @@ public:
     }
 
     virtual void qos(const dds::sub::qos::DataReaderQos& the_qos) {
-    	dr_.qos(the_qos);
+        dr_.qos(the_qos);
     }
 
     virtual const std::string topic_name() const {

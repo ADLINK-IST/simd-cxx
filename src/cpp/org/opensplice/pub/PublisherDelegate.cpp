@@ -31,23 +31,23 @@ namespace org { namespace opensplice { namespace pub {
     PublisherDelegate::PublisherDelegate(const dds::domain::DomainParticipant& dp,
                                  const dds::pub::qos::PublisherQos& qos,
                                  dds::pub::PublisherListener* listener,
-                                 const dds::core::status::StatusMask& event_mask) 
+                                 const dds::core::status::StatusMask& event_mask)
     :   dp_(dp),
         qos_(qos),
         listener_(listener),
         mask_(event_mask),
         default_dwqos_()
     {
-    	DDS::PublisherQos pqos;
-    	dp->dp_->get_default_publisher_qos(pqos);
+        DDS::PublisherQos pqos;
+        dp->dp_->get_default_publisher_qos(pqos);
 
-    	DDS::Publisher* p =
-    			dp->dp_->create_publisher(pqos, 0, DDS::ANY_STATUS);
+        DDS::Publisher* p =
+                dp->dp_->create_publisher(pqos, 0, DDS::ANY_STATUS);
 
-    	if (p == 0)
-    		throw dds::core::PreconditionNotMetError("Exception, Unable create Publisher!");
+        if (p == 0)
+            throw dds::core::PreconditionNotMetError("Exception, Unable create Publisher!");
 
-    	pub_.reset(p, ::org::opensplice::core::PubDeleter(dp_->dp_));
+        pub_.reset(p, ::org::opensplice::core::PubDeleter(dp_->dp_));
     }
 
 /*

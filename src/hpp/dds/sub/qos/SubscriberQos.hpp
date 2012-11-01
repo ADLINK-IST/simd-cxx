@@ -21,9 +21,9 @@
 
 #include <dds/sub/qos/detail/SubscriberQos.hpp>
 
-namespace dds { namespace sub { namespace qos { 
+namespace dds { namespace sub { namespace qos {
     typedef dds::sub::qos::detail::SubscriberQos SubscriberQos;
-} } } 
+} } }
 
 
 #endif /* OMG_DDS_SUB_QOS_SUBSCRIBER_QOS_HPP_ */

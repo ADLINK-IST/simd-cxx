@@ -30,14 +30,14 @@ namespace dds { namespace topic {
 
     template <typename D>
     class TTopicBuiltinTopicData;
-    
+
     template <typename D>
     class TPublicationBuiltinTopicData;
-    
+
     template <typename D>
     class TSubscriptionBuiltinTopicData;
 } }
-    
+
 template <typename D>
 class dds::topic::TParticipantBuiltinTopicData : public ::dds::core::Value<D> {
 public:
@@ -255,5 +255,5 @@ public:
     }
 
 };
- 
+
 #endif /* OMG_TDDS_TOPIC_BUILT_IN_TOPIC_HPP_ */

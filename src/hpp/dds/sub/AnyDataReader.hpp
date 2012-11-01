@@ -53,8 +53,8 @@ public:
     }
 
     inline AnyDataReader& operator =(AnyDataReader rhs) {
-    	if (this != &rhs)
-    		holder_ = rhs.holder_;
+        if (this != &rhs)
+            holder_ = rhs.holder_;
 
         return *this;
     }
@@ -62,7 +62,7 @@ public:
 public:
     template <typename T>
     dds::sub::DataReader<T> get() {
-    	OMG_DDS_STATIC_ASSERT(::dds::topic::is_topic_type<T>::value == 1);
+        OMG_DDS_STATIC_ASSERT(::dds::topic::is_topic_type<T>::value == 1);
         detail::DRHolder<T>* h = dynamic_cast<detail::DRHolder<T>* >(holder_.get());
         if (h == 0) {
             throw dds::core::InvalidDowncastError("invalid type");

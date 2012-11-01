@@ -4,7 +4,7 @@
 
 namespace org { namespace opensplice { namespace core {
       class ConditionImpl;
-    } 
+    }
   }
 }
 
@@ -12,13 +12,13 @@ class org::opensplice::core::ConditionImpl {
 public:
   virtual ~ConditionImpl();
 
-public:  
+public:
   virtual void dispatch() { }
-  
+
   virtual bool trigger_value() {
     return false;
   }
-  
+
 protected:
   ConditionImpl();
 };

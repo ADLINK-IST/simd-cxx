@@ -34,25 +34,25 @@ public:
 
 public:
      const dds::domain::DomainParticipant& domain_participant() const {
-    	 return holder_->domain_participant();
+         return holder_->domain_participant();
      }
 
      const dds::core::status::InconsistentTopicStatus& inconsistent_topic_status() {
-    	 return holder_->inconsistent_topic_status();
+         return holder_->inconsistent_topic_status();
      }
 
        const dds::topic::qos::TopicQos& qos() const {
-    	   return holder_->qos();
+           return holder_->qos();
        }
 
        void qos(const dds::topic::qos::TopicQos& q) {
-    	   holder_->qos(q);
+           holder_->qos(q);
        }
 
 public:
     template <typename T>
     const Topic<T>& get() {
-    	OMG_DDS_STATIC_ASSERT(::dds::topic::is_topic_type<T>::value == 1);
+        OMG_DDS_STATIC_ASSERT(::dds::topic::is_topic_type<T>::value == 1);
         detail::THolder<T>* h = dynamic_cast<detail::THolder<T>* >(holder_.get());
         if (h == 0) {
             throw dds::core::InvalidDowncastError("invalid type");

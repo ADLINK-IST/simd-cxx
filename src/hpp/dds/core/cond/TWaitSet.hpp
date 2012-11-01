@@ -147,7 +147,7 @@ namespace dds { namespace core { namespace cond {
                            const dds::core::Duration& timeout) {
             return this->delegate()->wait(triggered, timeout);
         }
-       
+
         /**
          * This operation allows an application thread to wait for the occurrence
          * of certain conditions. If none of the conditions attached to the

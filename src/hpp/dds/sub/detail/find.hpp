@@ -33,55 +33,55 @@ namespace dds { namespace sub { namespace detail {
 template <typename READER, typename FwdIterator>
 uint32_t
 find(const dds::sub::Subscriber& sub,
-		const std::string& topic_name,
-		FwdIterator begin, uint32_t max_size)
+        const std::string& topic_name,
+        FwdIterator begin, uint32_t max_size)
 {
-	return 0;
+    return 0;
 }
 
 template <typename READER, typename BinIterator>
 uint32_t
 find(const dds::sub::Subscriber& sub,
-		const std::string& topic_name,
-		BinIterator begin)
+        const std::string& topic_name,
+        BinIterator begin)
 {
-	return 0;
+    return 0;
 }
 template <typename READER, typename T, typename FwdIterator>
 uint32_t
 find(const dds::sub::Subscriber& sub,
-		const dds::topic::TopicDescription<T>& topic_description,
-		FwdIterator begin, uint32_t max_size)
+        const dds::topic::TopicDescription<T>& topic_description,
+        FwdIterator begin, uint32_t max_size)
 {
-	return 0;
+    return 0;
 }
 
 template <typename READER, typename T, typename BinIterator>
 uint32_t
 find(const dds::sub::Subscriber& sub,
-		const dds::topic::TopicDescription<T>& topic_description,
-		BinIterator begin)
+        const dds::topic::TopicDescription<T>& topic_description,
+        BinIterator begin)
 {
-	return 0;
+    return 0;
 }
 
 
 template <typename READER, typename FwdIterator>
 uint32_t
 find(const dds::sub::Subscriber& sub,
-	const dds::sub::status::DataState& rs,
-	FwdIterator begin, uint32_t max_size)
+    const dds::sub::status::DataState& rs,
+    FwdIterator begin, uint32_t max_size)
 {
-	return 0;
+    return 0;
 }
 
 template <typename READER, typename BinIterator>
 uint32_t
 find(const dds::sub::Subscriber& sub,
-	const dds::sub::status::DataState& rs,
-	BinIterator begin)
+    const dds::sub::status::DataState& rs,
+    BinIterator begin)
 {
-	return 0;
+    return 0;
 }
 
 

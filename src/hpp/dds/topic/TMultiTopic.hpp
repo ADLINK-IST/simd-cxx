@@ -37,24 +37,24 @@ public:
 public:
     template <typename FWDIterator>
     MultiTopic(const dds::domain::DomainParticipant& dp,
-    		   const std::string& name,
-    		   const std::string expression,
-    		   const FWDIterator& params_begin,
-    		   const FWDIterator& params_end)
+               const std::string& name,
+               const std::string expression,
+               const FWDIterator& params_begin,
+               const FWDIterator& params_end)
     : dds::topic::TopicDescription<T, DELEGATE>(
           new DELEGATE<T>(dp, name, expression, params_begin, params_end)) { }
 
     virtual ~MultiTopic() { }
 
 public:
-	public:
+    public:
 
-	const std::string expression() const;
+    const std::string expression() const;
 
-	void expression_parameters(const FWDIterator& params_begin,
+    void expression_parameters(const FWDIterator& params_begin,
                               const FWDIterator& params_end);
 
-	dds::core::StringSeq void expression_parameters() const;
+    dds::core::StringSeq void expression_parameters() const;
 
 };
 

@@ -4,9 +4,9 @@ int main(int argc, char* argv[]) {
   try {
     DomainParticipant dp(0);
     Topic<ShapeType> topic(dp, "Circle");
-    Publisher pub(dp);      
+    Publisher pub(dp);
     DataWriter<ShapeType> dw(pub, topic);
-      
+
     const uint32_t N = 1000;
     uint32_t sleep_time = 300000;
     for (int i = 0; i < N; ++i) {

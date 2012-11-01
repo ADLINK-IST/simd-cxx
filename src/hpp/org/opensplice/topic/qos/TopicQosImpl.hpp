@@ -4,11 +4,11 @@
 #include <dds/core/detail/conformance.hpp>
 #include <dds/core/policy/CorePolicy.hpp>
 
-namespace org { 
-  namespace opensplice { 
-    namespace topic { 
+namespace org {
+  namespace opensplice {
+    namespace topic {
       namespace qos {
-	class TopicQosImpl;
+    class TopicQosImpl;
       }
     }
   }
@@ -80,4 +80,4 @@ private:
 };
 
 
-#endif /* ORG_OPENSPLICE_TOPIC_QOS_TOPIC_QOS_IMPL_HPP_ */ 
+#endif /* ORG_OPENSPLICE_TOPIC_QOS_TOPIC_QOS_IMPL_HPP_ */

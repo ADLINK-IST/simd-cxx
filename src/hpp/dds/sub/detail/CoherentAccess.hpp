@@ -5,7 +5,7 @@
 #include <dds/sub/TCoherentAccess.hpp>
 
 namespace dds { namespace sub { namespace detail {
-	typedef ::dds::sub::TCoherentAccess<org::opensplice::sub::CoherentAccessImpl> CoherentAccess;
+    typedef ::dds::sub::TCoherentAccess<org::opensplice::sub::CoherentAccessImpl> CoherentAccess;
 } } }
 
 #endif /* OMG_DDS_SUB_DETAIL_COHERENT_ACCESS_HPP_ */

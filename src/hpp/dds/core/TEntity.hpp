@@ -98,7 +98,7 @@ public:
         return this->delegate()->instance_handle();
     }
 
-  
+
     /**
      * This method closes the entity and releases all resources associated with
      * DDS, such as threads, sockets, buffers, etc. Any attempt to invoke
@@ -115,7 +115,7 @@ public:
      * close it automatically.
      */
     void retain() {
-    	this->delegate->retain();
+        this->delegate->retain();
     }
 };
 
