@@ -58,4 +58,3 @@ org::opensplice::core::DRDeleter::operator()(DDS::DataReader* r)
   DDS::release(r);
   OMG_DDS_LOG("MM", "Deleted DataReader at: " << std::hex << r << std::dec);
 }
-

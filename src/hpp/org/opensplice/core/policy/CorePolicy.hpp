@@ -852,4 +852,3 @@ namespace org { namespace opensplice { namespace core { namespace policy {
       } } } }  // namespace org::opensplice::core::policy
 
 #endif /* ORG_OPENSPLICE_CORE_POLICY_CORE_POLICY_IMPL_HPP_ */
-

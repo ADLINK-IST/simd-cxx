@@ -4,4 +4,3 @@
 org::opensplice::core::ConditionImpl::ConditionImpl() { }
 
 org::opensplice::core::ConditionImpl::~ConditionImpl() { }
-

@@ -2,4 +2,3 @@
 
 
 org::opensplice::core::FunctorHolder::~FunctorHolder() { }
-

@@ -49,4 +49,3 @@ NoOpAnyDataWriterListener::on_publication_matched
 { }
 
 } }
-

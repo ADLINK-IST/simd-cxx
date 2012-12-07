@@ -235,4 +235,3 @@ namespace org { namespace opensplice { namespace pub { namespace qos {
     }
   }
 }
-

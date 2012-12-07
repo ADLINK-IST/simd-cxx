@@ -27,4 +27,3 @@ private:
 };
 
 #endif /* ORG_OPENSPLICE_SUB_GENERATION_COUNT_IMPL_HPP_ */
-

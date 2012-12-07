@@ -25,4 +25,3 @@ protected:
 
 
 #endif /* ORG_OPENSPLICE_CORE_CONDITION_IMPL_HPP_ */
-

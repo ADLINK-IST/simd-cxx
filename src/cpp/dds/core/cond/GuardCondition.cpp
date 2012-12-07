@@ -17,4 +17,3 @@
  */
 
 #include <dds/core/cond/GuardCondition.hpp>
-

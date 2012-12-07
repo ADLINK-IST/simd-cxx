@@ -65,5 +65,3 @@ public:
 } } }
 
 #endif /* ORG_OPENSPLICE_SUB_SUBSCRIBER_DELEGATE_HPP_ */
-
-

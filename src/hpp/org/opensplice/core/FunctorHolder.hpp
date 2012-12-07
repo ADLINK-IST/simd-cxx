@@ -84,4 +84,3 @@ private:
 };
 
 #endif /* ORG_OPENSPLICE_CORE_FUNCTOR_HOLDER_HPP */
-

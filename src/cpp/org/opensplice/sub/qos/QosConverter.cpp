@@ -26,4 +26,3 @@ org::opensplice::sub::qos::convertQos(const dds::sub::qos::DataReaderQos& from)
 
    return to;
 }
-
